@@ -817,7 +817,7 @@ class Handler(BaseHTTPRequestHandler):
                             )
                             return
                         except Exception as exc:
-                            sys.stderr.write(f"nova-mm-proxy: media gen failed: {exc}\n")
+                            sys.stderr.write(f"codeforge-mm-proxy: media gen failed: {exc}\n")
                     if nsfw and local_llm_up():
                         use_local = True
                         target_model = "novacode-uncensored"
@@ -873,7 +873,7 @@ class Handler(BaseHTTPRequestHandler):
                 if performance_tracker.should_deprioritize(current_model):
                     failover_reason = "learning-deprioritized"
                 sys.stderr.write(
-                    f"nova-mm-proxy: [Overload Failover #{attempt}] "
+                    f"codeforge-mm-proxy: [Overload Failover #{attempt}] "
                     f"switching to {current_model} ({failover_reason})\n"
                 )
 
@@ -926,7 +926,7 @@ class Handler(BaseHTTPRequestHandler):
                         current_model, task_type, False, latency
                     )
                 if exc.code in (503, 502, 504, 429, 404):
-                    sys.stderr.write(f"nova-mm-proxy: upstream returned HTTP {exc.code} on {current_model}, trying next fast model...\n")
+                    sys.stderr.write(f"codeforge-mm-proxy: upstream returned HTTP {exc.code} on {current_model}, trying next fast model...\n")
                     time.sleep(0.2)
                     continue
                 else:
@@ -940,7 +940,7 @@ class Handler(BaseHTTPRequestHandler):
                     return
             except Exception as exc:
                 latency = time.time() - request_start
-                sys.stderr.write(f"nova-mm-proxy: connection error on {current_model}: {exc}\n")
+                sys.stderr.write(f"codeforge-mm-proxy: connection error on {current_model}: {exc}\n")
                 last_status = 502
                 last_error = str(exc).encode("utf-8")
                 performance_tracker.record(current_model, latency, False)
@@ -977,13 +977,13 @@ def main(argv: list[str] | None = None) -> int:
     
     # Check if port is already in use (proxy already running)
     if port_open(HOST, PORT):
-        print(f"nova-mm-proxy: already running on {HOST}:{PORT}")
+        print(f"codeforge-mm-proxy: already running on {HOST}:{PORT}")
         return 0
     
     server = ThreadingHTTPServer((HOST, PORT), Handler)
     server.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    print(f"nova-mm-proxy: anti-overload active on {HOST}:{PORT} -> {UPSTREAM}")
-    print(f"nova-mm-proxy: learning-based routing {learning_status}")
+    print(f"codeforge-mm-proxy: anti-overload active on {HOST}:{PORT} -> {UPSTREAM}")
+    print(f"codeforge-mm-proxy: learning-based routing {learning_status}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

@@ -982,8 +982,8 @@ def main(argv: list[str] | None = None) -> int:
     
     server = ThreadingHTTPServer((HOST, PORT), Handler)
     server.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    print(f"nova-mm-proxy: anti-overload active on {HOST}:{PORT} -> {UPSTREAM}")
-    print(f"nova-mm-proxy: learning-based routing {learning_status}")
+    print(f"codeforge-mm-proxy: anti-overload active on {HOST}:{PORT} -> {UPSTREAM}")
+    print(f"codeforge-mm-proxy: learning-based routing {learning_status}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

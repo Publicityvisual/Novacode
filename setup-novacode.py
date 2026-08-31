@@ -10,11 +10,11 @@ import sys
 from pathlib import Path
 
 HOME = Path.home()
-SHARE = HOME / ".local" / "share" / "novacode"
+SHARE = HOME / ".local" / "share" / "codeforge"
 ENGINE = SHARE / "engine"
 LIBEXEC = ENGINE / "libexec"
 BIN_DIR = HOME / ".local" / "bin"
-CONFIG_NC = HOME / ".config" / "novacode"
+CONFIG_NC = HOME / ".config" / "codeforge"
 CONFIG_NOVA = HOME / ".config" / "nova"
 ICONS = SHARE / "icons"
 
@@ -91,7 +91,7 @@ def build_models() -> dict:
 def build_config() -> dict:
     models = build_models()
 
-    novacode_provider = {
+    codeforge_provider = {
         "npm": "@ai-sdk/openai-compatible",
         "name": "Novacode",
         "api": "https://integrate.api.nvidia.com/v1",
@@ -117,25 +117,25 @@ def build_config() -> dict:
     }
 
     agents = {
-        "code": {"model": "novacode/nova", "mode": "primary", "permission": "allow"},
-        "clone": {"model": "novacode/jet", "permission": "allow"},
-        "refactor": {"model": "novacode/dev", "permission": "allow"},
-        "fullstack": {"model": "novacode/nova", "permission": "allow"},
-        "autoheal": {"model": "novacode/jet", "permission": "allow"},
-        "evolver": {"model": "novacode/nova", "permission": "allow"},
-        "updater": {"model": "novacode/jet", "permission": "allow"},
-        "guardian": {"model": "novacode/pro", "permission": "allow"},
-        "study": {"model": "novacode/nova", "permission": "allow"},
-        "analyst": {"model": "novacode/apex", "permission": "allow"},
-        "swarm": {"model": "novacode/apex", "permission": "allow"},
-        "tdd": {"model": "novacode/dev", "permission": "allow"},
-        "memory": {"model": "novacode/lite", "permission": "allow"},
-        "commit": {"model": "novacode/lite", "permission": "allow"},
-        "scraper": {"model": "novacode/jet", "permission": "allow"},
-        "turbo": {"model": "novacode/jet", "permission": "allow"},
-        "build": {"model": "novacode/dev", "permission": "allow"},
-        "fixer": {"model": "novacode/jet", "permission": "allow"},
-        "architect": {"model": "novacode/apex", "permission": "allow"},
+        "code": {"model": "codeforge/nova", "mode": "primary", "permission": "allow"},
+        "clone": {"model": "codeforge/jet", "permission": "allow"},
+        "refactor": {"model": "codeforge/dev", "permission": "allow"},
+        "fullstack": {"model": "codeforge/nova", "permission": "allow"},
+        "autoheal": {"model": "codeforge/jet", "permission": "allow"},
+        "evolver": {"model": "codeforge/nova", "permission": "allow"},
+        "updater": {"model": "codeforge/jet", "permission": "allow"},
+        "guardian": {"model": "codeforge/pro", "permission": "allow"},
+        "study": {"model": "codeforge/nova", "permission": "allow"},
+        "analyst": {"model": "codeforge/apex", "permission": "allow"},
+        "swarm": {"model": "codeforge/apex", "permission": "allow"},
+        "tdd": {"model": "codeforge/dev", "permission": "allow"},
+        "memory": {"model": "codeforge/lite", "permission": "allow"},
+        "commit": {"model": "codeforge/lite", "permission": "allow"},
+        "scraper": {"model": "codeforge/jet", "permission": "allow"},
+        "turbo": {"model": "codeforge/jet", "permission": "allow"},
+        "build": {"model": "codeforge/dev", "permission": "allow"},
+        "fixer": {"model": "codeforge/jet", "permission": "allow"},
+        "architect": {"model": "codeforge/apex", "permission": "allow"},
         "plan": {"model": "novacode/nova", "permission": "allow"},
         "security": {"model": "novacode/wild", "permission": "allow"},
         "pentest": {"model": "novacode/raw", "permission": "allow"},
@@ -151,7 +151,7 @@ def build_config() -> dict:
     }
 
     return {
-        "$schema": "https://novacode.ai/config.json",
+        "$schema": "https://codeforge.ai/config.json",
         "username": "djkoveck",
         "snapshot": False,
         "autoupdate": False,
@@ -216,7 +216,7 @@ def build_config() -> dict:
                 "**/.npm/**",
                 "**/.nvm/**",
                 "**/.nova/**",
-                "**/.novacode/**",
+                "**/.codeforge/**",
                 "**/.vscode-oss/**",
                 "**/.cursor/**",
                 "**/.codex/**",
