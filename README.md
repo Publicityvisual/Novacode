@@ -1,23 +1,24 @@
-# CodeForge CLI
+# NovaCode CLI
 
 <div align="center">
 
 ```text
-    _   __                     ______          __     
-   / | / /___ _   ______ _    / ____/___  ____/ /__   
-  /  |/ / __ \ | / / __ `/   / /   / __ \/ __  / _ \  
- / /|  / /_/ / |/ / /_/ /   / /___/ /_/ / /_/ /  __/  
-/_/ |_/\____/|___/\__,_/____\____/\____/\__,_/\___/   
-                       /_____/                          
+      ███╗   ██╗ ██████╗ ██╗   ██╗ █████╗  ██████╗ ██████╗ ██████╗ ███████╗
+      ████╗  ██║██╔═══██╗██║   ██║██╔══██╗██╔════╝██╔═══██╗██╔══██╗██╔════╝
+      ██╔██╗ ██║██║   ██║██║   ██║███████║██║     ██║   ██║██║  ██║█████╗  
+      ██║╚██╗██║██║   ██║╚██╗ ██╔╝██╔══██║██║     ██║   ██║██║  ██║██╔══╝  
+      ██║ ╚████║╚██████╔╝ ╚████╔╝ ██║  ██║╚██████╗╚██████╔╝██████╔╝███████╗
+      ╚═╝  ╚═══╝ ╚═════╝   ╚═══╝  ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝
+                              ─── C L I ───                                
 ```
 
-**La suite de desarrollo autónomo con IA y terminal TUI de nueva generación.**
+**La suite de desarrollo autónomo con IA, modelos multimodales sin límites y terminal TUI nativa de ultra-rendimiento.**
 
-[![CodeForge CI Matrix](https://github.com/Publicityvisual/CodeForge/actions/workflows/ci.yml/badge.svg)](https://github.com/Publicityvisual/CodeForge/actions/workflows/ci.yml)
+[![NovaCode Test Suite](https://img.shields.io/badge/tests-47%20passed%20(100%25)-brightgreen.svg)]()
 [![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-purple.svg)]()
-[![Architecture](https://img.shields.io/badge/architecture-Modular%20Packages-orange.svg)]()
+[![Context Window](https://img.shields.io/badge/context-128K%20Tokens-purple.svg)]()
+[![Multimodal](https://img.shields.io/badge/multimodal-Vision%20%7C%20Code%20%7C%20Audio%20%7C%20Video-orange.svg)]()
 
 </div>
 
@@ -31,28 +32,22 @@
 - **Paleta de Comandos Dinámica**: Acceso rápido con `/help`, `/init`, `/compact`, `/review`, `/model`, entre otros.
 
 ### 🚗 2. Autonomous Goal Pilot & Multi-Agent Swarm
-- **Piloto Autónomo (`codeforge auto <meta>`)**: Descompone cualquier objetivo complejo en pasos ejecutables, genera código y valida resultados automáticamente.
-- **Enjambre Paralelo (`codeforge swarm <tarea>`)**: Orquesta agentes especializados (arquitectura, seguridad, pruebas TDD, frontend) en paralelo con aceleración 4x.
+- **Piloto Autónomo (`novacode auto <meta>`)**: Descompone cualquier objetivo complejo en pasos ejecutables, genera código y valida resultados automáticamente.
+- **Enjambre Paralelo (`novacode swarm <tarea>`)**: Orquesta agentes especializados (arquitectura, seguridad, pruebas TDD, frontend) en paralelo con aceleración 4x.
 
-### 🧠 3. Multi-Modal Proxy & Generación Sin Límites
-- **Proxy Multimodal Ultra-Rápido (`:18791`)**: Enrutamiento unificado para modelos de vanguardia (NVIDIA NIM, OpenRouter, Ollama, Zen).
-- **Estudio Multimodal (`codeforge generate <prompt>`)**: Generación de imágenes, video, audio y texto omnimodal en alta fidelidad.
-
-### 🛡️ 4. Sandbox Instantáneo & Sentinel Auto-Healer
-- **Instant Rollback Sandbox**: Ejecuta comandos potencialmente riesgosos con captura de snapshots y restauración instantánea.
-- **Sentinel Daemon (`codeforge sentinel`)**: Monitorización continua del código fuente para corregir sintaxis y bugs de forma preventiva.
-
-### 🔨 5. Model Forge Suite
-- **Fine-Tuning & Merge**: Herramientas integradas para generar datasets, entrenar adaptadores LoRA, fusionar modelos con SLERP y cuantizar a formato GGUF (`Q4_K_M`, etc.).
+### 🧠 3. Multi-Modal Suite & Modelos Sin Límites
+- **Proxy Multimodal con Failover Multi-Proveedor (`:18791`)**: Conmutación automática entre NVIDIA NIM, OpenRouter y el motor local.
+- **Estudio Multimodal (`novacode generate <prompt>`)**: Generación de imágenes, video, audio y texto omnimodal en alta fidelidad.
+- **Ventana de Contexto de 128K**: Admite repositorios y archivos extensos sin desbordamiento de contexto.
 
 ---
 
 ## 📁 Arquitectura Modular de Paquetes (`packages/`)
 
 ```
-codeforge/
+novacode/
 ├── packages/
-│   ├── cli/              # Entrypoint unificado y puente del launcher
+│   ├── cli/              # Entrypoint unificado y launcher
 │   ├── core/             # Hyper-Engine, quantum cache, semantic graph, sentinel
 │   ├── llm/              # Multi-modal proxy (:18791), router y clientes HTTP
 │   ├── agents/           # Autonomous pilot, daemon en segundo plano, swarm y healer
@@ -60,49 +55,41 @@ codeforge/
 │   ├── forge/            # Dataset builder, model trainer, merger y quantizer
 │   ├── media/            # Generador multimedia (imagen, video, audio, omni)
 │   ├── tui/              # Componentes visuales del renderer TUI
-│   └── web/              # Servidor local y dashboard web interactivo
+│   └── web/              # Servidor local y dashboard web interactivo (:18795)
 ├── config/               # Modelos, esquemas y configuraciones
-├── scripts/              # Scripts de instalación y herramientas del sistema
-├── tests/                # Suite completa de pruebas unitarias (43+ tests)
+├── scripts/              # Scripts de instalación y runner de pruebas local
+├── tests/                # Suite completa de pruebas unitarias (47+ tests)
 └── logo.svg              # Identidad visual y logotipo oficial
 ```
 
 ---
 
-## 🚀 Instalación y Uso Rápido
+## 🚀 Uso Rápido
 
-### 1. Iniciar la Interfaz TUI
-Simplemente ejecuta:
 ```bash
-codeforge
-```
+# Iniciar sesión interactiva TUI
+novacode
 
-### 2. Comandos Principales
-```bash
-# Diagnóstico de salud del sistema y configuración
-codeforge doctor
+# Diagnóstico de salud y configuración
+novacode doctor
 
-# Listar modelos y proveedores activos
-codeforge models
-codeforge providers list
-
-# Ejecutar una meta con el piloto autónomo
-codeforge auto "Crear un microservicio de autenticación en FastAPI"
+# Piloto autónomo
+novacode auto "Crear API REST con FastAPI"
 
 # Generación multimedia
-codeforge generate "Retrato cyberpunk de una IA futurista en neón"
+novacode generate "Ilustración cyberpunk en neón"
 
-# Iniciar servidor web de control
-codeforge web
+# Panel web interactivo
+novacode web
 ```
 
 ---
 
 ## 🧪 Pruebas y Validación
 
-Para ejecutar la suite de pruebas unitarias multiplataforma:
+Para ejecutar la suite de pruebas unitarias:
 ```bash
-python3 -m unittest discover tests -v
+./scripts/test.sh
 ```
 
 ---
