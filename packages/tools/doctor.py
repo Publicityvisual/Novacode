@@ -14,7 +14,20 @@ from pathlib import Path
 
 CONFIG_NOVA = Path.home() / ".config" / "novacode" / "novacode.jsonc"
 CONFIG_ALT = Path.home() / ".config" / "nova" / "nova.jsonc"
-ENGINE = Path.home() / ".local" / "share" / "novacode" / "engine" / "libexec" / "nova"
+
+def find_engine_path() -> Path:
+    candidates = [
+        Path.home() / ".opencode" / "bin" / "opencode",
+        Path.home() / ".local" / "bin" / "novacode",
+        Path.home() / ".local" / "share" / "novacode" / "engine" / "libexec" / "nova",
+    ]
+    for c in candidates:
+        if c.exists() and os.access(c, os.X_OK):
+            return c
+    which_nova = shutil.which("novacode")
+    if which_nova:
+        return Path(which_nova)
+    return candidates[0]
 
 def strip_jsonc(text: str) -> str:
     lines = []
@@ -32,11 +45,13 @@ def strip_jsonc(text: str) -> str:
     return text
 
 def check_engine() -> list[str]:
+    engine = find_engine_path()
     results = []
-    results.append("Motor Novacode: " + ("EXISTE" if ENGINE.exists() else "NO ENCONTRADO"))
-    results.append("  Ejecutable: " + ("YES" if ENGINE.exists() and os.access(ENGINE, os.X_OK) else "NO"))
-    if ENGINE.exists() and platform.system() == "Darwin":
-        res = subprocess.run(["codesign", "-v", str(ENGINE)], capture_output=True, text=True)
+    results.append("Motor Novacode: " + ("EXISTE" if engine.exists() else "NO ENCONTRADO"))
+    results.append(f"  Ruta: {engine}")
+    results.append("  Ejecutable: " + ("YES" if engine.exists() and os.access(engine, os.X_OK) else "NO"))
+    if engine.exists() and platform.system() == "Darwin":
+        res = subprocess.run(["codesign", "-v", str(engine)], capture_output=True, text=True)
         results.append(f"  verificación codesign: rc={res.returncode}")
     return results
 
@@ -102,7 +117,7 @@ def check_path() -> list[str]:
     results.append(f"Binario activo: {nova_bin or 'NO ENCONTRADO'}")
     return results
 
-def main() -> int:
+def main(args=None) -> int:
     print("=" * 60)
     print("Doctor CLI Novacode")
     print("=" * 60 + "\n")

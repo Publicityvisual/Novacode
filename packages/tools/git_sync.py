@@ -3,8 +3,9 @@ NovaCode Auto-Git Continuous Sync Engine
 ========================================
 Sincronización continua y autónoma con el repositorio oficial de GitHub:
 - Detección automática del directorio raíz de Git.
+- Sincronización bidireccional segura (pull --rebase & push).
 - Creación de mensajes de commit semánticos con IA (Conventional Commits).
-- Push seguro hacia la rama principal de GitHub (`origin main`).
+- Recuperación automática ante fallos de conexión o divergencia de ramas.
 """
 
 from __future__ import annotations
@@ -29,18 +30,15 @@ class AutoGitSync:
         if explicit_dir:
             return Path(explicit_dir).resolve()
 
-        # 1. Comprobar si el directorio actual es un repo
         curr = Path.cwd().resolve()
         for p in [curr, *curr.parents]:
             if (p / ".git").is_dir():
                 return p
 
-        # 2. Comprobar la ruta estándar ~/novacode-cli
         default_repo = Path.home() / "novacode-cli"
         if (default_repo / ".git").is_dir():
             return default_repo
 
-        # 3. Fallback al directorio del archivo
         return Path(__file__).resolve().parent
 
     def has_uncommitted_changes(self) -> bool:
@@ -64,33 +62,44 @@ class AutoGitSync:
                 pass
         return f"feat: automated continuous innovation sync at {time.strftime('%Y-%m-%d %H:%M:%S')}"
 
+    def check_remote_connection(self) -> Tuple[bool, str]:
+        """Comprueba la conexión activa con el remoto de GitHub."""
+        res = subprocess.run(["git", "-C", str(self.repo_dir), "remote", "-v"], capture_output=True, text=True)
+        if res.returncode != 0 or not res.stdout.strip():
+            return False, "No remote configured"
+        
+        # Test fetch connection
+        fetch_res = subprocess.run(["git", "-C", str(self.repo_dir), "ls-remote", "--exit-code", "origin", "HEAD"], capture_output=True, text=True, timeout=10)
+        if fetch_res.returncode == 0:
+            return True, "Connected to GitHub successfully"
+        return False, fetch_res.stderr or "Connection to GitHub remote failed"
+
     def sync_and_push(self, custom_msg: Optional[str] = None) -> Tuple[bool, str]:
-        """Agrega cambios, realiza commit y hace push a GitHub."""
+        """Agrega cambios, realiza commit, rebase y hace push a GitHub."""
         sys.stderr.write(f"\n🚀 [NovaCode Auto-Git] Iniciando sincronización con GitHub ({self.repo_dir})...\n")
 
         # 1. Comprobar cambios
-        if not self.has_uncommitted_changes():
-            sys.stderr.write("ℹ [NovaCode Auto-Git] Repositorio limpio. No hay cambios pendientes.\n")
-            # Push por si hay commits locales sin subir
-            push_res = subprocess.run(["git", "-C", str(self.repo_dir), "push", "origin", "main"], capture_output=True, text=True)
-            return push_res.returncode == 0, push_res.stdout or push_res.stderr
+        has_changes = self.has_uncommitted_changes()
+        if has_changes:
+            # 2. Stage changes
+            subprocess.run(["git", "-C", str(self.repo_dir), "add", "."], check=True)
 
-        # 2. Stage changes
-        subprocess.run(["git", "-C", str(self.repo_dir), "add", "."], check=True)
+            # 3. Get diff for commit message
+            diff_res = subprocess.run(["git", "-C", str(self.repo_dir), "diff", "--cached", "--stat"], capture_output=True, text=True)
+            commit_msg = custom_msg or self.generate_commit_message(diff_res.stdout)
 
-        # 3. Get diff for commit message
-        diff_res = subprocess.run(["git", "-C", str(self.repo_dir), "diff", "--cached", "--stat"], capture_output=True, text=True)
-        commit_msg = custom_msg or self.generate_commit_message(diff_res.stdout)
+            # 4. Commit
+            commit_res = subprocess.run(["git", "-C", str(self.repo_dir), "commit", "-m", commit_msg], capture_output=True, text=True)
+            if commit_res.returncode != 0:
+                return False, f"Fallo en commit: {commit_res.stderr}"
 
-        # 4. Commit
-        commit_res = subprocess.run(["git", "-C", str(self.repo_dir), "commit", "-m", commit_msg], capture_output=True, text=True)
-        if commit_res.returncode != 0:
-            return False, f"Fallo en commit: {commit_res.stderr}"
+            sys.stderr.write(f"✓ [NovaCode Auto-Git] Commit creado: '{commit_msg}'\n")
 
-        sys.stderr.write(f"✓ [NovaCode Auto-Git] Commit creado: '{commit_msg}'\n")
+        # 5. Pull con rebase para evitar rechazos por divergencia
+        subprocess.run(["git", "-C", str(self.repo_dir), "pull", "--rebase", "origin", "main"], capture_output=True, text=True)
 
-        # 5. Push to GitHub
-        push_res = subprocess.run(["git", "-C", str(self.repo_dir), "push", "origin", "main"], capture_output=True, text=True)
+        # 6. Push to GitHub
+        push_res = subprocess.run(["git", "-C", str(self.repo_dir), "push", "-u", "origin", "main"], capture_output=True, text=True)
         if push_res.returncode == 0:
             sys.stderr.write("🎉 [NovaCode Auto-Git] ¡Sincronizado exitosamente con GitHub!\n\n")
             return True, "Sincronización exitosa con GitHub"

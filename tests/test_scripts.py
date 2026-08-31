@@ -11,6 +11,8 @@ SCRIPTS_DIR = Path(__file__).resolve().parents[1] / "scripts"
 
 class ScriptSyntaxTests(unittest.TestCase):
     def test_all_shell_scripts_syntax(self) -> None:
+        if os.name == "nt":
+            self.skipTest("Shell script syntax check skipped on Windows platform")
         sh_files = list(SCRIPTS_DIR.glob("*.sh"))
         self.assertTrue(len(sh_files) > 0, "No shell scripts found")
         for sh in sh_files:
