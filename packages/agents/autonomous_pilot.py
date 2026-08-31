@@ -109,3 +109,19 @@ class AutonomousGoalPilot:
             "history": execution_history,
             "status": "success",
         }
+
+def main(args: list[str] | None = None) -> int:
+    if args is None:
+        args = sys.argv[1:]
+    if not args or args[0] in ("-h", "--help"):
+        print("\033[1;36m[NovaCode Autonomous Pilot]\033[0m")
+        print("Uso: novacode auto <meta o descripción>")
+        return 0
+    goal = " ".join(args)
+    pilot = AutonomousGoalPilot()
+    res = pilot.execute_goal(goal)
+    print(f"\033[32m✓ Meta completada con éxito ({res['steps_count']} pasos en {res['total_time_sec']:.2f}s)\033[0m")
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -123,3 +123,19 @@ class SwarmTurboEngine:
             if data.get("status") == "success":
                 sections.append(f"### {role.upper()}\n{data.get('output', '')}")
         return "\n\n---\n\n".join(sections)
+
+def main(args: list[str] | None = None) -> int:
+    if args is None:
+        args = sys.argv[1:]
+    if not args or args[0] in ("-h", "--help"):
+        print("\033[1;36m[NovaCode Swarm Turbo]\033[0m")
+        print("Uso: novacode swarm <tarea>")
+        return 0
+    task = " ".join(args)
+    engine = SwarmTurboEngine()
+    res = engine.dispatch_swarm(task)
+    print(f"\033[32m✓ Enjambre completado ({len(res.get('agents_results', {}))} agentes ejecutados)\033[0m")
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(main())
