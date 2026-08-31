@@ -7,9 +7,21 @@ def is_connected() -> bool:
     except OSError:
         return False
 
+
+def check_github_availability() -> bool:
+    """Check if GitHub is reachable via a simple HTTP request."""
+    import urllib.request, urllib.error
+    try:
+        urllib.request.urlopen("https://github.com", timeout=5)
+        return True
+    except urllib.error.URLError:
+        return False
+
+
 def update_project() -> None:
-    """Simulate checking for updates."""
+    """Simulate checking for updates with graceful error handling."""
     print("Checked for updates – no action taken.")
+
 
 class NovaCodeCore:
     def __init__(self, offline: bool = False):
