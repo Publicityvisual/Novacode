@@ -1,0 +1,2 @@
+"""Analyze command handler."""
+pass

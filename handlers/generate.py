@@ -1,0 +1,2 @@
+"""Generate command handler."""
+pass
