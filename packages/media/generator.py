@@ -50,7 +50,7 @@ POLLINATIONS_AUDIO = os.environ.get(
 )
 HORDE_API = os.environ.get("NOVACODE_HORDE_API", "https://stablehorde.net/api/v2")
 GEN_POLLINATIONS = os.environ.get("NOVACODE_GEN_API", "https://gen.pollinations.ai")
-USER_AGENT = "NovaCodeCLI/uncensored (local; adult-only NSFW allowed)"
+USER_AGENT = "CodeForgeCLI/uncensored (local; adult-only NSFW allowed)"
 
 # Calidad profesional por nivel. NSFW usa modelos que no recortan adulto.
 QUALITY_PRESETS = {

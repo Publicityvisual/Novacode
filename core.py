@@ -23,7 +23,7 @@ def update_project(host: str = "github.com") -> None:
     print(f"Checked for updates on {host} – no action taken.")
 
 
-class NovaCodeCore:
+class CodeForgeCore:
     def __init__(self, offline: bool = False):
         self.offline = offline
         if not offline:

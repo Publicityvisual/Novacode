@@ -30,7 +30,7 @@ class ApiTester:
     def test_endpoint(url: str, method: str = "GET", headers: Optional[Dict[str, str]] = None, body: Optional[str] = None) -> Dict[str, Any]:
         """Realiza una petición HTTP y mide la latencia y cabeceras."""
         t0 = time.time()
-        headers = headers or {"User-Agent": "NovaCode-ApiTester/1.0"}
+        headers = headers or {"User-Agent": "CodeForge-ApiTester/1.0"}
         data = body.encode("utf-8") if body else None
 
         req = urllib.request.Request(url, data=data, headers=headers, method=method.upper())

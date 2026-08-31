@@ -36,14 +36,14 @@ _RATE_LIMIT_MAX = 1000
 _request_times: list[float] = []
 _rate_lock = threading.Lock()
 
-OMNI = "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning"
+OMNI = "meta/llama-3.2-90b-vision-instruct"
 MINIMAX = "minimaxai/minimax-m3"
-LIGHTNING = "nvidia/nemotron-3.5-lightning-30b-a3b"
+LIGHTNING = "meta/llama-3.2-11b-vision-instruct"
 SUPER = "nvidia/nemotron-3-super-120b-a12b"
 NANO = "nvidia/nemotron-3-nano-30b-a3b"
 ULTRA = "nvidia/nemotron-3-ultra-550b-a55b"
 COMPACT = "meta/llama-3.2-11b-vision-instruct"
-REASONER = "nvidia/nemotron-3.5-super-70b-a3b-reasoning"
+REASONER = "nvidia/nemotron-3-super-120b-a12b"
 
 
 def port_open(host: str, port: int) -> bool:
@@ -179,6 +179,38 @@ def local_llm_up() -> bool:
         return False
 
 
+
+MODEL_ALIASES = {
+    "nova": "meta/llama-3.2-11b-vision-instruct",
+    "novacode/nova": "meta/llama-3.2-11b-vision-instruct",
+    "jet": "meta/llama-3.2-11b-vision-instruct",
+    "novacode/jet": "meta/llama-3.2-11b-vision-instruct",
+    "apex": "meta/llama-3.2-90b-vision-instruct",
+    "novacode/apex": "meta/llama-3.2-90b-vision-instruct",
+    "pro": "meta/llama-3.2-90b-vision-instruct",
+    "novacode/pro": "meta/llama-3.2-90b-vision-instruct",
+    "dev": "nvidia/nemotron-3-nano-30b-a3b",
+    "novacode/dev": "nvidia/nemotron-3-nano-30b-a3b",
+    "lite": "nvidia/nemotron-3-nano-30b-a3b",
+    "novacode/lite": "nvidia/nemotron-3-nano-30b-a3b",
+    "pulse": "nvidia/nemotron-3-nano-30b-a3b",
+    "novacode/pulse": "nvidia/nemotron-3-nano-30b-a3b",
+    "iris": "meta/llama-3.2-90b-vision-instruct",
+    "novacode/iris": "meta/llama-3.2-90b-vision-instruct",
+    "omni": "meta/llama-3.2-90b-vision-instruct",
+    "novacode/omni": "meta/llama-3.2-90b-vision-instruct",
+}
+
+def resolve_model_id(model_name: str) -> str:
+    cleaned = (model_name or '').strip().lower()
+    if cleaned in MODEL_ALIASES:
+        return MODEL_ALIASES[cleaned]
+    if '/' in model_name:
+        parts = model_name.split('/')
+        if parts[-1] in MODEL_ALIASES:
+            return MODEL_ALIASES[parts[-1]]
+    return model_name or 'meta/llama-3.2-11b-vision-instruct'
+
 def route_model(requested: str, messages: object) -> str:
     images, video, audio = detect_media(messages)
     if video or audio:
@@ -187,7 +219,7 @@ def route_model(requested: str, messages: object) -> str:
         if requested in NATIVE_IMAGE:
             return requested
         return MINIMAX
-    return requested or LIGHTNING
+    return resolve_model_id(requested)
 
 
 def inject_direct(messages: object, nsfw: bool = False, uncensored: bool = False) -> list:
@@ -253,7 +285,7 @@ class LearningRouter:
             self._engine = lc.SelfLearningEngine()
             self._evolver = lc.ModelEvolver(self._engine)
         except Exception as exc:
-            sys.stderr.write(f"nova-mm-proxy: learning engine load failed: {exc}\n")
+            sys.stderr.write(f"codeforge-mm-proxy: learning engine load failed: {exc}\n")
             self.enabled = False
 
     def close(self) -> None:
@@ -308,7 +340,7 @@ class LearningRouter:
                 if best and ("/" in best or best.startswith("nova")):
                     return best
             except Exception as exc:
-                sys.stderr.write(f"nova-mm-proxy: learning routing error: {exc}\n")
+                sys.stderr.write(f"codeforge-mm-proxy: learning routing error: {exc}\n")
         return requested
 
     def get_learned_failover_chain(
@@ -615,7 +647,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def log_message(self, format: str, *args: object) -> None:
         try:
-            sys.stderr.write("nova-mm-proxy: " + (format % args) + "\n")
+            sys.stderr.write("codeforge-mm-proxy: " + (format % args) + "\n")
         except Exception:
             pass
 
@@ -623,7 +655,7 @@ class Handler(BaseHTTPRequestHandler):
         if self.path in ("/", "/health", "/v1/health"):
             health_data: Dict[str, Any] = {
                 "ok": True,
-                "service": "nova-mm-proxy",
+                "service": "codeforge-mm-proxy",
                 "status": "anti-overload-active",
                 "upstream": UPSTREAM,
                 "learning_enabled": learning_router.enabled,
@@ -785,7 +817,7 @@ class Handler(BaseHTTPRequestHandler):
                             )
                             return
                         except Exception as exc:
-                            sys.stderr.write(f"nova-mm-proxy: media gen failed: {exc}\n")
+                            sys.stderr.write(f"codeforge-mm-proxy: media gen failed: {exc}\n")
                     if nsfw and local_llm_up():
                         use_local = True
                         target_model = "novacode-uncensored"
@@ -802,14 +834,14 @@ class Handler(BaseHTTPRequestHandler):
         headers = {
             "Content-Type": "application/json",
             "Accept": self.headers.get("Accept") or "application/json",
-            "User-Agent": "nova-mm-proxy/3.0 (Uncensored + Anti-Overload + Learning)",
+            "User-Agent": "codeforge-mm-proxy/3.0 (Uncensored + Anti-Overload + Learning)",
         }
         if use_local:
             url = LOCAL_LLM.rstrip("/") + "/chat/completions"
         if key and not use_local:
             headers["Authorization"] = f"Bearer {key}"
 
-        candidate_models = [target_model] if target_model else []
+        candidate_models = [resolve_model_id(target_model)] if target_model else []
         if use_local:
             candidate_models = [target_model or "novacode-uncensored"]
         elif target_model:
@@ -841,7 +873,7 @@ class Handler(BaseHTTPRequestHandler):
                 if performance_tracker.should_deprioritize(current_model):
                     failover_reason = "learning-deprioritized"
                 sys.stderr.write(
-                    f"nova-mm-proxy: [Overload Failover #{attempt}] "
+                    f"codeforge-mm-proxy: [Overload Failover #{attempt}] "
                     f"switching to {current_model} ({failover_reason})\n"
                 )
 
@@ -894,7 +926,7 @@ class Handler(BaseHTTPRequestHandler):
                         current_model, task_type, False, latency
                     )
                 if exc.code in (503, 502, 504, 429, 404):
-                    sys.stderr.write(f"nova-mm-proxy: upstream returned HTTP {exc.code} on {current_model}, trying next fast model...\n")
+                    sys.stderr.write(f"codeforge-mm-proxy: upstream returned HTTP {exc.code} on {current_model}, trying next fast model...\n")
                     time.sleep(0.2)
                     continue
                 else:
@@ -908,7 +940,7 @@ class Handler(BaseHTTPRequestHandler):
                     return
             except Exception as exc:
                 latency = time.time() - request_start
-                sys.stderr.write(f"nova-mm-proxy: connection error on {current_model}: {exc}\n")
+                sys.stderr.write(f"codeforge-mm-proxy: connection error on {current_model}: {exc}\n")
                 last_status = 502
                 last_error = str(exc).encode("utf-8")
                 performance_tracker.record(current_model, latency, False)
@@ -945,7 +977,7 @@ def main(argv: list[str] | None = None) -> int:
     
     # Check if port is already in use (proxy already running)
     if port_open(HOST, PORT):
-        print(f"nova-mm-proxy: already running on {HOST}:{PORT}")
+        print(f"codeforge-mm-proxy: already running on {HOST}:{PORT}")
         return 0
     
     server = ThreadingHTTPServer((HOST, PORT), Handler)

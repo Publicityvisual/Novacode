@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""NovaCode Super Multimodal CLI — Ultimate Entry Point.
+"""CodeForge Super Multimodal CLI — Ultimate Entry Point.
 
-The definitive command-line interface for NovaCode, integrating all capabilities:
+The definitive command-line interface for CodeForge, integrating all capabilities:
 chat, generation, code, analysis, learning, evolution, multimodal pipelines,
 and system management into a single professional CLI.
 
@@ -71,8 +71,8 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 # Constants
 # ============================================================================
 
-NOVACODE_HOME = Path.home() / ".local" / "share" / "novacode"
-NOVACODE_CONFIG = NOVACODE_HOME / "config.json"
+CODEFORGE_HOME = Path.home() / ".local" / "share" / "codeforge"
+CODEFORGE_CONFIG = CODEFORGE_HOME / "config.json"
 NOVACODE_VERSION = "3.0.0"
 NOVACODE_BANNER = r"""
  ███╗   ██╗ ██████╗ ██╗   ██╗ █████╗  ██████╗ ██████╗ ██████╗ ███████╗
@@ -264,7 +264,7 @@ class OutputFormatter:
         self.quiet = quiet
 
     def print_banner(self) -> None:
-        """Print the NovaCode ASCII banner."""
+        """Print the CodeForge ASCII banner."""
         if self.json_mode or self.quiet:
             return
         print(self.style.cyan(NOVACODE_BANNER))
@@ -450,8 +450,8 @@ class HTTPClient:
 # NovaCode Core
 # ============================================================================
 
-class NovaCodeCore:
-    """Core NovaCode functionality integrating all subsystems."""
+class CodeForgeCore:
+    """Core CodeForge functionality integrating all subsystems."""
 
     def __init__(
         self,
@@ -533,7 +533,7 @@ class NovaCodeCore:
     def generate_image(self, prompt: str) -> Dict[str, Any]:
         """Generate an image using the generate.py backend."""
         try:
-            sys.path.insert(0, str(NOVACODE_HOME))
+            sys.path.insert(0, str(CODEFORGE_HOME))
             import generate as nova_gen
 
             nova_gen.load_secrets()
@@ -544,7 +544,7 @@ class NovaCodeCore:
     def generate_video(self, prompt: str) -> Dict[str, Any]:
         """Generate a video using the generate.py backend."""
         try:
-            sys.path.insert(0, str(NOVACODE_HOME))
+            sys.path.insert(0, str(CODEFORGE_HOME))
             import generate as nova_gen
 
             nova_gen.load_secrets()
@@ -555,7 +555,7 @@ class NovaCodeCore:
     def generate_audio(self, prompt: str, music: bool = False) -> Dict[str, Any]:
         """Generate audio using the generate.py backend."""
         try:
-            sys.path.insert(0, str(NOVACODE_HOME))
+            sys.path.insert(0, str(CODEFORGE_HOME))
             import generate as nova_gen
 
             nova_gen.load_secrets()
@@ -589,7 +589,7 @@ class NovaCodeCore:
 # ============================================================================
 
 class CommandHandlers:
-    """All command handlers for the NovaCode CLI."""
+    """All command handlers for the CodeForge CLI."""
 
     def __init__(self, core: NovaCodeCore) -> None:
         self.core = core
@@ -786,7 +786,7 @@ class CommandHandlers:
         self.fmt.print_section("LEARNING ENGINE")
 
         try:
-            sys.path.insert(0, str(NOVACODE_HOME))
+            sys.path.insert(0, str(CODEFORGE_HOME))
             import learned_capabilities as lc
 
             engine = lc.SelfLearningEngine()
@@ -828,7 +828,7 @@ class CommandHandlers:
         self.fmt.print_section("EVOLUTION ENGINE")
 
         try:
-            sys.path.insert(0, str(NOVACODE_HOME))
+            sys.path.insert(0, str(CODEFORGE_HOME))
             import learned_capabilities as lc
 
             engine = lc.SelfLearningEngine()
@@ -891,12 +891,12 @@ class CommandHandlers:
         checks: List[Tuple[str, bool, str]] = []
 
         checks.append(("Python 3.8+", sys.version_info >= (3, 8), f"Python {sys.version.split()[0]}"))
-        checks.append(("NovaCode Home", NOVACODE_HOME.exists(), str(NOVACODE_HOME)))
+        checks.append(("CodeForge Home", CODEFORGE_HOME.exists(), str(CODEFORGE_HOME)))
         checks.append(("Config File", NOVACODE_CONFIG.exists(), str(NOVACODE_CONFIG)))
-        checks.append(("mm-proxy.py", (NOVACODE_HOME / "mm-proxy.py").exists(), str(NOVACODE_HOME / "mm-proxy.py")))
-        checks.append(("generate.py", (NOVACODE_HOME / "generate.py").exists(), str(NOVACODE_HOME / "generate.py")))
-        checks.append(("learned_capabilities.py", (NOVACODE_HOME / "learned_capabilities.py").exists(), str(NOVACODE_HOME / "learned_capabilities.py")))
-        checks.append(("self_update.py", (NOVACODE_HOME / "self_update.py").exists(), str(NOVACODE_HOME / "self_update.py")))
+        checks.append(("mm-proxy.py", (CODEFORGE_HOME / "mm-proxy.py").exists(), str(CODEFORGE_HOME / "mm-proxy.py")))
+        checks.append(("generate.py", (CODEFORGE_HOME / "generate.py").exists(), str(CODEFORGE_HOME / "generate.py")))
+        checks.append(("learned_capabilities.py", (CODEFORGE_HOME / "learned_capabilities.py").exists(), str(CODEFORGE_HOME / "learned_capabilities.py")))
+        checks.append(("self_update.py", (CODEFORGE_HOME / "self_update.py").exists(), str(CODEFORGE_HOME / "self_update.py")))
 
         proxy_health = self.core.check_proxy_health()
         checks.append(("mm-proxy Service", proxy_health.get("ok", False), "Running" if proxy_health.get("ok") else "Not running"))
@@ -989,7 +989,7 @@ class CommandHandlers:
         elif args.action == "list":
             self.fmt.print_info("Session history stored in learning.db")
             try:
-                sys.path.insert(0, str(NOVACODE_HOME))
+                sys.path.insert(0, str(CODEFORGE_HOME))
                 import learned_capabilities as lc
 
                 engine = lc.SelfLearningEngine()
@@ -1019,7 +1019,7 @@ class CommandHandlers:
         self.fmt.print_info(f"Analyzing intent for: {prompt[:80]}...")
 
         try:
-            sys.path.insert(0, str(NOVACODE_HOME))
+            sys.path.insert(0, str(CODEFORGE_HOME))
             import generate as nova_gen
 
             nova_gen.load_secrets()
@@ -1465,7 +1465,7 @@ class CommandHandlers:
         if query.startswith("http://") or query.startswith("https://"):
             self.fmt.print_info(f"Fetching: {query}")
             try:
-                req = urllib.request.Request(query, headers={"User-Agent": "NovaCodeCLI/3.0"})
+                req = urllib.request.Request(query, headers={"User-Agent": "CodeForgeCLI/3.0"})
                 with urllib.request.urlopen(req, timeout=30) as resp:
                     content = resp.read().decode("utf-8", errors="replace")
 
@@ -1481,7 +1481,7 @@ class CommandHandlers:
             self.fmt.print_info(f"Searching: {query}")
             search_url = f"https://duckduckgo.com/html/?q={urllib.parse.quote(query)}"
             try:
-                req = urllib.request.Request(search_url, headers={"User-Agent": "NovaCodeCLI/3.0"})
+                req = urllib.request.Request(search_url, headers={"User-Agent": "CodeForgeCLI/3.0"})
                 with urllib.request.urlopen(req, timeout=15) as resp:
                     content = resp.read().decode("utf-8", errors="replace")
 
@@ -1555,7 +1555,7 @@ class CommandHandlers:
         """Handle the db command — database operations."""
         self.fmt.print_section("DATABASE OPERATIONS")
 
-        db_path = NOVACODE_HOME / "novacode.db"
+        db_path = CODEFORGE_HOME / "codeforge.db"
 
         if not db_path.exists():
             self.fmt.print_error(f"Database not found: {db_path}")
@@ -1791,7 +1791,7 @@ Examples:
         """,
     )
 
-    parser.add_argument("--version", action="version", version=f"NovaCode CLI v{NOVACODE_VERSION}")
+    parser.add_argument("--version", action="version", version=f"CodeForge CLI v{NOVACODE_VERSION}")
     parser.add_argument("--model", "-m", default="nova", help="Model alias or ID")
     parser.add_argument("--quality", "-q", default="pro", choices=["draft", "pro", "ultra"], help="Quality level")
     parser.add_argument("--nsfw", action="store_true", help="Enable NSFW mode")
@@ -1915,7 +1915,7 @@ Examples:
 # ============================================================================
 
 def main(argv: Optional[List[str]] = None) -> int:
-    """Main entry point for the NovaCode CLI."""
+    """Main entry point for the CodeForge CLI."""
     parser = build_parser()
     args = parser.parse_args(argv)
 

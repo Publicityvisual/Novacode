@@ -197,7 +197,7 @@ class VersionChecker:
         try:
             req = urllib.request.Request(
                 self.update_source,
-                headers={"Accept": "application/json", "User-Agent": "novacode-updater/1.0"},
+                headers={"Accept": "application/json", "User-Agent": "codeforge-updater/1.0"},
             )
             with urllib.request.urlopen(req, timeout=10) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
@@ -438,7 +438,7 @@ class PluginUpdater:
             url = "https://plugins.novacode.ai/registry.json"
             req = urllib.request.Request(
                 url,
-                headers={"Accept": "application/json", "User-Agent": "novacode-updater/1.0"},
+                headers={"Accept": "application/json", "User-Agent": "codeforge-updater/1.0"},
             )
             with urllib.request.urlopen(req, timeout=10) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
