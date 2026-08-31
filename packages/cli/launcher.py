@@ -8,7 +8,7 @@ import shutil
 import subprocess
 
 NATIVE_BINARY_PATHS = [
-    os.path.expanduser("~/.opencode/bin/opencode"),
+    os.path.expanduser("~/.novacode/bin/novacode-core"),
     os.path.expanduser("~/.local/bin/novacode-core"),
     os.path.expanduser("~/.local/bin/novacode"),
     shutil.which("novacode") or ""
@@ -30,9 +30,9 @@ def launch_native_tui(args=None) -> int:
     cmd_args = [engine] + (args or [])
     env = os.environ.copy()
     env["NOVACODE_APP_NAME"] = "Novacode"
-    env["OPENCODE_APP_NAME"] = "Novacode"
+    env["NOVACODE_APP_NAME"] = "Novacode"
     env["NOVACODE_CLIENT"] = "novacode"
-    env["OPENCODE_CLIENT"] = "novacode"
+    env["NOVACODE_CLIENT"] = "novacode"
     env["COLORTERM"] = env.get("COLORTERM", "truecolor")
     env["FORCE_COLOR"] = "1"
 

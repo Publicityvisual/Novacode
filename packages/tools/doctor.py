@@ -17,7 +17,7 @@ CONFIG_ALT = Path.home() / ".config" / "nova" / "nova.jsonc"
 
 def find_engine_path() -> Path:
     candidates = [
-        Path.home() / ".opencode" / "bin" / "opencode",
+        Path.home() / ".novacode" / "bin" / "novacode-core",
         Path.home() / ".local" / "bin" / "novacode",
         Path.home() / ".local" / "share" / "novacode" / "engine" / "libexec" / "nova",
     ]

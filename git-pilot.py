@@ -11,14 +11,14 @@ from pathlib import Path
 
 def find_nova_bin() -> str:
     candidates = [
-        Path.home() / ".opencode" / "bin" / "opencode",
+        Path.home() / ".novacode" / "bin" / "novacode-core",
         Path.home() / ".local" / "bin" / "novacode",
         Path.home() / ".local" / "share" / "novacode" / "engine" / "libexec" / "nova",
     ]
     for c in candidates:
         if c.exists() and os.access(c, os.X_OK):
             return str(c)
-    return shutil.which("novacode") or shutil.which("opencode") or "novacode"
+    return shutil.which("novacode") or shutil.which("novacode-core") or "novacode"
 
 
 def run_cmd(cmd: list[str]) -> tuple[int, str]:
