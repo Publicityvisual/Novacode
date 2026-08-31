@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Novacode Super Subagents & Ultra-Fast Direct Thinking Setup."""
+"""NovaCode Super Subagents & Ultra-Fast Direct Thinking Setup."""
 from __future__ import annotations
 
 import json
@@ -10,13 +10,9 @@ import sys
 from pathlib import Path
 
 HOME = Path.home()
-SHARE = HOME / ".local" / "share" / "codeforge"
-ENGINE = SHARE / "engine"
-LIBEXEC = ENGINE / "libexec"
+SHARE = HOME / ".local" / "share" / "novacode"
 BIN_DIR = HOME / ".local" / "bin"
-CONFIG_NC = HOME / ".config" / "codeforge"
-CONFIG_NOVA = HOME / ".config" / "nova"
-ICONS = SHARE / "icons"
+CONFIG_NC = HOME / ".config" / "novacode"
 
 FLAGSHIP_POWER_SPEC = {
     "tool_call": True,
@@ -32,17 +28,17 @@ FLAGSHIP_POWER_SPEC = {
 
 CLEAN_SHORT_MODELS = {
     "nova": {
-        "id": "nvidia/nemotron-3-super-120b-a12b",
-        "name": "Nova Super 120B",
+        "id": "meta/llama-3.2-11b-vision-instruct",
+        "name": "Nova Super Fast",
         "limit": {"context": 131072, "output": 8192},
     },
     "apex": {
-        "id": "nvidia/nemotron-3-ultra-550b-a55b",
-        "name": "Nova Apex 550B",
-        "limit": {"context": 262144, "output": 8192},
+        "id": "meta/llama-3.2-90b-vision-instruct",
+        "name": "Nova Apex 90B",
+        "limit": {"context": 131072, "output": 8192},
     },
     "jet": {
-        "id": "nvidia/nemotron-3-nano-30b-a3b",
+        "id": "meta/llama-3.2-11b-vision-instruct",
         "name": "Nova Jet Lightning",
         "limit": {"context": 65536, "output": 8192},
     },
@@ -57,13 +53,13 @@ CLEAN_SHORT_MODELS = {
         "limit": {"context": 65536, "output": 8192},
     },
     "iris": {
-        "id": "meta/llama-3.2-11b-vision-instruct",
+        "id": "meta/llama-3.2-90b-vision-instruct",
         "name": "Nova Iris Vision",
         "limit": {"context": 131072, "output": 8192},
     },
     "pro": {
-        "id": "nvidia/nemotron-3-super-120b-a12b",
-        "name": "Nova Pro 120B",
+        "id": "meta/llama-3.2-90b-vision-instruct",
+        "name": "Nova Pro 90B",
         "limit": {"context": 131072, "output": 8192},
     },
     "lite": {
@@ -91,25 +87,25 @@ def build_models() -> dict:
 def build_config() -> dict:
     models = build_models()
 
-    codeforge_provider = {
+    novacode_provider = {
         "npm": "@ai-sdk/openai-compatible",
         "name": "Novacode",
-        "api": "https://integrate.api.nvidia.com/v1",
+        "api": "http://127.0.0.1:18791/v1",
         "env": ["NVIDIA_API_KEY"],
         "options": {
-            "baseURL": "https://integrate.api.nvidia.com/v1",
-            "timeout": 300000,
-            "headerTimeout": 60000,
-            "chunkTimeout": 120000,
-            "retryAttempts": 2,
-            "retryDelay": 3000,
-            "maxRetries": 2,
+            "baseURL": "http://127.0.0.1:18791/v1",
+            "timeout": 120000,
+            "headerTimeout": 30000,
+            "chunkTimeout": 60000,
+            "retryAttempts": 3,
+            "retryDelay": 1000,
+            "maxRetries": 3,
             "retryBackoff": True,
-            "connectionPoolSize": 2,
+            "connectionPoolSize": 6,
             "keepAlive": True,
             "keepAliveTimeout": 30000,
-            "threadPoolSize": 1,
-            "batchSize": 1,
+            "threadPoolSize": 4,
+            "batchSize": 2,
             "disableChunkedEncoding": False,
             "decompressResponse": True,
         },
@@ -117,28 +113,28 @@ def build_config() -> dict:
     }
 
     agents = {
-        "code": {"model": "codeforge/nova", "mode": "primary", "permission": "allow"},
-        "clone": {"model": "codeforge/jet", "permission": "allow"},
-        "refactor": {"model": "codeforge/dev", "permission": "allow"},
-        "fullstack": {"model": "codeforge/nova", "permission": "allow"},
-        "autoheal": {"model": "codeforge/jet", "permission": "allow"},
-        "evolver": {"model": "codeforge/nova", "permission": "allow"},
-        "updater": {"model": "codeforge/jet", "permission": "allow"},
-        "guardian": {"model": "codeforge/pro", "permission": "allow"},
-        "study": {"model": "codeforge/nova", "permission": "allow"},
-        "analyst": {"model": "codeforge/apex", "permission": "allow"},
-        "swarm": {"model": "codeforge/apex", "permission": "allow"},
-        "tdd": {"model": "codeforge/dev", "permission": "allow"},
-        "memory": {"model": "codeforge/lite", "permission": "allow"},
-        "commit": {"model": "codeforge/lite", "permission": "allow"},
-        "scraper": {"model": "codeforge/jet", "permission": "allow"},
-        "turbo": {"model": "codeforge/jet", "permission": "allow"},
-        "build": {"model": "codeforge/dev", "permission": "allow"},
-        "fixer": {"model": "codeforge/jet", "permission": "allow"},
-        "architect": {"model": "codeforge/apex", "permission": "allow"},
+        "code": {"model": "novacode/nova", "mode": "primary", "permission": "allow"},
+        "clone": {"model": "novacode/jet", "permission": "allow"},
+        "refactor": {"model": "novacode/dev", "permission": "allow"},
+        "fullstack": {"model": "novacode/nova", "permission": "allow"},
+        "autoheal": {"model": "novacode/jet", "permission": "allow"},
+        "evolver": {"model": "novacode/nova", "permission": "allow"},
+        "updater": {"model": "novacode/jet", "permission": "allow"},
+        "guardian": {"model": "novacode/pro", "permission": "allow"},
+        "study": {"model": "novacode/nova", "permission": "allow"},
+        "analyst": {"model": "novacode/apex", "permission": "allow"},
+        "swarm": {"model": "novacode/apex", "permission": "allow"},
+        "tdd": {"model": "novacode/dev", "permission": "allow"},
+        "memory": {"model": "novacode/lite", "permission": "allow"},
+        "commit": {"model": "novacode/lite", "permission": "allow"},
+        "scraper": {"model": "novacode/jet", "permission": "allow"},
+        "turbo": {"model": "novacode/jet", "permission": "allow"},
+        "build": {"model": "novacode/dev", "permission": "allow"},
+        "fixer": {"model": "novacode/jet", "permission": "allow"},
+        "architect": {"model": "novacode/apex", "permission": "allow"},
         "plan": {"model": "novacode/nova", "permission": "allow"},
-        "security": {"model": "novacode/wild", "permission": "allow"},
-        "pentest": {"model": "novacode/raw", "permission": "allow"},
+        "security": {"model": "novacode/iris", "permission": "allow"},
+        "pentest": {"model": "novacode/iris", "permission": "allow"},
         "explore": {"model": "novacode/jet", "permission": "allow"},
         "debugger": {"model": "novacode/dev", "permission": "allow"},
         "reviewer": {"model": "novacode/pro", "permission": "allow"},
@@ -151,7 +147,7 @@ def build_config() -> dict:
     }
 
     return {
-        "$schema": "https://codeforge.ai/config.json",
+        "$schema": "https://novacode.ai/config.json",
         "username": "djkoveck",
         "snapshot": False,
         "autoupdate": False,
@@ -216,7 +212,7 @@ def build_config() -> dict:
                 "**/.npm/**",
                 "**/.nvm/**",
                 "**/.nova/**",
-                "**/.codeforge/**",
+                "**/.novacode/**",
                 "**/.vscode-oss/**",
                 "**/.cursor/**",
                 "**/.codex/**",
@@ -231,222 +227,22 @@ def build_config() -> dict:
                 "**/.nuxt/**",
                 "**/coverage/**",
             ]
-        }
+        },
     }
 
 
-def write_text(path: Path, content: str, mode: int | None = None) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(content, encoding="utf-8")
-    if mode is not None:
-        path.chmod(mode)
-
-
 def write_configs() -> None:
+    CONFIG_NC.mkdir(parents=True, exist_ok=True)
     cfg = build_config()
-    text = json.dumps(cfg, indent=2, ensure_ascii=False) + "\n"
-    write_text(CONFIG_NC / "novacode.jsonc", text)
-    print("wrote", CONFIG_NC / "novacode.jsonc")
-    write_text(CONFIG_NOVA / "nova.jsonc", text)
-    print("wrote", CONFIG_NOVA / "nova.jsonc")
+    target = CONFIG_NC / "novacode.jsonc"
+    with open(target, "w", encoding="utf-8") as f:
+        json.dump(cfg, f, indent=2, ensure_ascii=False)
+    print(f"\033[32m✓ Configuración de NovaCode escrita en:\033[0m {target}")
 
 
-def write_wrappers() -> None:
-    launcher = """#!/usr/bin/env bash
-# Novacode CLI — NVIDIA NIM professional models, branded TUI.
-set -euo pipefail
-
-export COLORTERM="${COLORTERM:-truecolor}"
-export FORCE_COLOR="${FORCE_COLOR:-1}"
-export LANG="${LANG:-es_MX.UTF-8}"
-export LC_ALL="${LC_ALL:-es_MX.UTF-8}"
-export UV_THREADPOOL_SIZE="${UV_THREADPOOL_SIZE:-4}"
-export BUN_JSC_forceRAMSize="${BUN_JSC_forceRAMSize:-2147483648}"
-
-ROOT="${NOVACODE_ROOT:-$HOME/.local/share/novacode/engine}"
-BIN="$ROOT/libexec/nova"
-EDITOR_BIN="${NOVACODE_EDITOR:-$HOME/.local/share/novacode/editor.py}"
-
-load_env() {
-  local f
-  for f in \\
-    "$HOME/.config/nova/secrets.env" \\
-    "$HOME/.config/env/nvidia.env"
-  do
-    if [[ -f "$f" ]]; then
-      set -a
-      # shellcheck disable=SC1090
-      source "$f"
-      set +a
-    fi
-  done
-}
-
-load_env
-
-export NOVACODE_APP_NAME="Novacode"
-export NOVACODE_CLIENT="cli"
-export NOVACODE_TREE_SITTER_WASM_DIR="${NOVACODE_TREE_SITTER_WASM_DIR:-$ROOT/libexec/tree-sitter}"
-if [[ -d "$ROOT/libexec/console" ]]; then
-  export NOVACODE_CONSOLE_ASSET_DIR="${NOVACODE_CONSOLE_ASSET_DIR:-$ROOT/libexec/console}"
-fi
-export NOVACODE_CONFIG="${NOVACODE_CONFIG:-$HOME/.config/novacode/novacode.jsonc}"
-export NOVACODE_DISABLE_MODELS_FETCH=1
-export NOVACODE_DISABLE_AUTOUPDATE=1
-export NOVACODE_DISABLE_TELEMETRY=1
-export NOVACODE_TELEMETRY_LEVEL="off"
-export TELEMETRY_DISABLED=1
-export OTEL_SDK_DISABLED=true
-export DO_NOT_TRACK=1
-export NOVA_DISABLE_MODELS_FETCH=1
-export NOVA_DISABLE_AUTOUPDATE=1
-export NOVA_TELEMETRY_LEVEL="off"
-export NOVA_APP_NAME="Novacode"
-export NOVA_MODELS_URL="http://127.0.0.1:18791/v1/models"
-export NOVACODE_MODELS_URL="http://127.0.0.1:18791/v1/models"
-export NOVACODE_NVIDIA_PROFESSIONAL=1
-
-cmd="${1:-}"
-case "$cmd" in
-  python|py|swarm|sandbox|sentinel|graph|canvas|refactor|sync|bench|docker|api|net|secret|auto)
-    shift
-    export PYTHONPATH="$HOME/.local/share/novacode:$HOME/novacode-cli:${PYTHONPATH:-}"
-    exec python3 "$HOME/.local/share/novacode/nova.py" "$cmd" "$@"
-    ;;
-  sudo)
-    shift
-    export PYTHONPATH="$HOME/.local/share/novacode:$HOME/novacode-cli:${PYTHONPATH:-}"
-    exec python3 "$HOME/.local/share/novacode/nova.py" sudo "$@"
-    ;;
-  forge)
-    shift
-    export PYTHONPATH="$HOME/.local/share/novacode:$HOME/novacode-cli:${PYTHONPATH:-}"
-    exec python3 "$HOME/.local/share/novacode/nova.py" forge "$@"
-    ;;
-  editor)
-    shift
-    exec python3 "$EDITOR_BIN" "$@"
-    ;;
-  doctor)
-    shift
-    exec python3 "$HOME/.local/share/novacode/doctor.py" "$@"
-    ;;
-  setup|repair)
-    shift
-    exec python3 "$HOME/.local/share/novacode/setup-novacode.py" "$@"
-    ;;
-  mm-proxy)
-    shift
-    exec "$HOME/.local/bin/nova-mm-proxy" "$@"
-    ;;
-  gen|generate|imagine|image|img|video|audio|music|tts|nsfw|uncensored|omni|studio)
-    GEN="$HOME/.local/share/novacode/generate.py"
-    if [[ ! -f "$GEN" ]]; then
-      GEN="$HOME/novacode-cli/generate.py"
-    fi
-    exec python3 "$GEN" "$@"
-    ;;
-  nova|super|chat|code|analyze|learn|evolve|models|security|test|docs)
-    exec python3 "$HOME/.local/share/novacode/nova.py" "$@"
-    ;;
-esac
-
-if [[ ! -x "$BIN" ]]; then
-  echo "Novacode engine not found: $BIN" >&2
-  echo "Ejecuta: python3 $HOME/.local/share/novacode/setup-novacode.py" >&2
-  exit 1
-fi
-
-# Auto-start resilient anti-overload proxy if not running
-if ! nc -z 127.0.0.1 18791 2>/dev/null; then
-  nohup python3 "$HOME/.local/share/novacode/mm-proxy.py" >/dev/null 2>&1 &
-  sleep 0.2
-fi
-
-# Si el usuario pide modelo local uncensored/NSFW, levanta llama-server
-if [[ "$*" == *uncensored* || "$*" == *nsfw* || "$*" == *local/* ]]; then
-  python3 "$HOME/.local/share/novacode/generate.py" serve --daemon >/dev/null 2>&1 || true
-fi
-
-exec -a novacode "$BIN" "$@"
-"""
-    for name in ["novacode", "nova"]:
-        p = BIN_DIR / name
-        write_text(p, launcher, 0o755)
-    print("wrappers ready")
-
-
-def patch_novacode_ascii_logo(bin_path: Path) -> bool:
-    if not bin_path.exists():
-        return False
-    data = bin_path.read_bytes()
-    idx1 = data.find(b"cS1=")
-    idx2 = data.find(b",MS1=")
-    if idx1 == -1 or idx2 == -1:
-        return False
-
-    total_len = idx2 - idx1
-    tui_lines = [
-        "      ███╗   ██╗ ██████╗ ██╗   ██╗ █████╗  ██████╗ ██████╗ ██████╗ ███████╗",
-        "      ████╗  ██║██╔═══██╗██║   ██║██╔══██╗██╔════╝██╔═══██╗██╔══██╗██╔════╝",
-        "      ██╔██╗ ██║██║   ██║██║   ██║███████║██║     ██║   ██║██║  ██║█████╗  ",
-        "      ██║╚██╗██║██║   ██║╚██╗ ██╔╝██╔══██║██║     ██║   ██║██║  ██║██╔══╝  ",
-        "      ██║ ╚████║╚██████╔╝ ╚████╔╝ ██║  ██║╚██████╗╚██████╔╝██████╔╝███████╗",
-        "      ╚═╝  ╚═══╝ ╚═════╝   ╚═══╝  ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝",
-        "                     ───  ◆  N O V A C O D E   C L I  ◆  ───               ",
-    ]
-    exit_lines = [
-        "███╗  ██╗",
-        "████╗ ██║",
-        "██╔██╗██║",
-    ]
-    tui_json = json.dumps(tui_lines, ensure_ascii=False)
-    exit_json = json.dumps(exit_lines, ensure_ascii=False)
-    js_expr = f"cS1=(()=>{{let T={tui_json},E={exit_json};return {{tui:T,plain:T,exit:E}}}})()"
-    raw_expr = js_expr.encode("utf-8")
-    pad_needed = total_len - len(raw_expr)
-    if pad_needed < 4:
-        return False
-    pad = b"/*" + b" " * (pad_needed - 4) + b"*/"
-    new_block = raw_expr + pad
-    new_data = data[:idx1] + new_block + data[idx2:]
-    
-    new_data = new_data.replace(b"if(H===\"_\")", b"if(H===\"\\x00\")")
-    new_data = new_data.replace(b"\"Nova CLI\"", b"\"Novacode\"")
-    new_data = new_data.replace(b"Nova CLI ", b"Novacode ")
-    
-    t_start = b"function BgR(){let{theme:A}=a9()"
-    t_end = b"var jAh;var $gR="
-    i1 = new_data.find(t_start)
-    i2 = new_data.find(t_end, i1)
-    if i1 != -1 and i2 != -1:
-        o_len = i2 - i1
-        n_js = r"""function BgR(){let{theme:A}=a9(),C=["#00F0FF","#00C8FF","#3896FF","#7864FF","#A855F7","#C084FC","#E0E7FF"].map($j.fromHex),j=IHT(),R=(q,c)=>{var G=rA("text");return s(G,"fg",c),s(G,"selectable",!1),b0(G,q),G};return(()=>{var q=rA("box");s(q,"alignItems","center");return b0(q,N0(A8,{each:j,children:(B,I)=>(()=>{let idx=typeof I==="function"?I():(I||0),c=C[idx]||C[0],h=rA("box");return s(h,"flexDirection","row"),b0(h,()=>R(B,c)),h})()})),q})()}"""
-        raw_n = n_js.encode("utf-8")
-        if o_len >= len(raw_n) + 4:
-            p_pad = b"/*" + b" " * (o_len - len(raw_n) - 4) + b"*/"
-            new_data = new_data[:i1] + raw_n + p_pad + new_data[i2:]
-            
-    bin_path.write_bytes(new_data)
-    subprocess.run(["codesign", "--force", "--sign", "-", "--timestamp=none", str(bin_path)], check=True)
-    return True
-
-
-def patch_engine() -> bool:
-    target = LIBEXEC / "nova"
-    if not target.exists():
-        return False
-    return patch_novacode_ascii_logo(target)
-
-
-def main() -> int:
-    print("=== Novacode Super Subagents Setup ===")
+def main() -> None:
     write_configs()
-    write_wrappers()
-    patch_engine()
-    print("=== done ===")
-    return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()
