@@ -2,7 +2,7 @@
 NovaCode Auto-Git Continuous Sync Engine
 ========================================
 Sincronización continua y autónoma con el repositorio oficial de GitHub:
-- Detección automática de cambios de código y tests.
+- Detección automática del directorio raíz de Git.
 - Creación de mensajes de commit semánticos con IA (Conventional Commits).
 - Push seguro hacia la rama principal de GitHub (`origin main`).
 """
@@ -21,8 +21,27 @@ class AutoGitSync:
     """Motor de sincronización y publicación continua en GitHub."""
 
     def __init__(self, repo_dir: Optional[Path] = None, ai_client: Optional[Callable[[str], str]] = None) -> None:
-        self.repo_dir = Path(repo_dir or Path("/Users/djkoveck/novacode-cli")).resolve()
+        self.repo_dir = self._detect_repo_dir(repo_dir)
         self.ai_client = ai_client
+
+    def _detect_repo_dir(self, explicit_dir: Optional[Path] = None) -> Path:
+        """Detecta de forma inteligente la raíz del repositorio Git."""
+        if explicit_dir:
+            return Path(explicit_dir).resolve()
+
+        # 1. Comprobar si el directorio actual es un repo
+        curr = Path.cwd().resolve()
+        for p in [curr, *curr.parents]:
+            if (p / ".git").is_dir():
+                return p
+
+        # 2. Comprobar la ruta estándar ~/novacode-cli
+        default_repo = Path.home() / "novacode-cli"
+        if (default_repo / ".git").is_dir():
+            return default_repo
+
+        # 3. Fallback al directorio del archivo
+        return Path(__file__).resolve().parent
 
     def has_uncommitted_changes(self) -> bool:
         """Comprueba si hay archivos modificados o sin rastrear."""
@@ -47,7 +66,7 @@ class AutoGitSync:
 
     def sync_and_push(self, custom_msg: Optional[str] = None) -> Tuple[bool, str]:
         """Agrega cambios, realiza commit y hace push a GitHub."""
-        sys.stderr.write(f"\n🚀 [NovaCode Auto-Git] Iniciando sincronización con GitHub...\n")
+        sys.stderr.write(f"\n🚀 [NovaCode Auto-Git] Iniciando sincronización con GitHub ({self.repo_dir})...\n")
 
         # 1. Comprobar cambios
         if not self.has_uncommitted_changes():
