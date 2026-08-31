@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novacode - AI-Powered Development Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Novacode</h1>
+            <p>AI-Powered Development Assistant — Build faster, ship smarter</p>
+            <div class="header-actions">
+                <a href="#features" class="btn">Features</a>
+                <a href="#install" class="btn secondary">Install CLI</a>
+                <a href="#tui" class="btn secondary">Try TUI</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="terminal-title">Terminal</span>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line">
+                        <span class="prompt">$</span>
+                        <span class="command">novacode init --name my_project</span>
+                    </div>
+                    <div class="terminal-output">
+                        <span class="success">✓</span> Initialized Novacode project: my_project<br>
+                        <span class="info">ℹ</span> Created directory: /Users/djkoveck/my_project
+                    </div>
+                    <div class="terminal-line">
+                        <span class="prompt">$</span>
+                        <span class="command">novacode generate --type class --name UserModel</span>
+                    </div>
+                    <div class="terminal-output">
+                        <span class="success">✓</span> Generated class 'UserModel' at ./usermodel.py
+                    </div>
+                    <div class="terminal-line">
+                        <span class="prompt">$</span>
+                        <span class="command">novacode tui</span>
+                    </div>
+                    <div class="terminal-output">
+                        <span class="magenta">Novacode TUI</span> <span class="gray">(local)</span><br>
+                        <span class="gray">Type :help for commands, :quit to exit</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Why Novacode?</h2>
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Fast CLI</h3>
+                    <p>Initialize projects, generate code, run builds and tests from your terminal in seconds.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Smart TUI</h3>
+                    <p>Interactive terminal UI inspired by the best developer tools. Switch models, manage agents, and keep context.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🧩</div>
+                    <h3>Agents & Plugins</h3>
+                    <p>Create custom agents, extend behavior with plugins, and reuse sessions across projects.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Independent & Private</h3>
+                    <p>No forced KiloCode/OpenCode dependency. Your workflow, your keys, your rules.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3>Session History</h3>
+                    <p>Export, import, search, and resume past sessions. Built-in SQLite-backed history.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🛠️</div>
+                    <h3>Dev Tooling</h3>
+                    <p>Worktrees, PR management, MCP-style extensibility, and macOS app integration.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="install" class="install">
+        <div class="container">
+            <h2>Get Started</h2>
+            <div class="install-grid">
+                <div class="install-card">
+                    <h3>macOS / Linux</h3>
+                    <pre><code>git clone https://github.com/your-org/novacode.git
+cd novacode
+python3 -m venv .venv
+source .venv/bin/activate
+python3 novacode.py --help</code></pre>
+                </div>
+                <div class="install-card">
+                    <h3>Windows</h3>
+                    <pre><code>git clone https://github.com/your-org/novacode.git
+cd novacode
+python -m venv .venv
+.venv\Scripts\activate
+python novacode.py --help</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tui" class="tui">
+        <div class="container">
+            <h2>Interactive TUI</h2>
+            <p>Start Novacode in interactive mode with a familiar terminal-first experience.</p>
+            <pre><code>novacode tui
+novacode tui --model local
+novacode run "Create a REST API with FastAPI"</code></pre>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to build with Novacode?</h2>
+            <p>Clone the repo, install the CLI, and start coding with AI assistance.</p>
+            <a href="#" class="btn">View on GitHub</a>
+            <a href="#" class="btn secondary">Read the Docs</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Novacode is an independent development assistant. Not affiliated with KiloCode or OpenCode.</p>
+            <p>Built for developers who want control, privacy, and speed.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

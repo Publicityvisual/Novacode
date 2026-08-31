@@ -1,0 +1,311 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #0b0c10;
+    --surface: #1f2833;
+    --text: #c5c6c7;
+    --accent: #66fcf1;
+    --accent-2: #45a29e;
+    --muted: #6b7280;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background: radial-gradient(circle at top left, #111827, #0b0c10);
+}
+
+header {
+    border-bottom: 1px solid #1f2937;
+    background: rgba(17, 24, 39, 0.8);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+header .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 1rem;
+}
+
+header h1 {
+    font-size: 3rem;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+}
+
+header p {
+    font-size: 1.1rem;
+    color: var(--muted);
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.7rem 1.4rem;
+    background: linear-gradient(135deg, var(--accent-2), var(--accent));
+    color: #0b0c10;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    border: none;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 25px rgba(102, 252, 241, 0.25);
+}
+
+.btn.secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent-2);
+}
+
+.btn.secondary:hover {
+    background: rgba(69, 162, 158, 0.15);
+}
+
+.hero {
+    padding: 3rem 0;
+}
+
+.hero .container {
+    display: flex;
+    justify-content: center;
+}
+
+.terminal-window {
+    width: 100%;
+    max-width: 860px;
+    background: #0f172a;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+}
+
+.terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: #111827;
+    border-bottom: 1px solid #1f2937;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.red { background: #ef4444; }
+.yellow { background: #f59e0b; }
+.green { background: #22c55e; }
+
+.terminal-title {
+    margin-left: 0.5rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.terminal-body {
+    padding: 1.25rem;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.95rem;
+}
+
+.terminal-line {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.prompt {
+    color: var(--accent);
+}
+
+.command {
+    color: #e5e7eb;
+}
+
+.terminal-output {
+    padding-left: 1.25rem;
+    margin-bottom: 1rem;
+    color: #9ca3af;
+}
+
+.terminal-output .success {
+    color: #22c55e;
+    margin-right: 0.5rem;
+}
+
+.terminal-output .info {
+    color: #60a5fa;
+    margin-right: 0.5rem;
+}
+
+.terminal-output .gray {
+    color: #6b7280;
+}
+
+.terminal-output .magenta {
+    color: #e879f9;
+}
+
+.features {
+    padding: 3rem 0;
+    background: #0b0c10;
+}
+
+.features h2, .install h2, .tui h2, .cta h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: #e5e7eb;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.feature {
+    background: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: transform .15s ease, border-color .15s ease;
+}
+
+.feature:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-2);
+}
+
+.feature-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+}
+
+.feature h3 {
+    margin-bottom: 0.5rem;
+    color: #e5e7eb;
+    font-size: 1.15rem;
+}
+
+.feature p {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.install {
+    padding: 3rem 0;
+    background: #0f172a;
+}
+
+.install-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.install-card {
+    background: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 10px;
+    padding: 1.25rem;
+}
+
+.install-card h3 {
+    margin-bottom: 0.75rem;
+    color: #e5e7eb;
+}
+
+.install-card pre {
+    background: #0b0c10;
+    border-radius: 8px;
+    padding: 0.75rem;
+    overflow-x: auto;
+}
+
+.install-card code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: #a5b4fc;
+}
+
+.tui {
+    padding: 3rem 0;
+    background: #0b0c10;
+}
+
+.tui p {
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 1rem;
+}
+
+.tui pre {
+    background: #0f172a;
+    border-radius: 8px;
+    padding: 1rem;
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.cta {
+    padding: 3rem 0;
+    background: #0f172a;
+    text-align: center;
+}
+
+.cta p {
+    color: var(--muted);
+    margin: 0.5rem 0 1.25rem;
+}
+
+footer {
+    background: #0b0c10;
+    border-top: 1px solid #1f2937;
+    padding: 2rem 0;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.container {
+    width: 92%;
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    .features h2, .install h2, .tui h2, .cta h2 {
+        font-size: 1.6rem;
+    }
+}
