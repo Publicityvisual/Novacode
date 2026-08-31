@@ -24,12 +24,12 @@ class TestPackagesStructure(unittest.TestCase):
         self.assertIsNotNone(doctor_main)
 
     def test_cli_launcher_routing(self):
-        from packages.cli.main import OPENCODE_NATIVE_COMMANDS
-        self.assertIn("models", OPENCODE_NATIVE_COMMANDS)
-        self.assertIn("providers", OPENCODE_NATIVE_COMMANDS)
-        self.assertIn("mcp", OPENCODE_NATIVE_COMMANDS)
-        self.assertIn("web", OPENCODE_NATIVE_COMMANDS)
-        self.assertIn("session", OPENCODE_NATIVE_COMMANDS)
+        from packages.cli.main import NOVACODE_NATIVE_COMMANDS
+        self.assertIn("models", NOVACODE_NATIVE_COMMANDS)
+        self.assertIn("providers", NOVACODE_NATIVE_COMMANDS)
+        self.assertIn("mcp", NOVACODE_NATIVE_COMMANDS)
+        self.assertIn("web", NOVACODE_NATIVE_COMMANDS)
+        self.assertIn("session", NOVACODE_NATIVE_COMMANDS)
 
 if __name__ == "__main__":
     unittest.main()

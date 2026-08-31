@@ -6,8 +6,8 @@ import os
 
 from packages.cli.launcher import launch_native_tui, find_native_engine
 
-# OpenCode standard subcommands handled directly by the native engine
-OPENCODE_NATIVE_COMMANDS = {
+# NovaCode standard native subcommands handled directly by the high-speed engine
+NOVACODE_NATIVE_COMMANDS = {
     "completion", "acp", "mcp", "attach", "run", "debug", "providers",
     "auth", "agent", "upgrade", "uninstall", "serve", "web", "models",
     "stats", "export", "import", "github", "pr", "session", "plugin",
@@ -25,7 +25,7 @@ def main(args=None):
     cmd = args[0]
 
     # If it's a native command or option, delegate directly to the engine
-    if cmd in OPENCODE_NATIVE_COMMANDS or cmd.startswith("-"):
+    if cmd in NOVACODE_NATIVE_COMMANDS or cmd.startswith("-"):
         return launch_native_tui(args)
 
     # Route extended commands to Python modules
