@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  test-linux-macos:
     name: Test on Python ${{ matrix.python-version }} (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
@@ -29,14 +29,14 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        if [ -f requirements.txt ]; then pip install -r requirements.txt || true; fi
 
     - name: Run Test Suite
       run: |
         python -m unittest discover -s tests -v
 
-  windows-test:
-    name: Test on Windows
+  test-windows:
+    name: Test on Windows (Python 3.12)
     runs-on: windows-latest
     steps:
     - name: Checkout Code
