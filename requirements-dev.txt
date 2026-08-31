@@ -1,0 +1,6 @@
+# NovaCode CLI — Advanced Development & ML Suite
+-r requirements.txt
+black>=24.4.0
+isort>=5.13.0
+mypy>=1.10.0
+coverage>=7.5.0

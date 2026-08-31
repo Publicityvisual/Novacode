@@ -1,3 +1,26 @@
-# NovaCode CLI Dependencies (Standard Library First, Zero Friction)
-pytest>=7.0.0
-flake8>=6.0.0
+# ==============================================================================
+# NovaCode CLI — Enterprise High-Performance Dependencies Suite
+# ==============================================================================
+
+# Core AI, HTTP & Fast Networking
+httpx>=0.27.0
+aiohttp>=3.9.0
+requests>=2.31.0
+pydantic>=2.7.0
+orjson>=3.10.0
+pyyaml>=6.0.1
+
+# Rich Terminal UI, Canvas & CLI Experience
+rich>=13.7.0
+prompt_toolkit>=3.0.43
+psutil>=5.9.8
+tqdm>=4.66.0
+
+# Fast Microservices & API Engine
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+
+# Development, Testing & Code Quality
+pytest>=8.2.0
+pytest-asyncio>=0.23.0
+flake8>=7.0.0
