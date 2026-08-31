@@ -1,0 +1,3 @@
+# NovaCode CLI Dependencies (Standard Library First, Zero Friction)
+pytest>=7.0.0
+flake8>=6.0.0
