@@ -395,7 +395,7 @@ def start_llama_server(*, wait: bool = True) -> bool:
         "--port",
         str(LOCAL_LLM_PORT),
         "-c",
-        os.environ.get("NOVACODE_UNCENSORED_CTX", "4096"),
+        os.environ.get("NOVACODE_UNCENSORED_CTX", "32768"),
         "-n",
         "512",
         "-ngl",
