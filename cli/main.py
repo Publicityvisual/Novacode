@@ -1,6 +1,6 @@
 import argparse
 import sys
-from core import NovaCodeCore
+from core import NovaCodeCore, update_project
 
 def main():
     parser = argparse.ArgumentParser()
@@ -10,7 +10,6 @@ def main():
     args = parser.parse_args()
 
     if args.update:
-        from core import update_project
         update_project()
         sys.exit(0)
 

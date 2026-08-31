@@ -8,19 +8,19 @@ def is_connected() -> bool:
         return False
 
 
-def check_github_availability() -> bool:
-    """Check if GitHub is reachable via a simple HTTP request."""
+def check_host(host: str) -> bool:
+    """Check if a host is reachable via HTTP."""
     import urllib.request, urllib.error
     try:
-        urllib.request.urlopen("https://github.com", timeout=5)
+        urllib.request.urlopen(f"https://{host}", timeout=5)
         return True
     except urllib.error.URLError:
         return False
 
 
-def update_project() -> None:
+def update_project(host: str = "github.com") -> None:
     """Simulate checking for updates with graceful error handling."""
-    print("Checked for updates – no action taken.")
+    print(f"Checked for updates on {host} – no action taken.")
 
 
 class NovaCodeCore:
