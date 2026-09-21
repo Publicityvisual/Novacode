@@ -1,0 +1,195 @@
+{
+  "$schema": "https://novacode.ai/config.json",
+  "provider": {
+    "nvidia": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "NVIDIA AI",
+      "options": {
+        "baseURL": "https://integrate.api.nvidia.com/v1",
+        "apiKey": "${NVIDIA_API_KEY}",
+      },
+      "models": {
+        "nvidia/llama-3.1-405b-instruct": {
+          "name": "Llama 3.1 405B",
+          "description": "Modelo profesional de NVIDIA para tareas complejas",
+        },
+        "nvidia/llama-3.1-70b-instruct": {
+          "name": "Llama 3.1 70B",
+          "description": "Modelo balanceado de NVIDIA",
+        },
+        "nvidia/llama-3.1-8b-instruct": {
+          "name": "Llama 3.1 8B",
+          "description": "Modelo rapido de NVIDIA",
+        },
+        "nvidia/nemotron-4-340b-instruct": {
+          "name": "Nemotron 4 340B",
+          "description": "Modelo profesional de NVIDIA para codigo",
+        },
+        "nvidia/mixtral-8x7b-instruct": {
+          "name": "Mixtral 8x7B",
+          "description": "Modelo mixto de NVIDIA",
+        },
+        "nvidia/gemma-2-27b-it": {
+          "name": "Gemma 2 27B",
+          "description": "Modelo eficiente de NVIDIA",
+        },
+        "01-ai/yi-large": {
+          "name": "yi-large",
+          "description": "Auto-updated",
+        },
+        "adept/fuyu-8b": {
+          "name": "fuyu-8b",
+          "description": "Auto-updated",
+        },
+        "ai21labs/jamba-1.5-large-instruct": {
+          "name": "jamba-1.5-large-instruct",
+          "description": "Auto-updated",
+        },
+        "aisingapore/sea-lion-7b-instruct": {
+          "name": "sea-lion-7b-instruct",
+          "description": "Auto-updated",
+        },
+        "bigcode/starcoder2-15b": {
+          "name": "starcoder2-15b",
+          "description": "Auto-updated",
+        },
+        "databricks/dbrx-instruct": {
+          "name": "dbrx-instruct",
+          "description": "Auto-updated",
+        },
+        "deepseek-ai/deepseek-coder-6.7b-instruct": {
+          "name": "deepseek-coder-6.7b-instruct",
+          "description": "Auto-updated",
+        },
+        "google/codegemma-1.1-7b": {
+          "name": "codegemma-1.1-7b",
+          "description": "Auto-updated",
+        },
+        "google/codegemma-7b": {
+          "name": "codegemma-7b",
+          "description": "Auto-updated",
+        },
+        "google/deplot": {
+          "name": "deplot",
+          "description": "Auto-updated",
+        },
+      },
+    },
+    "meta": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Meta AI",
+      "options": {
+        "baseURL": "https://llama-api.meta.com/v1",
+      },
+      "models": {
+        "meta/llama-3.2-90b-vision-instruct": {
+          "name": "Llama 3.2 90B Vision",
+          "description": "Modelo multimodal de Meta para vision y texto",
+        },
+        "meta/llama-3.2-11b-vision-instruct": {
+          "name": "Llama 3.2 11B Vision",
+          "description": "Modelo multimodal ligero de Meta",
+        },
+        "meta/llama-3.1-405b-instruct": {
+          "name": "Llama 3.1 405B",
+          "description": "Modelo profesional de Meta",
+        },
+        "meta/llama-3.1-70b-instruct": {
+          "name": "Llama 3.1 70B",
+          "description": "Modelo balanceado de Meta",
+        },
+        "meta/muse": {
+          "name": "Muse",
+          "description": "Modelo generativo de Meta",
+        },
+      },
+    },
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1",
+      },
+      "models": {
+        "novacode:latest": {
+          "name": "NovaCode",
+        },
+        "novacode-code:latest": {
+          "name": "NovaCode Code",
+        },
+        "novacode-fast:latest": {
+          "name": "NovaCode Fast",
+        },
+      },
+    },
+    "custom": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "NovaCode Custom Models",
+      "options": {
+        "baseURL": "http://127.0.0.1:8000/v1",
+      },
+      "models": {
+        "novacode/multimodal-pro": {
+          "name": "multimodal-pro",
+          "description": "Installed",
+        },
+        "novacode/code-expert": {
+          "name": "code-expert",
+          "description": "Installed",
+        },
+        "novacode/vision-pro": {
+          "name": "vision-pro",
+          "description": "Installed",
+        },
+        "nvidia/llama-3.1-405b-instruct": {
+          "name": "llama-3.1-405b-instruct",
+          "description": "Installed",
+        },
+        "nvidia/llama-3.1-70b-instruct": {
+          "name": "llama-3.1-70b-instruct",
+          "description": "Installed",
+        },
+        "nvidia/llama-3.1-8b-instruct": {
+          "name": "llama-3.1-8b-instruct",
+          "description": "Installed",
+        },
+        "nvidia/nemotron-4-340b-instruct": {
+          "name": "nemotron-4-340b-instruct",
+          "description": "Installed",
+        },
+        "nvidia/mixtral-8x7b-instruct": {
+          "name": "mixtral-8x7b-instruct",
+          "description": "Installed",
+        },
+        "nvidia/gemma-2-27b-it": {
+          "name": "gemma-2-27b-it",
+          "description": "Installed",
+        },
+        "meta/llama-3.2-90b-vision-instruct": {
+          "name": "llama-3.2-90b-vision-instruct",
+          "description": "Installed",
+        },
+        "meta/llama-3.2-11b-vision-instruct": {
+          "name": "llama-3.2-11b-vision-instruct",
+          "description": "Installed",
+        },
+        "meta/llama-3.1-405b-instruct": {
+          "name": "llama-3.1-405b-instruct",
+          "description": "Installed",
+        },
+        "meta/llama-3.1-70b-instruct": {
+          "name": "llama-3.1-70b-instruct",
+          "description": "Installed",
+        },
+        "meta/muse": {
+          "name": "muse",
+          "description": "Installed",
+        },
+      },
+    },
+  },
+  "small_model": "ollama/novacode-fast:latest",
+  "models": {
+    "default": "nvidia/llama-3.1-70b-instruct",
+  },
+}
