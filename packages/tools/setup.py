@@ -376,7 +376,7 @@ exec -a novacode "$BIN" "$@"
     print("wrappers ready")
 
 
-def patch_novacode_ascii_logo(bin_path: Path) -> bool:
+def patch_novacode_ascii_banner(bin_path: Path) -> bool:
     if not bin_path.exists():
         return False
     data = bin_path.read_bytes()
@@ -436,7 +436,7 @@ def patch_engine() -> bool:
     target = LIBEXEC / "nova"
     if not target.exists():
         return False
-    return patch_novacode_ascii_logo(target)
+    return patch_novacode_ascii_banner(target)
 
 
 def main() -> int:

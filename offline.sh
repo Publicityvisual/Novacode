@@ -12,7 +12,7 @@ MODELS=(
     "novacode:coder"
     "novacode:architect"
     "novacode:tester"
-    "nexus-fast:latest"
+    "novacode:glimmer"
 )
 
 check_offline() {

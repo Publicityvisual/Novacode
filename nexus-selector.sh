@@ -84,13 +84,13 @@ case "$TASK" in
         MODEL="novacode:designer"
         ;;
     fast)
-        MODEL="nexus-fast:latest"
+        MODEL="novacode:glimmer"
         ;;
     general)
         MODEL="novacode:strategist"
         ;;
     *)
-        MODEL="nexus-think:latest"
+        MODEL="novacode:strategist"
         ;;
 esac
 

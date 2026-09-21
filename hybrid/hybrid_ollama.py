@@ -79,7 +79,7 @@ class HybridOllama:
 
     def _run_local(self, prompt: str, config: Dict) -> Dict:
         """Ejecuta modelo local"""
-        model = config.get("model", "nexus-think:latest")
+        model = config.get("model", "novacode:strategist")
 
         try:
             result = subprocess.run(

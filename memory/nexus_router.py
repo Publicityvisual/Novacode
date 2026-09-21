@@ -105,7 +105,7 @@ class NexusRouter:
                 quality_score=0.96
             ),
             TaskType.FAST: ModelRoute(
-                model_id="nexus-fast:latest",
+                model_id="novacode:glimmer",
                 task_type=TaskType.FAST,
                 priority=1,
                 parameters={
@@ -114,7 +114,7 @@ class NexusRouter:
                     "num_ctx": 8192,
                     "num_predict": 512
                 },
-                fallback="nexus-think:latest",
+                fallback="novacode:strategist",
                 estimated_speed="instant",
                 quality_score=0.85
             ),
@@ -128,7 +128,7 @@ class NexusRouter:
                     "num_ctx": 16384,
                     "num_predict": 1024
                 },
-                fallback="nexus-fast:latest",
+                fallback="novacode:glimmer",,
                 estimated_speed="fast",
                 quality_score=0.92
             ),
@@ -185,8 +185,7 @@ class NexusRouter:
             "novacode:architect",
             "novacode:tester",
             "novacode:omni",
-            "novacode:glimmer",
-            "nexus-fast:latest"
+            "novacode:glimmer"
         ]
     
     def classify_task(self, query: str, has_image: bool = False) -> TaskType:

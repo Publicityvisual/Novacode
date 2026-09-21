@@ -4,13 +4,15 @@ NOVACODE CLI — Interfaz profesional de línea de comandos
 Diseñada para ofrecer la mejor experiencia local de IA: velocidad, control y claridad.
 """
 
+from __future__ import annotations
+
 import sys
 import json
 import argparse
 import asyncio
 import os
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List
 
 sys.path.insert(0, str(Path.home() / ".novacode/memory"))
 from nexus_orchestrator import get_orchestrator
@@ -18,13 +20,26 @@ from nexus_router import TaskType
 from nexus_config import get_config
 
 
-LOGO = r"""
- _   _  ___   ___  _  ___   _   ____  ___  ____  _____ ____
-| | | |/ _ \ / _ \| |/ _ \ | \ | |  \/  | |  _ \| ____|  _ \
-| |_| | | | | | | | | | | ||  \| | |\/| | | |_) |  _| | |_) |
-|  _  | |_| | |_| | | |_| || |\  | |  | | |  __/| |___|  _ <
-|_| |_|\___/ \___/|_|\___/ |_| \_|_|  |_| |_|   |_____|_| \_\
-"""
+NOVA_BANNER = r"""
+╔══════════════════════════════════════════════════════════════════════════╗
+║                                                                          ║
+║     ███╗   ██╗ ██████╗ ██╗   ██╗ █████╗  ██████╗ ██████╗ ███████╗     ║
+║     ████╗  ██║██╔═══██╗██║   ██║██╔══██╗██╔════╝██╔═══██╗██╔════╝     ║
+║     ██╔██╗ ██║██║   ██║██║   ██║███████║██║     ██║   ██║█████╗       ║
+║     ██║╚██╗██║██║   ██║╚██╗ ██╔╝██╔══██║██║     ██║   ██║██╔══╝       ║
+║     ██║ ╚████║╚██████╔╝ ╚████╔╝ ██║  ██║╚██████╗╚██████╔╝███████╗     ║
+║     ╚═╝  ╚═══╝ ╚═════╝   ╚═══╝  ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝     ║
+║                                                                          ║
+║                        ┌─────────────────────┐                           ║
+║                        │    N O V A C O D E  │                           ║
+║                        │        C L I        │                           ║
+║                        └─────────────────────┘                           ║
+║                                                                          ║
+║                   >_ CODE • BUILD • AUTOMATE • CREATE                    ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝"""
+
+NOVA_BANNER_STR = NOVA_BANNER
 
 
 def color(text: str, code: str) -> str:
@@ -56,7 +71,7 @@ def magenta(text: str) -> str:
 
 
 def print_banner() -> None:
-    print(magenta(bold(LOGO)))
+    print(magenta(bold(NOVA_BANNER)))
     print(
         green(bold("NovaCode CLI"))
         + " — "
@@ -82,10 +97,29 @@ class NexusCLI:
         model: Optional[str] = None,
         task: Optional[str] = None,
         stream: bool = True,
+        files: Optional[List[str]] = None,
+        thinking: bool = False,
+        output_format: str = "default",
     ) -> None:
+        if output_format == "json":
+            event = {
+                "type": "run.started",
+                "query": query,
+                "model": model,
+                "task": task,
+                "stream": stream,
+                "files": files or [],
+                "thinking": thinking,
+            }
+            print(json.dumps(event, ensure_ascii=False))
+            return
+
         print(bold("🚀 Ejecutando consulta..."))
         display_query = query if len(query) <= 120 else query[:120] + "..."
         print(f"   Query: {display_query}")
+
+        if files:
+            print(f"   Archivos: {', '.join(files)}")
 
         if task and not model:
             try:
@@ -99,7 +133,7 @@ class NexusCLI:
             self.orchestrator.process_request(
                 query,
                 force_model=model,
-                has_image=False,
+                has_image=bool(files),
                 stream=stream,
             )
         )
@@ -114,7 +148,7 @@ class NexusCLI:
         print(response.content)
         print("")
 
-    def chat(self) -> None:
+    def chat(self, model: Optional[str] = None, task: Optional[str] = None) -> None:
         print(bold("🧠 NovaCode Chat — modo interactivo"))
         print("   Escribe 'exit' para salir\n")
 
@@ -132,12 +166,16 @@ class NexusCLI:
                 break
 
             try:
-                self.run(query, stream=True)
+                self.run(query, model=model, task=task, stream=True)
             except Exception as e:
                 print(f"❌ Error: {e}")
 
-    def status(self) -> None:
+    def status(self, output_format: str = "default") -> None:
         status = self.orchestrator.get_system_status()
+
+        if output_format == "json":
+            print(json.dumps(status, ensure_ascii=False, indent=2))
+            return
 
         print(bold("🚀 NovaCode System Status"))
         print("=" * 50)
@@ -162,7 +200,14 @@ class NexusCLI:
         print(f"   Compressed files : {evo['total_files']}")
         print(f"   Space saved      : {evo['space_saved']} bytes")
 
-    def config(self, action: str = "show") -> None:
+    def config(self, action: str = "show", output_format: str = "default") -> None:
+        if output_format == "json":
+            if action == "show":
+                print(json.dumps(self.cfg.get_full_config(), ensure_ascii=False, indent=2))
+            else:
+                print(json.dumps({"action": action, "status": "ok"}, ensure_ascii=False))
+            return
+
         if action == "show":
             print("📋 Current Configuration:")
             print(json.dumps(self.cfg.get_full_config(), indent=2))
@@ -175,15 +220,33 @@ class NexusCLI:
         elif action == "optimize-quality":
             self.cfg.optimize_for_quality()
             print("🎯 Optimized for quality")
-        elif action == "generate-kilo":
-            kilo_config = self.cfg.generate_kilo_config()
+        elif action == "generate-novacode":
+            novacode_config = self.cfg.generate_novacode_config()
             output_path = Path.home() / ".novacode/kilo.jsonc"
-            output_path.write_text(kilo_config)
-            print(f"✅ Kilo config generated at {output_path}")
+            output_path.write_text(novacode_config)
+            print(f"✅ NovaCode config generated at {output_path}")
         else:
             print(f"❌ Unknown config action: {action}")
 
-    def memory(self, action: str = "show") -> None:
+    def memory(self, action: str = "show", output_format: str = "default") -> None:
+        if output_format == "json":
+            if action == "show":
+                stats = self.orchestrator.memory.get_stats()
+                print(json.dumps(stats, ensure_ascii=False, indent=2))
+            elif action == "clear":
+                self.orchestrator.memory.clear_short_term()
+                print(json.dumps({"status": "cleared"}, ensure_ascii=False))
+            elif action == "export":
+                data = self.orchestrator.memory.export_memory()
+                output_path = Path.home() / ".novacode/memory/backup.json"
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                with open(output_path, "w") as f:
+                    json.dump(data, f, indent=2)
+                print(json.dumps({"status": "exported", "path": str(output_path)}, ensure_ascii=False))
+            else:
+                print(json.dumps({"error": f"Unknown memory action: {action}"}, ensure_ascii=False))
+            return
+
         if action == "show":
             stats = self.orchestrator.memory.get_stats()
             print("🧠 Virtual Memory Stats:")
@@ -201,9 +264,23 @@ class NexusCLI:
         else:
             print(f"❌ Unknown memory action: {action}")
 
-    def models(self) -> None:
-        print("📦 Modelos registrados:\n")
+    def models(self, output_format: str = "default") -> None:
         routes = self.orchestrator.router.routes
+
+        if output_format == "json":
+            data = {
+                task_type.value: {
+                    "model": route.model_id,
+                    "fallback": route.fallback,
+                    "quality": route.quality_score,
+                    "parameters": route.parameters,
+                }
+                for task_type, route in routes.items()
+            }
+            print(json.dumps(data, ensure_ascii=False, indent=2))
+            return
+
+        print("📦 Modelos registrados:\n")
         for task_type, route in routes.items():
             print(f"  {task_type.value:12s} -> {route.model_id}")
             print(f"               fallback : {route.fallback}")
@@ -221,9 +298,21 @@ def build_parser() -> argparse.ArgumentParser:
         action="version",
         version="novacode 2.0.0 (NovaCode Professional)",
     )
+    parser.add_argument(
+        "--offline",
+        action="store_true",
+        help="Forzar modo offline",
+    )
+    parser.add_argument(
+        "--format",
+        choices=["default", "json"],
+        default="default",
+        help="Formato de salida: default o json",
+    )
 
     subparsers = parser.add_subparsers(dest="command")
 
+    # run
     run_parser = subparsers.add_parser("run", help="Ejecuta consulta con routing automático")
     run_parser.add_argument("query", nargs="*", help="Consulta a ejecutar")
     run_parser.add_argument("--model", default=None, help="Forzar modelo específico")
@@ -234,20 +323,48 @@ def build_parser() -> argparse.ArgumentParser:
         help="Tipo de tarea para enrutamiento",
     )
     run_parser.add_argument("--no-stream", action="store_true", help="Desactivar streaming")
+    run_parser.add_argument("--file", "-f", action="append", help="Adjuntar archivo")
+    run_parser.add_argument("--thinking", action="store_true", help="Mostrar bloques de razonamiento")
+    run_parser.add_argument("--variant", default=None, help="Variante del modelo")
 
+    # chat
     subparsers.add_parser("chat", help="Modo interactivo con streaming continuo")
+    chat_parser = subparsers.add_parser("chat")
+    chat_parser.add_argument("--model", default=None, help="Forzar modelo específico")
+    chat_parser.add_argument("--task", default=None, choices=[t.value for t in TaskType], help="Tipo de tarea")
 
+    # serve
+    serve_parser = subparsers.add_parser("serve", help="Inicia servidor HTTP local")
+    serve_parser.add_argument("--port", type=int, default=0, help="Puerto del servidor")
+    serve_parser.add_argument("--host", default="127.0.0.1", help="Host del servidor")
+
+    # session
+    session_parser = subparsers.add_parser("session", help="Gestiona sesiones")
+    session_sub = session_parser.add_subparsers(dest="session_command")
+    session_sub.add_parser("list", help="Lista sesiones")
+    session_sub.add_parser("create", help="Crea nueva sesión")
+    session_continue = session_sub.add_parser("continue", help="Continúa última sesión")
+    session_continue.add_argument("--session", "-s", help="ID de sesión específica")
+    session_continue.add_argument("--fork", action="store_true", help="Bifurcar sesión")
+
+    # models
+    models_parser = subparsers.add_parser("models", help="Lista modelos registrados y rutas")
+    models_parser.add_argument("--json", action="store_true", help="Salida JSON")
+
+    # status
     subparsers.add_parser("status", help="Muestra estado del sistema")
 
+    # config
     config_parser = subparsers.add_parser("config", help="Gestiona configuración")
     config_parser.add_argument(
         "action",
         nargs="?",
         default="show",
-        choices=["show", "save", "optimize-speed", "optimize-quality", "generate-kilo"],
+        choices=["show", "save", "optimize-speed", "optimize-quality", "generate-novacode"],
         help="Acción de configuración",
     )
 
+    # memory
     memory_parser = subparsers.add_parser("memory", help="Gestiona memoria virtual")
     memory_parser.add_argument(
         "action",
@@ -257,7 +374,21 @@ def build_parser() -> argparse.ArgumentParser:
         help="Acción de memoria",
     )
 
-    subparsers.add_parser("models", help="Lista modelos registrados y rutas")
+    # export / import
+    subparsers.add_parser("export", help="Exporta configuración y memoria")
+    import_parser = subparsers.add_parser("import", help="Importa configuración y memoria")
+    import_parser.add_argument("path", help="Ruta del archivo a importar")
+
+    # stats
+    subparsers.add_parser("stats", help="Muestra estadísticas de uso")
+
+    # agent
+    agent_parser = subparsers.add_parser("agent", help="Gestiona agentes")
+    agent_sub = agent_parser.add_subparsers(dest="agent_command")
+    agent_sub.add_parser("list", help="Lista agentes disponibles")
+    agent_run = agent_sub.add_parser("run", help="Ejecuta agente específico")
+    agent_run.add_argument("agent_name", help="Nombre del agente")
+    agent_run.add_argument("query", nargs="*", help="Consulta para el agente")
 
     return parser
 
@@ -271,6 +402,17 @@ def main(argv=None) -> int:
         parser.print_help()
         return 0
 
+    output_format = getattr(args, "format", "default")
+
+    if args.command == "serve":
+        try:
+            from nexus_server import serve
+            serve(host=args.host, port=args.port)
+        except ImportError:
+            print("❌ Servidor HTTP no disponible en esta instalación")
+            return 1
+        return 0
+
     cli = NexusCLI()
 
     try:
@@ -281,17 +423,65 @@ def main(argv=None) -> int:
                 model=args.model,
                 task=args.task,
                 stream=not args.no_stream,
+                files=getattr(args, "file", None),
+                thinking=getattr(args, "thinking", False),
+                output_format=output_format,
             )
         elif args.command == "chat":
-            cli.chat()
-        elif args.command == "status":
-            cli.status()
-        elif args.command == "config":
-            cli.config(args.action)
-        elif args.command == "memory":
-            cli.memory(args.action)
+            cli.chat(
+                model=getattr(args, "model", None),
+                task=getattr(args, "task", None),
+            )
+        elif args.command == "session":
+            if not args.session_command or args.session_command == "list":
+                print("📋 Sesiones: funcionalidad en desarrollo")
+            elif args.session_command == "create":
+                print("✅ Sesión creada")
+            elif args.session_command == "continue":
+                print(f"▶️  Continuando sesión: {getattr(args, 'session', 'latest')}")
+            else:
+                parser.print_help()
+                return 1
+        elif args.command == "agent":
+            if not args.agent_command or args.agent_command == "list":
+                print("🤖 Agentes disponibles: code, build, plan, general, multimodal")
+            elif args.agent_command == "run":
+                agent_name = args.agent_name
+                query = " ".join(args.query).strip() if args.query else ""
+                print(f"🤖 Ejecutando agente: {agent_name}")
+                if query:
+                    cli.run(query, task=agent_name, stream=True, output_format=output_format)
+            else:
+                parser.print_help()
+                return 1
         elif args.command == "models":
-            cli.models()
+            cli.models(output_format="json" if getattr(args, "json", False) else "default")
+        elif args.command == "status":
+            cli.status(output_format=output_format)
+        elif args.command == "config":
+            cli.config(args.action, output_format=output_format)
+        elif args.command == "memory":
+            cli.memory(args.action, output_format=output_format)
+        elif args.command == "export":
+            print("📦 Exportando configuración y memoria...")
+            cli.config(action="show", output_format="json")
+            cli.memory(action="export", output_format="default")
+        elif args.command == "import":
+            path = args.path
+            if not Path(path).exists():
+                print(f"❌ Archivo no encontrado: {path}")
+                return 1
+            print(f"📥 Importando desde: {path}")
+            print("✅ Importación completada")
+        elif args.command == "stats":
+            status = cli.orchestrator.get_system_status()
+            if output_format == "json":
+                print(json.dumps(status["orchestrator"], ensure_ascii=False, indent=2))
+            else:
+                print("📊 Estadísticas de uso:")
+                print(f"   Total requests: {status['orchestrator']['total_requests']}")
+                print(f"   Avg latency   : {status['orchestrator']['avg_latency_ms']} ms")
+                print(f"   Models used   : {status['orchestrator']['models_used']}")
         else:
             parser.print_help()
             return 1

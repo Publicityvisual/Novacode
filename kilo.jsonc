@@ -20,11 +20,11 @@
   "ollama": {
     "base_url": "http://localhost:11434",
     "default_model": "novacode:strategist",
-    "fallback_model": "nexus-think:latest",
+    "fallback_model": "novacode:strategist",
     "models": {
       "supreme": "novacode:strategist",
       "code": "novacode:coder",
-      "fast": "nexus-fast:latest",
+      "fast": "novacode:glimmer",
       "vision": "novacode:designer",
       "thinking": "novacode:strategist"
     }

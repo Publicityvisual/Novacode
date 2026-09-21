@@ -1098,13 +1098,13 @@ class Renderer:
         mode_col = mode_colors.get(mode, theme.fg)
 
         # Build segments
-        logo = f"{ANSI.bold()}{ANSI.fg(theme.accent[0], theme.accent[1], theme.accent[2])}NOVACODE{ANSI.reset()}"
+        banner = f"{ANSI.bold()}{ANSI.fg(theme.accent[0], theme.accent[1], theme.accent[2])}NOVACODE{ANSI.reset()}"
         model_seg = f"{ANSI.fg(theme.muted[0], theme.muted[1], theme.muted[2])}│{ANSI.reset()} {ANSI.fg(theme.fg[0], theme.fg[1], theme.fg[2])}{model}{ANSI.reset()}"
         mode_seg = f"{ANSI.fg(theme.muted[0], theme.muted[1], theme.muted[2])}│{ANSI.reset()} {ANSI.fg(mode_col[0], mode_col[1], mode_col[2])}{mode.upper()}{ANSI.reset()}"
         token_seg = f"{ANSI.fg(theme.muted[0], theme.muted[1], theme.muted[2])}│{ANSI.reset()} {ANSI.fg(theme.success[0], theme.success[1], theme.success[2])}tokens:{tokens}{ANSI.reset()}"
         time_seg = f"{ANSI.fg(theme.muted[0], theme.muted[1], theme.muted[2])}│{ANSI.reset()} {ANSI.fg(theme.warning[0], theme.warning[1], theme.warning[2])}{elapsed:.0f}s{ANSI.reset()}"
 
-        segments = [logo, model_seg, mode_seg, token_seg, time_seg]
+        segments = [banner, model_seg, mode_seg, token_seg, time_seg]
         content = " ".join(segments)
 
         # Pad and add background

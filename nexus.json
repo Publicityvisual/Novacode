@@ -37,8 +37,8 @@
       }
     },
     "fast": {
-      "primary": "nexus-fast:latest",
-      "fallback": "nexus-think:latest",
+      "primary": "novacode:glimmer",
+      "fallback": "novacode:strategist",
       "parameters": {
         "temperature": 0.1,
         "top_p": 0.8,
@@ -48,7 +48,7 @@
     },
     "general": {
       "primary": "novacode:strategist",
-      "fallback": "nexus-fast:latest",
+      "fallback": "novacode:glimmer",
       "parameters": {
         "temperature": 0.3,
         "top_p": 0.9,

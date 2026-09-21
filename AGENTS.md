@@ -11,7 +11,7 @@ Use this file to override or extend the default agent behavior for this project.
 - Default to action: implement, refactor, debug, and deliver runnable outputs.
 
 ## Model Resolution
-- Default model: `nexus-think:latest` (local Ollama).
+- Default model: `novacode:strategist` (local Ollama).
 - Stack 100% offline: modelos propios `novacode-*` en Ollama.
 - Proveedores API (Nvidia/Anthropic) deshabilitados por defecto; habilitar en `providers.json` si se obtienen keys válidas.
 

@@ -43,7 +43,7 @@
       "quality_score": 0.96
     },
     "fast": {
-      "model_id": "nexus-fast:latest",
+      "model_id": "novacode:glimmer",
       "task_type": "fast",
       "priority": 1,
       "parameters": {
@@ -52,7 +52,7 @@
         "num_ctx": 8192,
         "num_predict": 512
       },
-      "fallback": "nexus-think:latest",
+      "fallback": "novacode:strategist",
       "estimated_speed": "fast",
       "quality_score": 0.9
     },
@@ -66,7 +66,7 @@
         "num_ctx": 16384,
         "num_predict": 1024
       },
-      "fallback": "nexus-fast:latest",
+      "fallback": "novacode:glimmer",
       "estimated_speed": "fast",
       "quality_score": 0.92
     },

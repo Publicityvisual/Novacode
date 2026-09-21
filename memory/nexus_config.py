@@ -25,7 +25,7 @@ class NexusConfig:
             "models": {
                 "multimodal": {
                     "primary": "novacode:omni",
-                    "fallback": "nexus-vision:latest",
+                    "fallback": "novacode:omni",
                     "parameters": {
                         "temperature": 0.2,
                         "top_p": 0.85,
@@ -35,7 +35,7 @@ class NexusConfig:
                 },
                 "code": {
                     "primary": "novacode:coder",
-                    "fallback": "nexus-code:latest",
+                    "fallback": "novacode:coder",
                     "parameters": {
                         "temperature": 0.15,
                         "top_p": 0.85,
@@ -45,7 +45,7 @@ class NexusConfig:
                 },
                 "thinking": {
                     "primary": "novacode:strategist",
-                    "fallback": "nexus-think:latest",
+                    "fallback": "novacode:strategist",
                     "parameters": {
                         "temperature": 0.1,
                         "top_p": 0.9,
@@ -54,8 +54,8 @@ class NexusConfig:
                     }
                 },
                 "fast": {
-                    "primary": "nexus-fast:latest",
-                    "fallback": "nexus-think:latest",
+                    "primary": "novacode:glimmer",
+                    "fallback": "novacode:strategist",
                     "parameters": {
                         "temperature": 0.1,
                         "top_p": 0.8,
@@ -64,8 +64,8 @@ class NexusConfig:
                     }
                 },
                 "general": {
-                    "primary": "nexus-think:latest",
-                    "fallback": "nexus-fast:latest",
+                    "primary": "novacode:strategist",
+                    "fallback": "novacode:strategist",
                     "parameters": {
                         "temperature": 0.3,
                         "top_p": 0.9,
@@ -200,8 +200,8 @@ class NexusConfig:
         """Optimiza configuración para calidad máxima"""
         if "general" not in self.config.get("models", {}):
             self.config.setdefault("models", {})["general"] = {
-                "primary": "nexus-think:latest",
-                "fallback": "nexus-fast:latest",
+                "primary": "novacode:strategist",
+                "fallback": "novacode:glimmer",
                 "parameters": {}
             }
         self.config["models"]["general"]["parameters"].update({
@@ -220,7 +220,7 @@ class NexusConfig:
         """Genera configuración para NovaCode"""
         models = self.config.get("models", {})
         default_model = models.get("thinking", {}).get("primary",
-                                                        "nexus-think:latest")
+                                                        "novacode:strategist")
 
         novacode_config = {
             "$schema": "https://app.novacode.ai/config.json",

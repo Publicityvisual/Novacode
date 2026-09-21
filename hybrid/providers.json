@@ -10,7 +10,7 @@
         "vision": "novacode:glimmer",
         "muse": "novacode:designer",
         "code": "novacode:coder",
-        "fast": "nexus-fast:latest",
+        "fast": "novacode:glimmer",
         "general": "novacode:strategist",
         "thinking": "novacode:strategist",
         "analysis": "novacode:strategist",
