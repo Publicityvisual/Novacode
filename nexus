@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 NOVACODE CLI — Interfaz profesional de línea de comandos
-Diseñada para superar a OpenCode/KiloCode en velocidad, control y claridad.
+Diseñada para ofrecer la mejor experiencia local de IA: velocidad, control y claridad.
 """
 
 import sys
