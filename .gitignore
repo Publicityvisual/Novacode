@@ -27,3 +27,4 @@ ENV/
 *.db-journal
 *.db-wal
 *.db-shm
+bin/kilo
