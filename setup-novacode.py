@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""NovaCode Multi-Modal Ultra-Fast Unrestricted Engine Configuration."""
+"""NovaCode Modern Setup — configuración profesional multiplataforma."""
 from __future__ import annotations
 
 import json
@@ -14,23 +14,25 @@ SHARE = HOME / ".local" / "share" / "novacode"
 BIN_DIR = HOME / ".local" / "bin"
 CONFIG_NC = HOME / ".config" / "novacode"
 
+
 def get_key(env_var: str, default_path: str = "") -> str:
     key = os.environ.get(env_var, "").strip()
     if key:
         return key
-    auth_file = Path.home() / ".local" / "share" / "novacode" / "auth.json"
+    auth_file = HOME / ".local" / "share" / "novacode" / "auth.json"
     if auth_file.exists():
         try:
             data = json.loads(auth_file.read_text())
             for k in ["novacode", "nvidia", "openrouter"]:
                 if k in data and data[k].get("key"):
-                    if env_var == "NVIDIA_API_KEY" and "nvapi" in data[k]["key"]:
+                    if env_var == "NVIDIA_API_KEY" and data[k]["key"].startswith("nvapi"):
                         return data[k]["key"]
-                    if env_var == "OPENROUTER_API_KEY" and "sk-or" in data[k]["key"]:
+                    if env_var == "OPENROUTER_API_KEY" and data[k]["key"].startswith("sk-or"):
                         return data[k]["key"]
         except Exception:
             pass
     return ""
+
 
 NVIDIA_KEY = get_key("NVIDIA_API_KEY")
 OPENROUTER_KEY = get_key("OPENROUTER_API_KEY")
@@ -87,11 +89,6 @@ CLEAN_MODELS = {
         "id": "nvidia/nemotron-3-nano-30b-a3b",
         "name": "NovaCode Lite Ultra-Fast (64K)",
         "limit": {"context": 65536, "output": 8192},
-    },
-    "uncensored": {
-        "id": "novacode-uncensored",
-        "name": "NovaCode Unrestricted Local Abliterated (32K)",
-        "limit": {"context": 32768, "output": 4096},
     },
     "omni": {
         "id": "meta/llama-3.2-90b-vision-instruct",
@@ -319,7 +316,6 @@ def write_configs() -> None:
         json.dump(cfg, f, indent=2, ensure_ascii=False)
     print(f"\033[32m✓ Configuración de NovaCode escrita en:\033[0m {target}")
 
-    # Write auth.json
     auth_data = {
         "novacode": {"type": "api", "key": NVIDIA_KEY},
         "nvidia": {"type": "api", "key": NVIDIA_KEY},
@@ -328,7 +324,6 @@ def write_configs() -> None:
     }
     for auth_path in [
         HOME / ".local" / "share" / "novacode" / "auth.json",
-        
     ]:
         auth_path.parent.mkdir(parents=True, exist_ok=True)
         with open(auth_path, "w", encoding="utf-8") as f:

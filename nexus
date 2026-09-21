@@ -299,10 +299,14 @@ def main(argv=None) -> int:
         return 0
 
     except KeyboardInterrupt:
-        print("\n⚠️  Interrumpido por usuario")
+        print("\n⚠️  Ejecución interrumpida por el usuario")
         return 130
+    except ConnectionRefusedError:
+        print("❌ Error: no se pudo conectar con Ollama.")
+        print("   Inicia el servicio con: brew services start ollama")
+        return 1
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"❌ Error inesperado: {e}")
         return 1
 
 

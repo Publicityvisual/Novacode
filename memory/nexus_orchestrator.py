@@ -227,9 +227,15 @@ class NexusOrchestrator:
                 return data.get("response", "").strip()
 
         except urllib.error.HTTPError as e:
-            return f"[NEXUS ERROR] HTTP {e.code}: {e.reason}"
+            return f"[NovaCode ERROR] HTTP {e.code}: {e.reason}"
+        except ConnectionRefusedError:
+            return (
+                "[NovaCode ERROR] No se pudo conectar con Ollama en "
+                "http://localhost:11434. Inicia el servicio con: "
+                "brew services start ollama"
+            )
         except Exception as e:
-            return f"[NEXUS ERROR] {e}"
+            return f"[NovaCode ERROR] {e}"
     
     def _update_stats(self, model_id: str, latency: float):
         """Actualiza estadísticas del sistema"""

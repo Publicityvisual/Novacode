@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=70.0", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "novacode"
+version = "2.1.0"
+description = "NovaCode Local CLI — offline-first, multimodal, memoria virtual"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+authors = [{name = "NovaCode", email = "publicityvisualofficial@gmail.com"}]
+keywords = ["cli", "ollama", "multimodal", "memory", "routing"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: MacOS :: MacOS X",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.11"
+
+dependencies = [
+    "httpx>=0.28.0",
+    "aiohttp>=3.11.0",
+    "requests>=2.32.0",
+    "pydantic>=2.10.0",
+    "orjson>=3.11.0",
+    "pyyaml>=6.0.2",
+    "rich>=13.9.0",
+    "prompt_toolkit>=3.0.50",
+    "psutil>=6.1.0",
+    "tqdm>=4.67.0",
+    "fastapi>=0.115.0",
+    "uvicorn>=0.32.0",
+    "websockets>=14.0",
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.4.0",
+    "isort>=5.13.0",
+    "mypy>=1.10.0",
+    "flake8>=7.1.0",
+    "coverage>=7.5.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/Publicityvisual/Novacode"
+Repository = "https://github.com/Publicityvisual/Novacode.git"
+Issues = "https://github.com/Publicityvisual/Novacode/issues"
+
+[project.scripts]
+novacode = "nexus:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nexus*", "memory*", "hybrid*", "consciousness*"]
+
+[tool.black]
+line-length = 88
+target-version = ["py311", "py312", "py313"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["."]
+omit = ["tests/*", "setup.py"]

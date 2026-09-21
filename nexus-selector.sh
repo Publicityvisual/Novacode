@@ -6,8 +6,8 @@
 PROMPT="$*"
 
 if [ -z "$PROMPT" ]; then
-    echo "❌ Debes proporcionar un prompt"
-    echo "Uso: ./nexus-selector.sh 'tu prompt aquí'"
+    echo "❌ Error: debes proporcionar un prompt."
+    echo "Uso: $0 'tu prompt aquí'"
     exit 1
 fi
 
@@ -98,4 +98,9 @@ echo "🎯 Tarea detectada: $TASK"
 echo "📦 Modelo seleccionado: $MODEL"
 echo ""
 
-ollama run "$MODEL" "$PROMPT"
+if ! command -v ollama >/dev/null 2>&1; then
+    echo "❌ Error: 'ollama' no está instalado o no está en el PATH."
+    exit 1
+fi
+
+echo "$PROMPT" | ollama run "$MODEL"
