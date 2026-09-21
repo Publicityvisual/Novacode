@@ -1,0 +1,126 @@
+{
+  "models": {
+    "multimodal": {
+      "primary": "novacode:omni",
+      "fallback": "novacode:glimmer",
+      "parameters": {
+        "temperature": 0.2,
+        "top_p": 0.9,
+        "num_ctx": 24576,
+        "num_predict": 4096,
+        "repeat_penalty": 1.05,
+        "top_k": 40
+      }
+    },
+    "code": {
+      "primary": "novacode:coder",
+      "fallback": "novacode:coder",
+      "parameters": {
+        "temperature": 0.15,
+        "top_p": 0.85,
+        "num_ctx": 32768,
+        "num_predict": 8192,
+        "repeat_penalty": 1.02,
+        "top_k": 40
+      }
+    },
+    "thinking": {
+      "primary": "novacode:strategist",
+      "fallback": "novacode:strategist",
+      "parameters": {
+        "temperature": 0.1,
+        "top_p": 0.9,
+        "num_ctx": 32768,
+        "num_predict": 8192,
+        "repeat_penalty": 1.03,
+        "top_k": 50
+      }
+    },
+    "fast": {
+      "primary": "nexus-fast:latest",
+      "fallback": "nexus-think:latest",
+      "parameters": {
+        "temperature": 0.1,
+        "top_p": 0.8,
+        "num_ctx": 8192,
+        "num_predict": 512
+      }
+    },
+    "general": {
+      "primary": "novacode:strategist",
+      "fallback": "nexus-fast:latest",
+      "parameters": {
+        "temperature": 0.3,
+        "top_p": 0.9,
+        "num_ctx": 32768,
+        "num_predict": 4096
+      }
+    },
+    "analysis": {
+      "primary": "novacode:strategist",
+      "fallback": "novacode:strategist",
+      "parameters": {
+        "temperature": 0.1,
+        "top_p": 0.9,
+        "num_ctx": 32768,
+        "num_predict": 8192,
+        "repeat_penalty": 1.03,
+        "top_k": 50
+      }
+    },
+    "creative": {
+      "primary": "novacode:designer",
+      "fallback": "novacode:designer",
+      "parameters": {
+        "temperature": 0.35,
+        "top_p": 0.9,
+        "num_ctx": 32768,
+        "num_predict": 4096,
+        "repeat_penalty": 1.05,
+        "top_k": 50
+      }
+    },
+    "technical": {
+      "primary": "novacode:architect",
+      "fallback": "novacode:architect",
+      "parameters": {
+        "temperature": 0.15,
+        "top_p": 0.85,
+        "num_ctx": 32768,
+        "num_predict": 8192,
+        "repeat_penalty": 1.02,
+        "top_k": 40
+      }
+    }
+  },
+  "memory": {
+    "virtual_memory_enabled": true,
+    "max_short_term_fragments": 100,
+    "compression_threshold": 50,
+    "context_window_size": 10,
+    "auto_compress": true,
+    "semantic_indexing": true,
+    "persistence_path": "/Users/djkoveck/.novacode/memory"
+  },
+  "performance": {
+    "max_concurrent_requests": 20,
+    "gpu_layers": 20,
+    "flash_attention": true,
+    "batch_size": 1024,
+    "threads": "auto",
+    "memory_buffer": "2GB"
+  },
+  "routing": {
+    "auto_detect_task": true,
+    "fallback_enabled": true,
+    "performance_tracking": true,
+    "cache_routes": true
+  },
+  "ollama": {
+    "max_loaded_models": 2,
+    "default_num_ctx": 32768,
+    "num_gpu": 20,
+    "flash_attention": true,
+    "tensor_split": "auto"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "routes": {
+    "multimodal": {
+      "model_id": "novacode:omni",
+      "task_type": "multimodal",
+      "priority": 1,
+      "parameters": {
+        "temperature": 0.2,
+        "top_p": 0.9,
+        "num_ctx": 24576,
+        "num_predict": 4096
+      },
+      "fallback": "novacode:glimmer",
+      "estimated_speed": "fast",
+      "quality_score": 0.97
+    },
+    "code": {
+      "model_id": "novacode:coder",
+      "task_type": "code",
+      "priority": 1,
+      "parameters": {
+        "temperature": 0.15,
+        "top_p": 0.85,
+        "num_ctx": 32768,
+        "num_predict": 8192
+      },
+      "fallback": "novacode:coder",
+      "estimated_speed": "fast",
+      "quality_score": 0.96
+    },
+    "thinking": {
+      "model_id": "novacode:strategist",
+      "task_type": "thinking",
+      "priority": 1,
+      "parameters": {
+        "temperature": 0.1,
+        "top_p": 0.9,
+        "num_ctx": 32768,
+        "num_predict": 8192
+      },
+      "fallback": "novacode:strategist",
+      "estimated_speed": "fast",
+      "quality_score": 0.96
+    },
+    "fast": {
+      "model_id": "nexus-fast:latest",
+      "task_type": "fast",
+      "priority": 1,
+      "parameters": {
+        "temperature": 0.1,
+        "top_p": 0.8,
+        "num_ctx": 8192,
+        "num_predict": 512
+      },
+      "fallback": "nexus-think:latest",
+      "estimated_speed": "fast",
+      "quality_score": 0.9
+    },
+    "general": {
+      "model_id": "novacode:strategist",
+      "task_type": "general",
+      "priority": 1,
+      "parameters": {
+        "temperature": 0.3,
+        "top_p": 0.85,
+        "num_ctx": 16384,
+        "num_predict": 1024
+      },
+      "fallback": "nexus-fast:latest",
+      "estimated_speed": "fast",
+      "quality_score": 0.92
+    },
+    "analysis": {
+      "model_id": "novacode:strategist",
+      "task_type": "analysis",
+      "priority": 1,
+      "parameters": {
+        "temperature": 0.1,
+        "top_p": 0.9,
+        "num_ctx": 32768,
+        "num_predict": 8192
+      },
+      "fallback": "novacode:strategist",
+      "estimated_speed": "fast",
+      "quality_score": 0.96
+    },
+    "creative": {
+      "model_id": "novacode:designer",
+      "task_type": "creative",
+      "priority": 1,
+      "parameters": {
+        "temperature": 0.35,
+        "top_p": 0.9,
+        "num_ctx": 32768,
+        "num_predict": 4096
+      },
+      "fallback": "novacode:designer",
+      "estimated_speed": "fast",
+      "quality_score": 0.92
+    },
+    "technical": {
+      "model_id": "novacode:architect",
+      "task_type": "technical",
+      "priority": 1,
+      "parameters": {
+        "temperature": 0.15,
+        "top_p": 0.85,
+        "num_ctx": 32768,
+        "num_predict": 8192
+      },
+      "fallback": "novacode:architect",
+      "estimated_speed": "fast",
+      "quality_score": 0.96
+    }
+  }
+}

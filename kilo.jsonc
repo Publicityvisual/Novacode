@@ -1,0 +1,43 @@
+{
+  "$schema": "https://app.novacode.ai/config.json",
+  "model": "novacode:strategist",
+  "username": "djkoveck",
+  "default_agent": "code",
+  "instructions": ["/Users/djkoveck/.novacode/AGENTS.md"],
+  "permission": {"*": "allow"},
+  "mcp": {
+    "filesystem": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-filesystem", "/Users/djkoveck/Projects", "/Users/djkoveck/Developer", "/Users/djkoveck/clones", "/Users/djkoveck"],
+      "enabled": true
+    },
+    "git": {
+      "type": "local",
+      "command": ["pipx", "run", "mcp-server-git"],
+      "enabled": true
+    }
+  },
+  "ollama": {
+    "base_url": "http://localhost:11434",
+    "default_model": "novacode:strategist",
+    "fallback_model": "nexus-think:latest",
+    "models": {
+      "supreme": "novacode:strategist",
+      "code": "novacode:coder",
+      "fast": "nexus-fast:latest",
+      "vision": "novacode:designer",
+      "thinking": "novacode:strategist"
+    }
+  },
+  "memory": {
+    "enabled": true,
+    "path": "/Users/djkoveck/.novacode/memory",
+    "virtual_memory": true
+  },
+  "consciousness": {
+    "enabled": true,
+    "path": "/Users/djkoveck/.novacode/consciousness",
+    "principles": true,
+    "ethical_mode": true
+  }
+}

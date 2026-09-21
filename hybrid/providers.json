@@ -1,0 +1,50 @@
+{
+  "providers": {
+    "ollama_local": {
+      "enabled": true,
+      "type": "local",
+      "url": "http://localhost:11434",
+      "priority": 1,
+      "models": {
+        "multimodal": "novacode:omni",
+        "vision": "novacode:glimmer",
+        "muse": "novacode:designer",
+        "code": "novacode:coder",
+        "fast": "nexus-fast:latest",
+        "general": "novacode:strategist",
+        "thinking": "novacode:strategist",
+        "analysis": "novacode:strategist",
+        "creative": "novacode:designer",
+        "technical": "novacode:architect"
+      }
+    },
+    "nvidia": {
+      "enabled": true,
+      "type": "api",
+      "url": "https://integrate.api.nvidia.com/v1/chat/completions",
+      "priority": 2,
+      "env_key": "NVIDIA_API_KEY",
+      "models": {
+        "code": "nvidia/llama-3.1-nemotron-70b-instruct",
+        "thinking": "nvidia/llama-3.1-nemotron-70b-instruct",
+        "fast": "nvidia/llama-3.1-nemotron-70b-instruct",
+        "general": "nvidia/llama-3.1-nemotron-70b-instruct"
+      },
+      "note": "Si el endpoint devuelve 404, el router hará fallback automático a Ollama local."
+    },
+    "anthropic": {
+      "enabled": false,
+      "type": "api",
+      "url": "https://api.anthropic.com/v1/messages",
+      "priority": 3,
+      "env_key": "ANTHROPIC_API_KEY",
+      "models": {}
+    }
+  },
+  "routing": {
+    "prefer_local": true,
+    "fallback_to_online": true,
+    "check_interval": 30,
+    "timeout": 60
+  }
+}
