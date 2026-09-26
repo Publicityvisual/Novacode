@@ -38,9 +38,9 @@ describe("WSL server settings presentation", () => {
   })
 
   test("offers install and update only when NovaCode needs attention", () => {
-    expect(wslOpencodeAction(undefined)).toBeUndefined()
+    expect(wslNovaCodeAction(undefined)).toBeUndefined()
     expect(
-      wslOpencodeAction({
+      wslNovaCodeAction({
         distro: "Debian",
         resolvedPath: null,
         version: null,
@@ -50,7 +50,7 @@ describe("WSL server settings presentation", () => {
       }),
     ).toBe("wsl.onboarding.installNovaCode")
     expect(
-      wslOpencodeAction({
+      wslNovaCodeAction({
         distro: "Debian",
         resolvedPath: "/usr/local/bin/novacode",
         version: "1.2.2",
@@ -60,7 +60,7 @@ describe("WSL server settings presentation", () => {
       }),
     ).toBe("wsl.onboarding.updateOpencode")
     expect(
-      wslOpencodeAction({
+      wslNovaCodeAction({
         distro: "Debian",
         resolvedPath: "/usr/local/bin/novacode",
         version: "1.2.3",
