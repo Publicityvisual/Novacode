@@ -79,7 +79,11 @@ const getBase = (appId: string): Configuration => ({
     gatekeeperAssess: false,
     entitlements: "resources/entitlements.plist",
     entitlementsInherit: "resources/entitlements.plist",
-    notarize: true,
+    // For self-signed / ad-hoc builds, set notarize to false and remove identity.
+    // For public distribution, set notarize: true and identity to your Developer ID Application:
+    //   notarize: true,
+    //   identity: "Developer ID Application: Your Name (TEAM_ID)"
+    notarize: false,
     target: ["dmg", "zip"],
   },
   dmg: {
