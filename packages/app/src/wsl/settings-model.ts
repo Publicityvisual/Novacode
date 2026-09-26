@@ -51,7 +51,7 @@ function isHiddenDistro(name: string) {
 export const wslRuntimeRetryable = (runtime: WslServerRuntime) =>
   runtime.kind === "failed" || runtime.kind === "stopped"
 
-export function wslOpencodeAction(check?: WslOpencodeCheck) {
+export function wslNovaCodeAction(check?: WslOpencodeCheck) {
   if (!check) return
   if (!check.resolvedPath) return "wsl.onboarding.installNovaCode"
   if (check.matchesDesktop === false) return "wsl.onboarding.updateOpencode"

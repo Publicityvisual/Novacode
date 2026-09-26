@@ -6,7 +6,7 @@ import {
   autoProbePlan,
   createProbeFailureGate,
   runAddableProbePlan,
-  wslOpencodeAction,
+  wslNovaCodeAction,
   wslRuntimeRetryable,
 } from "./settings-model"
 import type { WslServersState } from "./types"
