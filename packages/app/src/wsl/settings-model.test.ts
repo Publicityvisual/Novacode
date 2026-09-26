@@ -19,7 +19,7 @@ function readyState(input: Partial<WslServersState> = {}): WslServersState {
     installed: [],
     online: [],
     distroProbes: {},
-    opencodeChecks: {},
+    novacodeChecks: {},
     pendingRestart: false,
     servers: [],
     job: null,
@@ -37,7 +37,7 @@ describe("WSL server settings presentation", () => {
     expect(wslRuntimeRetryable({ kind: "stopped" })).toBe(true)
   })
 
-  test("offers install and update only when OpenCode needs attention", () => {
+  test("offers install and update only when NovaCode needs attention", () => {
     expect(wslOpencodeAction(undefined)).toBeUndefined()
     expect(
       wslOpencodeAction({
@@ -48,11 +48,11 @@ describe("WSL server settings presentation", () => {
         matchesDesktop: null,
         error: null,
       }),
-    ).toBe("wsl.onboarding.installOpencode")
+    ).toBe("wsl.onboarding.installNovaCode")
     expect(
       wslOpencodeAction({
         distro: "Debian",
-        resolvedPath: "/usr/local/bin/opencode",
+        resolvedPath: "/usr/local/bin/novacode",
         version: "1.2.2",
         expectedVersion: "1.2.3",
         matchesDesktop: false,
@@ -62,7 +62,7 @@ describe("WSL server settings presentation", () => {
     expect(
       wslOpencodeAction({
         distro: "Debian",
-        resolvedPath: "/usr/local/bin/opencode",
+        resolvedPath: "/usr/local/bin/novacode",
         version: "1.2.3",
         expectedVersion: "1.2.3",
         matchesDesktop: true,
@@ -179,7 +179,7 @@ describe("WSL server settings presentation", () => {
     expect(model.busy).toBe(true)
   })
 
-  test("does not report ready when OpenCode is present but cannot run", () => {
+  test("does not report ready when NovaCode is present but cannot run", () => {
     const model = addServerViewModel({
       state: {
         ...readyWslState,
@@ -188,14 +188,14 @@ describe("WSL server settings presentation", () => {
         distroProbes: {
           Debian: { name: "Debian", canExecute: true, hasBash: true, hasCurl: true, error: null },
         },
-        opencodeChecks: {
+        novacodeChecks: {
           Debian: {
             distro: "Debian",
-            resolvedPath: "/home/me/.opencode/bin/opencode",
+            resolvedPath: "/home/me/.novacode/bin/novacode",
             version: null,
             expectedVersion: "1.2.3",
             matchesDesktop: null,
-            error: "opencode is installed but could not run",
+            error: "novacode is installed but could not run",
           },
         },
       },
@@ -208,10 +208,10 @@ describe("WSL server settings presentation", () => {
     })
 
     expect(model.distroStatuses.Debian).toEqual({
-      label: { key: "wsl.onboarding.installOpencode" },
+      label: { key: "wsl.onboarding.installNovaCode" },
       tone: "warning",
     })
-    expect(model.primaryButton.action).toBe("install-opencode")
+    expect(model.primaryButton.action).toBe("install-novacode")
   })
 
   test("delegates addable probe plans to one batch command", async () => {

@@ -128,6 +128,7 @@ function getConfig() {
         ...base,
         appId,
         productName: "NovaCode Dev",
+        publish: { provider: "generic", url: "https://novacode.dev/updates/" },
         deb: { fpm: [metainfoFpm(appId)] },
         rpm: { packageName: "novacode-dev", fpm: [metainfoFpm(appId)] },
       }
