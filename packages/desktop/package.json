@@ -1,13 +1,13 @@
 {
-  "name": "@opencode-ai/desktop",
+  "name": "@nova-code/desktop",
   "private": true,
   "version": "1.18.32",
   "type": "module",
   "license": "MIT",
-  "homepage": "https://opencode.ai",
+  "homepage": "https://novacode.dev",
   "author": {
-    "name": "OpenCode",
-    "email": "hello@opencode.ai"
+    "name": "NovaCode",
+    "email": "hello@novacode.dev"
   },
   "scripts": {
     "typecheck": "tsgo -b",

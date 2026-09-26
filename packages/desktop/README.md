@@ -1,6 +1,6 @@
-# OpenCode Desktop
+# NovaCode Desktop
 
-The OpenCode Desktop app, built with Electron.
+The NovaCode Desktop app, built with Electron.
 
 ## Development
 

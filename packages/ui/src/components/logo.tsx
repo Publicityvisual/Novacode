@@ -10,7 +10,7 @@ export const Mark = (props: { class?: string }) => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path data-slot="logo-logo-mark-shadow" d="M12 16H4V8H12V16Z" fill="var(--icon-weak-base)" />
-      <path data-slot="logo-logo-mark-o" d="M12 4H4V16H12V4ZM16 20H0V0H16V20Z" fill="var(--icon-strong-base)" />
+      <path data-slot="logo-logo-mark-n" d="M4 16V4H8V16H4ZM8 16V4H12V16H8Z" fill="var(--icon-strong-base)" />
     </svg>
   )
 }
@@ -43,7 +43,7 @@ export const Logo = (props: { class?: string }) => {
         <path d="M18 30H6V18H18V30Z" fill="var(--icon-weak-base)" />
         <path d="M18 12H6V30H18V12ZM24 36H0V6H24V36Z" fill="var(--icon-base)" />
         <path d="M48 30H36V18H48V30Z" fill="var(--icon-weak-base)" />
-        <path d="M36 30H48V12H36V30ZM54 36H36V42H30V6H54V36Z" fill="var(--icon-base)" />
+        <path d="M36 30H48V12H36V30ZM54 36H30V6H54V36Z" fill="var(--icon-base)" />
         <path d="M84 24V30H66V24H84Z" fill="var(--icon-weak-base)" />
         <path d="M84 24H66V30H84V36H60V6H84V24ZM66 18H78V12H66V18Z" fill="var(--icon-base)" />
         <path d="M108 36H96V18H108V36Z" fill="var(--icon-weak-base)" />

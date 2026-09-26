@@ -36,6 +36,9 @@ const AgentSchema = Schema.StructWithRest(
     }),
     maxSteps: Schema.optional(PositiveInt).annotate({ description: "@deprecated Use 'steps' field instead." }),
     permission: Schema.optional(ConfigPermissionV1.Info),
+    system: Schema.optional(Schema.Boolean).annotate({
+      description: "Allow this agent to execute system-level operations with broadened permissions",
+    }),
   }),
   [Schema.Record(Schema.String, Schema.Any)],
 )

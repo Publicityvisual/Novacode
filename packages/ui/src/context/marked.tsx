@@ -2,18 +2,18 @@ import { getSharedHighlighter } from "@pierre/diffs"
 import { bundledLanguages, type BundledLanguage } from "shiki"
 import { createSimpleContext } from "./helper"
 import { createMarkdownParser } from "./marked-parser"
-import { registerOpenCodeTheme } from "./marked-theme-register"
+import { registerNovaCodeTheme } from "./marked-theme-register"
 
-export { OpenCodeTheme } from "./marked-theme"
+export { NovaCodeTheme } from "./marked-theme"
 
-registerOpenCodeTheme()
+registerNovaCodeTheme()
 
 export const { use: useMarked, provider: MarkedProvider } = createSimpleContext({
   name: "Marked",
   init: () =>
     createMarkdownParser(async (code, language) => {
       const highlighter = await getSharedHighlighter({
-        themes: ["OpenCode"],
+        themes: ["NovaCode"],
         langs: [],
         preferredHighlighter: "shiki-wasm",
       })
@@ -21,7 +21,7 @@ export const { use: useMarked, provider: MarkedProvider } = createSimpleContext(
       if (!highlighter.getLoadedLanguages().includes(name)) await highlighter.loadLanguage(name as BundledLanguage)
       return highlighter.codeToHtml(code, {
         lang: name,
-        theme: "OpenCode",
+        theme: "NovaCode",
         tabindex: false,
       })
     }),

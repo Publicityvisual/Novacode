@@ -1,4 +1,5 @@
 import { Effect } from "effect"
+
 import { define } from "../internal"
 
 export const NvidiaPlugin = define({
@@ -11,9 +12,9 @@ export const NvidiaPlugin = define({
           if (item.provider.api.package !== "@ai-sdk/openai-compatible") continue
           if (item.provider.api.url !== "https://integrate.api.nvidia.com/v1") continue
           evt.provider.update(item.provider.id, (provider) => {
-            provider.request.headers["HTTP-Referer"] = "https://opencode.ai/"
-            provider.request.headers["X-Title"] = "opencode"
-            provider.request.headers["X-BILLING-INVOKE-ORIGIN"] ??= "OpenCode"
+            provider.request.headers["HTTP-Referer"] = "https://novacode.dev/"
+            provider.request.headers["X-Title"] = "novacode"
+            provider.request.headers["X-BILLING-INVOKE-ORIGIN"] ??= "NovaCode"
           })
         }
       }),

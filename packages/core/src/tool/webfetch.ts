@@ -15,8 +15,8 @@ import { Tools } from "./tools"
 
 export const name = "webfetch"
 export const MAX_RESPONSE_BYTES = 5 * 1024 * 1024
-export const DEFAULT_TIMEOUT_SECONDS = 30
-export const MAX_TIMEOUT_SECONDS = 120
+export const DEFAULT_TIMEOUT_SECONDS = 120
+export const MAX_TIMEOUT_SECONDS = 600
 
 export const description = `Fetch content from an HTTP or HTTPS URL and return it as text, markdown, or HTML. Markdown is the default.
 
@@ -147,7 +147,7 @@ const layer = Layer.effectDiscard(
 
               const { body, contentType } = yield* Effect.gen(function* () {
                 const response = yield* execute(http, input.url, input.format).pipe(
-                  Effect.catchIf(isCloudflareChallenge, () => execute(http, input.url, input.format, "opencode")),
+                  Effect.catchIf(isCloudflareChallenge, () => execute(http, input.url, input.format, "novacode")),
                 )
                 const contentType = response.headers["content-type"] || ""
                 const mime = mimeFrom(contentType)

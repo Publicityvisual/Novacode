@@ -480,8 +480,8 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "HTTP-Referer": "https://opencode.ai/",
-            "X-Title": "opencode",
+            "HTTP-Referer": "https://novacode.dev/",
+            "X-Title": "novacode",
           },
         },
       }),
@@ -490,9 +490,9 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: provider.source === "config",
         options: {
           headers: {
-            "HTTP-Referer": "https://opencode.ai/",
-            "X-Title": "opencode",
-            "X-BILLING-INVOKE-ORIGIN": "OpenCode",
+            "HTTP-Referer": "https://novacode.dev/",
+            "X-Title": "novacode",
+            "X-BILLING-INVOKE-ORIGIN": "NovaCode",
           },
         },
       }),
@@ -501,8 +501,8 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "http-referer": "https://opencode.ai/",
-            "x-title": "opencode",
+            "http-referer": "https://novacode.dev/",
+            "x-title": "novacode",
           },
         },
       }),
@@ -2044,8 +2044,8 @@ const layer = Layer.effect(
   }),
 )
 
-const priority = ["gpt-5", "claude-sonnet-4", "big-pickle", "gemini-3-pro"]
-const smallModelFamilyPriority = ["gemini-flash", "gpt-nano", "claude-haiku"]
+const priority = ["gpt-5", "claude-sonnet-4", "big-pickle", "gemini-3-pro", "gemini-2.5-pro", "claude-opus-4"]
+const smallModelFamilyPriority = ["gemini-flash", "gpt-nano", "claude-haiku", "gpt-4.1-mini", "gemini-2.0-flash"]
 export function sort<T extends { id: string }>(models: T[]) {
   return sortBy(
     models,

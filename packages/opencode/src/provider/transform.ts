@@ -800,8 +800,8 @@ export function variants(model: Provider.Model): Record<string, Record<string, a
   ) {
     if (["nvidia", "lilac"].includes(model.providerID)) {
       return {
-        none: { chat_template_kwargs: { thinking_mode: "disabled" } },
-        thinking: { chat_template_kwargs: { thinking_mode: "enabled" } },
+        none: { thinking: { type: "disabled" } },
+        thinking: { thinking: { type: "adaptive" } },
       }
     }
     return {

@@ -2,7 +2,7 @@
 
 import { ShikiStreamTokenizer } from "@shikijs/stream"
 import { createMarkdownParser } from "@opencode-ai/ui/context/marked-parser"
-import { OpenCodeTheme } from "@opencode-ai/ui/context/marked-theme"
+import { NovaCodeTheme } from "@opencode-ai/ui/context/marked-theme"
 import {
   bundledLanguages,
   createHighlighter,
@@ -141,7 +141,7 @@ async function highlight(request: Extract<MarkdownWorkerRequest, { type: "highli
 }
 
 function getHighlighter() {
-  return (highlighter ??= createHighlighter({ themes: [OpenCodeTheme], langs: [] }))
+  return (highlighter ??= createHighlighter({ themes: [NovaCodeTheme], langs: [] }))
 }
 
 function post(response: MarkdownWorkerResponse) {
