@@ -3,7 +3,7 @@ import { defineConfig } from "electron-vite"
 import appPlugin from "@novacode-ai/app/vite"
 import * as fs from "node:fs/promises"
 
-const OPENCODE_SERVER_DIST = "../opencode/dist/node"
+const OPENCODE_SERVER_DIST = "../novacode/dist/node"
 
 const channel = (() => {
   const raw = process.env.OPENCODE_CHANNEL

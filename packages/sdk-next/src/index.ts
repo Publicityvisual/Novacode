@@ -1,4 +1,4 @@
-export * as NovaCode from "./opencode"
+export * as NovaCode from "./novacode"
 export * as Tool from "./tool"
 
 export { ClientError } from "@novacode-ai/client/effect"

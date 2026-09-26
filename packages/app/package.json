@@ -54,7 +54,7 @@
     "@dnd-kit/helpers": "0.5.0",
     "@dnd-kit/solid": "0.5.0",
     "@kobalte/core": "catalog:",
-    "@novacode-ai/client": "file:vendor/novacode-ai-client-1.17.13-v2.tgz",
+    "@opencode-ai/client": "file:vendor/novacode-ai-client-1.17.13-v2.tgz",
     "@novacode-ai/core": "workspace:*",
     "@novacode-ai/schema": "workspace:*",
     "@novacode-ai/sdk": "workspace:*",
