@@ -1,6 +1,6 @@
 import express from "express"
 import cors from "cors"
-import { readFileSync, existsSync, statSync, readdirSync } from "node:fs"
+import { readFileSync, existsSync, statSync, createReadStream } from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 
@@ -22,6 +22,15 @@ const PLATFORM_FILES = {
   "linux-arm64": "latest-linux-arm64.yml",
 }
 
+const BINARY_FILES = {
+  "mac-x64": "novacode-desktop-mac-x64.dmg",
+  "mac-arm64": "novacode-desktop-mac-arm64.dmg",
+  "win-x64": "novacode-desktop-setup-win32-x64.exe",
+  "win-arm64": "novacode-desktop-setup-win32-arm64.exe",
+  "linux-x64": "novacode-desktop-linux-x64.AppImage",
+  "linux-arm64": "novacode-desktop-linux-arm64.AppImage",
+}
+
 function getPlatformFromUserAgent(userAgent) {
   if (!userAgent) return null
   const ua = userAgent.toLowerCase()
@@ -40,32 +49,29 @@ function getPlatformFromUserAgent(userAgent) {
   return null
 }
 
-app.get("/health", (_req, res) => {
-  res.json({ status: "ok", timestamp: new Date().toISOString() })
-})
-
-app.get("/:platform/:filename", (req, res) => {
-  const { platform, filename } = req.params
-  const filePath = path.join(ARTIFACTS_DIR, platform, filename)
-
+function sendFileWithCors(res, filePath, contentType) {
   if (!existsSync(filePath)) {
     return res.status(404).json({ error: "Not found", path: filePath })
   }
 
   const stats = statSync(filePath)
-  res.setHeader("Content-Type", "application/octet-stream")
+  res.setHeader("Content-Type", contentType)
   res.setHeader("Content-Length", stats.size)
-  res.setHeader("Cache-Control", "public, max-age=300")
+  res.setHeader("Cache-Control", "public, max-age=60")
   res.setHeader("Access-Control-Allow-Origin", "*")
-  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS")
-  res.setHeader("Access-Control-Allow-Headers", "User-Agent")
+  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS, HEAD")
+  res.setHeader("Access-Control-Allow-Headers", "User-Agent, Range")
+  res.setHeader("Accept-Ranges", "bytes")
 
   if (req.method === "OPTIONS") {
     return res.sendStatus(204)
   }
 
-  const stream = require("node:fs").createReadStream(filePath)
-  stream.pipe(res)
+  createReadStream(filePath).pipe(res)
+}
+
+app.get("/health", (_req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() })
 })
 
 app.get("/latest-mac.yml", (req, res) => {
@@ -75,17 +81,10 @@ app.get("/latest-mac.yml", (req, res) => {
   }
 
   const filename = PLATFORM_FILES[platform]
-  const filePath = path.join(ARTIFACTS_DIR, platform.split("-")[0], platform.split("-")[1], filename)
+  const platformDir = platform.replace("-", "/")
+  const filePath = path.join(ARTIFACTS_DIR, platformDir, filename)
 
-  if (!existsSync(filePath)) {
-    return res.status(404).json({ error: "Not found", path: filePath })
-  }
-
-  const content = readFileSync(filePath, "utf-8")
-  res.setHeader("Content-Type", "application/x-yaml")
-  res.setHeader("Cache-Control", "public, max-age=60")
-  res.setHeader("Access-Control-Allow-Origin", "*")
-  res.send(content)
+  sendFileWithCors(res, filePath, "application/x-yaml")
 })
 
 app.get("/latest.yml", (req, res) => {
@@ -95,41 +94,27 @@ app.get("/latest.yml", (req, res) => {
   }
 
   const filename = PLATFORM_FILES[platform]
-  const filePath = path.join(ARTIFACTS_DIR, platform.split("-")[0], platform.split("-")[1], filename)
+  const platformDir = platform.replace("-", "/")
+  const filePath = path.join(ARTIFACTS_DIR, platformDir, filename)
 
-  if (!existsSync(filePath)) {
-    return res.status(404).json({ error: "Not found", path: filePath })
-  }
-
-  const content = readFileSync(filePath, "utf-8")
-  res.setHeader("Content-Type", "application/x-yaml")
-  res.setHeader("Cache-Control", "public, max-age=60")
-  res.setHeader("Access-Control-Allow-Origin", "*")
-  res.send(content)
+  sendFileWithCors(res, filePath, "application/x-yaml")
 })
 
 app.get("/latest-linux.yml", (req, res) => {
-  const filePath = path.join(ARTIFACTS_DIR, "linux", "x64", "latest-linux.yml")
-  if (!existsSync(filePath)) {
-    return res.status(404).json({ error: "Not found" })
-  }
-  const content = readFileSync(filePath, "utf-8")
-  res.setHeader("Content-Type", "application/x-yaml")
-  res.setHeader("Cache-Control", "public, max-age=60")
-  res.setHeader("Access-Control-Allow-Origin", "*")
-  res.send(content)
+  const filePath = path.join(ARTIFACTS_DIR, "linux/x64", "latest-linux.yml")
+  sendFileWithCors(res, filePath, "application/x-yaml")
 })
 
 app.get("/latest-linux-arm64.yml", (req, res) => {
-  const filePath = path.join(ARTIFACTS_DIR, "linux", "arm64", "latest-linux-arm64.yml")
-  if (!existsSync(filePath)) {
-    return res.status(404).json({ error: "Not found" })
-  }
-  const content = readFileSync(filePath, "utf-8")
-  res.setHeader("Content-Type", "application/x-yaml")
-  res.setHeader("Cache-Control", "public, max-age=60")
-  res.setHeader("Access-Control-Allow-Origin", "*")
-  res.send(content)
+  const filePath = path.join(ARTIFACTS_DIR, "linux/arm64", "latest-linux-arm64.yml")
+  sendFileWithCors(res, filePath, "application/x-yaml")
+})
+
+app.get("/:platform/:filename", (req, res) => {
+  const { platform, filename } = req.params
+  const filePath = path.join(ARTIFACTS_DIR, platform, filename)
+  const contentType = filename.endsWith(".yml") ? "application/x-yaml" : "application/octet-stream"
+  sendFileWithCors(res, filePath, contentType)
 })
 
 app.get("/", (req, res) => {

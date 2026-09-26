@@ -1,8 +1,8 @@
 # NovaCode Updates Server
 
-Servidor de actualizaciones para NovaCode Desktop.
+Servidor de actualizaciones para NovaCode Desktop. Sirve los manifests `latest-*.yml` y binarios generados por electron-builder.
 
-## Estructura
+## Estructura de artifacts
 
 ```
 artifacts/
@@ -26,18 +26,43 @@ artifacts/
     └── novacode-desktop-linux-arm64.AppImage
 ```
 
+## Cómo generar los artifacts
+
+1. Build desde el paquete desktop:
+```bash
+cd packages/desktop
+bun run build
+bun run package:mac
+bun run package:win
+bun run package:linux
+```
+
+2. Deploy artifacts al server:
+```bash
+cd packages/desktop/scripts/updates-server
+node deploy-artifacts.js
+```
+
+3. Commit y push de la carpeta `artifacts/` si usás Git-based deployment.
+
 ## Deployment
 
-### Opción 1: Railway/Render/Fly.io
-
-1. Crear cuenta en [Railway](https://railway.app) o similar
-2. Conectar este directorio `packages/desktop/scripts/updates-server`
-3. Deploy automático desde Git
-
-### Opción 2: VPS propio
+### Opción 1: Docker (recomendado)
 
 ```bash
-# En tu servidor
+cd packages/desktop/scripts/updates-server
+docker compose up -d
+```
+
+### Opción 2: Railway / Render / Fly.io
+
+- Conectá este directorio como repo
+- Deploy automático
+- Asegurate de que `artifacts/` esté incluido
+
+### Opción 3: VPS propio
+
+```bash
 git clone https://github.com/Publicityvisual/Novacode.git
 cd NovaCode/packages/desktop/scripts/updates-server
 npm install
@@ -45,7 +70,7 @@ cp .env.example .env
 npm start
 ```
 
-### Opción 3: Cloudflare Pages + R2
+### Opción 4: Cloudflare Pages + R2
 
 1. Subir artifacts a Cloudflare R2
 2. Usar Pages Functions para servir los manifests
@@ -67,3 +92,4 @@ El server responde con `Access-Control-Allow-Origin: *` para permitir que electr
 - Los manifests `latest-*.yml` son generados por electron-builder durante el build
 - El server detecta la plataforma desde el User-Agent y sirve el manifest correcto
 - Los archivos se cachean por 60 segundos (manifest) o 300 segundos (binarios)
+- El feed de actualizaciones está configurado en `packages/desktop/electron-builder.config.ts`

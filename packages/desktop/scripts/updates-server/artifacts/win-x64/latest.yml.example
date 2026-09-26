@@ -1,0 +1,5 @@
+version: 1.0.0
+url: https://novacode.dev/updates/win-x64/novacode-desktop-setup-win32-x64.exe
+sha512: CHANGE_ME_REPLACE_WITH_ACTUAL_SHA512
+releaseNotes: "NovaCode update"
+releaseDate: "2025-01-01T00:00:00Z"
