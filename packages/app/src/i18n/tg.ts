@@ -76,7 +76,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Фармонҳоро дар distro иҷро карда наметавонад",
   "desktop.wsl.error.installWsl": "WSL насб карда нашуд",
   "desktop.wsl.error.installDistro": "Насб кардани distro иҷро нашуд: {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCode насб карда нашуд",
+  "desktop.wsl.error.installNovaCode": "NovaCode насб карда нашуд",
   "desktop.wsl.error.alreadyAdded": "{{distro}} аллакай илова карда шудааст",
   "desktop.wsl.error.novacodeMissing": "novacode дар ин паҳнкунӣ насб нашудааст",
   "desktop.wsl.error.novacodeCannotRun": "novacode насб шудааст, аммо иҷро карда натавонист",

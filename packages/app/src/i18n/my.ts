@@ -76,7 +76,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "distro တွင် command များကို လုပ်ဆောင်၍မရပါ။",
   "desktop.wsl.error.installWsl": "WSL ထည့်သွင်းခြင်း မအောင်မြင်ပါ။",
   "desktop.wsl.error.installDistro": "distro ကို ထည့်သွင်းရန် မအောင်မြင်ပါ- {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCode ထည့်သွင်းခြင်း မအောင်မြင်ပါ။",
+  "desktop.wsl.error.installNovaCode": "NovaCode ထည့်သွင်းခြင်း မအောင်မြင်ပါ။",
   "desktop.wsl.error.alreadyAdded": "{{distro}} ကို ထည့်သွင်းပြီးဖြစ်သည်။",
   "desktop.wsl.error.novacodeMissing": "novacode ကို ဤ distro တွင် ထည့်သွင်းမထားပါ။",
   "desktop.wsl.error.novacodeCannotRun": "novacode ကို ထည့်သွင်းထားသော်လည်း မလည်ပတ်နိုင်ပါ။",

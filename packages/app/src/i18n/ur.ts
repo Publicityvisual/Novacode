@@ -80,7 +80,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "ڈسٹری بیوشن میں کمانڈز نہیں چلائی جا سکتیں",
   "desktop.wsl.error.installWsl": "WSL کی تنصیب ناکام ہو گئی",
   "desktop.wsl.error.installDistro": "ڈسٹری بیوشن انسٹال نہیں ہو سکی: {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCode کی تنصیب ناکام ہو گئی",
+  "desktop.wsl.error.installNovaCode": "NovaCode کی تنصیب ناکام ہو گئی",
   "desktop.wsl.error.alreadyAdded": "{{distro}} پہلے ہی شامل ہے",
   "desktop.wsl.error.novacodeMissing": "اس ڈسٹری بیوشن میں novacode انسٹال نہیں ہے",
   "desktop.wsl.error.novacodeCannotRun": "novacode انسٹال ہے لیکن چل نہیں سکا",

@@ -75,7 +75,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "ບໍ່ສາມາດປະຕິບັດຄໍາສັ່ງໃນ distro",
   "desktop.wsl.error.installWsl": "ການຕິດຕັ້ງ WSL ລົ້ມເຫລວ",
   "desktop.wsl.error.installDistro": "ລົ້ມເຫລວໃນການຕິດຕັ້ງ distro: {{distro}}",
-  "desktop.wsl.error.installOpencode": "ການຕິດຕັ້ງ NovaCode ລົ້ມເຫລວ",
+  "desktop.wsl.error.installNovaCode": "ການຕິດຕັ້ງ NovaCode ລົ້ມເຫລວ",
   "desktop.wsl.error.alreadyAdded": "{{distro}} ຖືກເພີ່ມແລ້ວ",
   "desktop.wsl.error.novacodeMissing": "novacode ບໍ່ໄດ້ຕິດຕັ້ງຢູ່ໃນ distro ນີ້",
   "desktop.wsl.error.novacodeCannotRun": "novacode ຖືກຕິດຕັ້ງແຕ່ບໍ່ສາມາດດໍາເນີນການໄດ້",

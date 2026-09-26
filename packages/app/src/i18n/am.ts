@@ -75,7 +75,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "በዲስትሮ ውስጥ ትዕዛዞችን ማስፈጸም አይቻልም",
   "desktop.wsl.error.installWsl": "WSLመጫኑ አልተሳካም",
   "desktop.wsl.error.installDistro": "distroን መጫን አልተቻለም፡ {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCodeመጫኑ አልተሳካም",
+  "desktop.wsl.error.installNovaCode": "NovaCodeመጫኑ አልተሳካም",
   "desktop.wsl.error.alreadyAdded": "{{distro}} አስቀድሞ ታክሏል",
   "desktop.wsl.error.novacodeMissing": "ክፍት ኮድ በዚህ ዲስትሪ ውስጥ አልተጫነም",
   "desktop.wsl.error.novacodeCannotRun": "ክፍት ኮድ ተጭኗል ግን ማሄድ አልቻለም",

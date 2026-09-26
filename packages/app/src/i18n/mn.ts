@@ -76,7 +76,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Дистро дахь тушаалуудыг гүйцэтгэх боломжгүй",
   "desktop.wsl.error.installWsl": "WSL суулгаж чадсангүй",
   "desktop.wsl.error.installDistro": "Дистро суулгаж чадсангүй: {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCode суулгаж чадсангүй",
+  "desktop.wsl.error.installNovaCode": "NovaCode суулгаж чадсангүй",
   "desktop.wsl.error.alreadyAdded": "{{distro}} аль хэдийн нэмэгдсэн байна",
   "desktop.wsl.error.novacodeMissing": "novacode энэ түгээлтэд суулгаагүй байна",
   "desktop.wsl.error.novacodeCannotRun": "novacode суулгасан боловч ажиллуулж чадсангүй",

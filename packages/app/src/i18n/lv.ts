@@ -75,7 +75,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Nevar izpildīt komandas distribūcijā",
   "desktop.wsl.error.installWsl": "WSL instalēšana neizdevās",
   "desktop.wsl.error.installDistro": "Neizdevās instalēt distribūciju: {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCode instalēšana neizdevās",
+  "desktop.wsl.error.installNovaCode": "NovaCode instalēšana neizdevās",
   "desktop.wsl.error.alreadyAdded": "{{distro}} jau ir pievienota",
   "desktop.wsl.error.novacodeMissing": "novacode nav instalēts šajā distribūcijā",
   "desktop.wsl.error.novacodeCannotRun": "novacode ir instalēts, bet to nevar palaist",

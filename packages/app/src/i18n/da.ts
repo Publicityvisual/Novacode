@@ -1209,7 +1209,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Kan ikke udføre kommandoer i distributionen",
   "desktop.wsl.error.installWsl": "Installationen af WSL mislykkedes",
   "desktop.wsl.error.installDistro": "Kunne ikke installere distributionen: {{distro}}",
-  "desktop.wsl.error.installOpencode": "Installationen af NovaCode mislykkedes",
+  "desktop.wsl.error.installNovaCode": "Installationen af NovaCode mislykkedes",
   "desktop.wsl.error.alreadyAdded": "{{distro}} er allerede tilføjet",
   "desktop.wsl.error.novacodeMissing": "novacode er ikke installeret i denne distribution",
   "desktop.wsl.error.novacodeCannotRun": "novacode er installeret, men kunne ikke køre",

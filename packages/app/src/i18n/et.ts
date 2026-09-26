@@ -75,7 +75,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Distros ei saa käske täita",
   "desktop.wsl.error.installWsl": "WSL installimine ebaõnnestus",
   "desktop.wsl.error.installDistro": "Distro installimine ebaõnnestus: {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCode installimine ebaõnnestus",
+  "desktop.wsl.error.installNovaCode": "NovaCode installimine ebaõnnestus",
   "desktop.wsl.error.alreadyAdded": "{{distro}} on juba lisatud",
   "desktop.wsl.error.novacodeMissing": "novacode pole sellesse distrosse installitud",
   "desktop.wsl.error.novacodeCannotRun": "novacode on installitud, kuid seda ei saa käivitada",

@@ -79,7 +79,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "ディストリビューションでコマンドを実行できません",
   "desktop.wsl.error.installWsl": "WSLのインストールに失敗しました",
   "desktop.wsl.error.installDistro": "ディストリビューションのインストールに失敗しました: {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCodeのインストールに失敗しました",
+  "desktop.wsl.error.installNovaCode": "NovaCodeのインストールに失敗しました",
   "desktop.wsl.error.alreadyAdded": "{{distro}}はすでに追加されています",
   "desktop.wsl.error.novacodeMissing": "このディストリビューションにはnovacodeがインストールされていません",
   "desktop.wsl.error.novacodeCannotRun": "novacodeはインストールされていますが、実行できませんでした",

@@ -76,7 +76,7 @@ export const dict: Record<string, string> = {
   "desktop.wsl.error.executeDistro": "डिस्ट्रोमा आदेशहरू कार्यान्वयन गर्न सकिँदैन",
   "desktop.wsl.error.installWsl": "WSL स्थापना असफल भयो",
   "desktop.wsl.error.installDistro": "डिस्ट्रो स्थापना गर्न असफल: {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCode स्थापना असफल भयो",
+  "desktop.wsl.error.installNovaCode": "NovaCode स्थापना असफल भयो",
   "desktop.wsl.error.alreadyAdded": "{{distro}} पहिले नै थपिएको छ",
   "desktop.wsl.error.novacodeMissing": "Opencode यस distro मा स्थापित छैन",
   "desktop.wsl.error.novacodeCannotRun": "novacode स्थापित छ तर चलाउन सकिएन",

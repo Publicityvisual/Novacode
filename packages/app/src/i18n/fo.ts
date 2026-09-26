@@ -75,7 +75,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Kann ikki útføra skipanir í distro",
   "desktop.wsl.error.installWsl": "WSL uppsetingin miseydnaðist",
   "desktop.wsl.error.installDistro": "Tað eydnaðist ikki at seta distro upp: {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCode uppsetingin miseydnaðist",
+  "desktop.wsl.error.installNovaCode": "NovaCode uppsetingin miseydnaðist",
   "desktop.wsl.error.alreadyAdded": "{{distro}} er longu lagt afturat .",
   "desktop.wsl.error.novacodeMissing": "novacode er ikki sett upp í hesi distro",
   "desktop.wsl.error.novacodeCannotRun": "novacode er sett upp men kundi ikki koyra",

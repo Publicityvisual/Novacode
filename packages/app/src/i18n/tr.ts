@@ -84,7 +84,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Dağıtımda komutlar çalıştırılamıyor",
   "desktop.wsl.error.installWsl": "WSL kurulamadı",
   "desktop.wsl.error.installDistro": "Dağıtım kurulamadı: {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCode kurulamadı",
+  "desktop.wsl.error.installNovaCode": "NovaCode kurulamadı",
   "desktop.wsl.error.alreadyAdded": "{{distro}} zaten eklendi",
   "desktop.wsl.error.novacodeMissing": "novacode bu dağıtımda kurulu değil",
   "desktop.wsl.error.novacodeCannotRun": "novacode kurulu ancak çalıştırılamadı",

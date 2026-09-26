@@ -76,7 +76,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Nuk mund të ekzekutohen komandat në distro",
   "desktop.wsl.error.installWsl": "Instalimi i WSL dështoi",
   "desktop.wsl.error.installDistro": "Instalimi i shpërndarjes dështoi: {{distro}}",
-  "desktop.wsl.error.installOpencode": "Instalimi i NovaCode dështoi",
+  "desktop.wsl.error.installNovaCode": "Instalimi i NovaCode dështoi",
   "desktop.wsl.error.alreadyAdded": "{{distro}} është shtuar tashmë",
   "desktop.wsl.error.novacodeMissing": "Opencode nuk është i instaluar në këtë shpërndarje",
   "desktop.wsl.error.novacodeCannotRun": "Opencode është instaluar por nuk mund të ekzekutohet",

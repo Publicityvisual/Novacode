@@ -76,7 +76,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Հնարավոր չէ կատարել հրամաններ բաշխման մեջ",
   "desktop.wsl.error.installWsl": "WSL տեղադրումը ձախողվեց",
   "desktop.wsl.error.installDistro": "Չհաջողվեց տեղադրել բաշխում՝ {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCode տեղադրումը ձախողվեց",
+  "desktop.wsl.error.installNovaCode": "NovaCode տեղադրումը ձախողվեց",
   "desktop.wsl.error.alreadyAdded": "{{distro}} արդեն ավելացված է",
   "desktop.wsl.error.novacodeMissing": "novacode-ը տեղադրված չէ այս բաշխում",
   "desktop.wsl.error.novacodeCannotRun": "novacode-ը տեղադրված է, բայց չի կարող գործարկվել",

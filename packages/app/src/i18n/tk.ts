@@ -76,7 +76,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Distroda buýruklary ýerine ýetirip bolmaýar",
   "desktop.wsl.error.installWsl": "WSL gurmak şowsuz",
   "desktop.wsl.error.installDistro": "Distro gurup bilmedi: {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCode gurmak şowsuz",
+  "desktop.wsl.error.installNovaCode": "NovaCode gurmak şowsuz",
   "desktop.wsl.error.alreadyAdded": "{{distro}} eýýäm goşuldy",
   "desktop.wsl.error.novacodeMissing": "açyk kod bu distroda gurlanok",
   "desktop.wsl.error.novacodeCannotRun": "novacode guruldy, ýöne işledip bilmedi",

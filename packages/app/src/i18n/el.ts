@@ -76,7 +76,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Δεν είναι δυνατή η εκτέλεση εντολών στη διανομή",
   "desktop.wsl.error.installWsl": "WSL η εγκατάσταση απέτυχε",
   "desktop.wsl.error.installDistro": "Αποτυχία εγκατάστασης διανομής: {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCode η εγκατάσταση απέτυχε",
+  "desktop.wsl.error.installNovaCode": "NovaCode η εγκατάσταση απέτυχε",
   "desktop.wsl.error.alreadyAdded": "{{distro}} έχει ήδη προστεθεί",
   "desktop.wsl.error.novacodeMissing": "ο ανοιχτός κώδικας δεν είναι εγκατεστημένος σε αυτήν τη διανομή",
   "desktop.wsl.error.novacodeCannotRun": "ο ανοιχτός κώδικας είναι εγκατεστημένος αλλά δεν ήταν δυνατή η εκτέλεση",

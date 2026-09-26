@@ -75,7 +75,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Tidak dapat melaksanakan arahan dalam distro",
   "desktop.wsl.error.installWsl": "Pemasangan WSL gagal",
   "desktop.wsl.error.installDistro": "Gagal memasang distro: {{distro}}",
-  "desktop.wsl.error.installOpencode": "Pemasangan NovaCode gagal",
+  "desktop.wsl.error.installNovaCode": "Pemasangan NovaCode gagal",
   "desktop.wsl.error.alreadyAdded": "{{distro}} telah pun ditambah",
   "desktop.wsl.error.novacodeMissing": "novacode tidak dipasang dalam distro ini",
   "desktop.wsl.error.novacodeCannotRun": "novacode dipasang tetapi tidak dapat dijalankan",

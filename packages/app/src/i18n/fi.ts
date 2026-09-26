@@ -1132,7 +1132,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Jakelussa ei voi suorittaa komentoja",
   "desktop.wsl.error.installWsl": "WSL:n asennus epäonnistui",
   "desktop.wsl.error.installDistro": "Jakelun asentaminen epäonnistui: {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCoden asennus epäonnistui",
+  "desktop.wsl.error.installNovaCode": "NovaCoden asennus epäonnistui",
   "desktop.wsl.error.alreadyAdded": "{{distro}} on jo lisätty",
   "desktop.wsl.error.novacodeMissing": "novacodea ei ole asennettu tähän jakeluun",
   "desktop.wsl.error.novacodeCannotRun": "novacode on asennettu, mutta sitä ei voitu suorittaa",

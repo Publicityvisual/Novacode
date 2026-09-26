@@ -75,7 +75,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Nu se pot executa comenzi în distribuție",
   "desktop.wsl.error.installWsl": "Instalarea WSL a eșuat",
   "desktop.wsl.error.installDistro": "Nu s-a putut instala distribuția: {{distro}}",
-  "desktop.wsl.error.installOpencode": "Instalarea NovaCode a eșuat",
+  "desktop.wsl.error.installNovaCode": "Instalarea NovaCode a eșuat",
   "desktop.wsl.error.alreadyAdded": "{{distro}} este deja adăugată",
   "desktop.wsl.error.novacodeMissing": "novacode nu este instalat în această distribuție",
   "desktop.wsl.error.novacodeCannotRun": "novacode este instalat, dar nu a putut fi pornit",

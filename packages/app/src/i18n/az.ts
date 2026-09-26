@@ -76,7 +76,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Distribütivdə əmrləri icra etmək mümkün deyil",
   "desktop.wsl.error.installWsl": "WSL quraşdırılması uğursuz oldu",
   "desktop.wsl.error.installDistro": "Distribütivi quraşdırmaq mümkün olmadı: {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCode quraşdırılması uğursuz oldu",
+  "desktop.wsl.error.installNovaCode": "NovaCode quraşdırılması uğursuz oldu",
   "desktop.wsl.error.alreadyAdded": "{{distro}} artıq əlavə edilib",
   "desktop.wsl.error.novacodeMissing": "Bu distribütivdə novacode quraşdırılmayıb",
   "desktop.wsl.error.novacodeCannotRun": "novacode quraşdırılıb, lakin onu işə salmaq mümkün olmadı",

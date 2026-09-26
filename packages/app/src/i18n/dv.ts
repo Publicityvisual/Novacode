@@ -76,7 +76,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "ޑިސްޓްރޯގައި ކޮމާންޑްތައް އެގްޒެކެޓް ނުކުރެވޭނެއެވެ",
   "desktop.wsl.error.installWsl": "WSL އިންސްޓޯލް ކުރުން ނާކާމިޔާބުވެއްޖެ",
   "desktop.wsl.error.installDistro": "ޑިސްޓްރޯ: {{distro}} އިންސްޓޯލް ކުރަން ނާކާމިޔާބު",
-  "desktop.wsl.error.installOpencode": "NovaCode އިންސްޓޯލް ކުރުން ނާކާމިޔާބުވެއްޖެ",
+  "desktop.wsl.error.installNovaCode": "NovaCode އިންސްޓޯލް ކުރުން ނާކާމިޔާބުވެއްޖެ",
   "desktop.wsl.error.alreadyAdded": "{{distro}} މިހާރުވެސް އިތުރުކޮށްފައިވެއެވެ",
   "desktop.wsl.error.novacodeMissing": "މި ޑިސްޓްރޯގައި novacode އިންސްޓޯލްކޮށްފައެއް ނުވެއެވެ",
   "desktop.wsl.error.novacodeCannotRun": "novacode އިންސްޓޯލް ކޮށްފައި އޮތް ނަމަވެސް ހިންގޭ ގޮތެއް ނުވިއެވެ",

@@ -80,7 +80,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Не вдалося виконати команди в дистрибутиві",
   "desktop.wsl.error.installWsl": "Не вдалося встановити WSL",
   "desktop.wsl.error.installDistro": "Не вдалося встановити дистрибутив: {{distro}}",
-  "desktop.wsl.error.installOpencode": "Не вдалося встановити NovaCode",
+  "desktop.wsl.error.installNovaCode": "Не вдалося встановити NovaCode",
   "desktop.wsl.error.alreadyAdded": "{{distro}} уже додано",
   "desktop.wsl.error.novacodeMissing": "novacode не встановлено в цьому дистрибутиві",
   "desktop.wsl.error.novacodeCannotRun": "novacode встановлено, але його не вдалося запустити",

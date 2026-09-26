@@ -82,7 +82,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Kan ikke kjøre kommandoer i distribusjonen",
   "desktop.wsl.error.installWsl": "Installasjonen av WSL mislyktes",
   "desktop.wsl.error.installDistro": "Kunne ikke installere distribusjonen: {{distro}}",
-  "desktop.wsl.error.installOpencode": "Installasjonen av NovaCode mislyktes",
+  "desktop.wsl.error.installNovaCode": "Installasjonen av NovaCode mislyktes",
   "desktop.wsl.error.alreadyAdded": "{{distro}} er allerede lagt til",
   "desktop.wsl.error.novacodeMissing": "novacode er ikke installert i denne distribusjonen",
   "desktop.wsl.error.novacodeCannotRun": "novacode er installert, men kunne ikke kjøres",

@@ -76,7 +76,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "نمی توان دستورات را در توزیع اجرا کرد",
   "desktop.wsl.error.installWsl": "نصب WSL انجام نشد",
   "desktop.wsl.error.installDistro": "توزیع توزیع نصب نشد: {{distro}}",
-  "desktop.wsl.error.installOpencode": "نصب NovaCode انجام نشد",
+  "desktop.wsl.error.installNovaCode": "نصب NovaCode انجام نشد",
   "desktop.wsl.error.alreadyAdded": "{{distro}} قبلاً اضافه شده است",
   "desktop.wsl.error.novacodeMissing": "novacode در این توزیع نصب نشده است",
   "desktop.wsl.error.novacodeCannotRun": "novacode نصب شده است اما اجرا نمی شود",

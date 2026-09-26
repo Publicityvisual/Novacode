@@ -75,7 +75,7 @@ export const dict = {
   "desktop.wsl.error.executeDistro": "Nelze provádět příkazy v distro",
   "desktop.wsl.error.installWsl": "WSL instalace se nezdařila",
   "desktop.wsl.error.installDistro": "Nepodařilo se nainstalovat distribuci: {{distro}}",
-  "desktop.wsl.error.installOpencode": "NovaCode instalace se nezdařila",
+  "desktop.wsl.error.installNovaCode": "NovaCode instalace se nezdařila",
   "desktop.wsl.error.alreadyAdded": "{{distro}} je již přidáno",
   "desktop.wsl.error.novacodeMissing": "novacode není v této distribuci nainstalováno",
   "desktop.wsl.error.novacodeCannotRun": "novacode je nainstalován, ale nelze jej spustit",
