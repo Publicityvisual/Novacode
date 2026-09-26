@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@kobalte/core": "catalog:",
-    "@novacode-ai/client": "file:../app/vendor/novacode-ai-client-1.17.13-v2.tgz",
+    "@novacode-ai/client": "file:../app/vendor/opencode-ai-client-1.17.13-v2.tgz",
     "@novacode-ai/core": "workspace:*",
     "@novacode-ai/sdk": "workspace:*",
     "@novacode-ai/ui": "workspace:*",

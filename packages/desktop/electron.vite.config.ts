@@ -2,8 +2,9 @@ import { sentryVitePlugin } from "@sentry/vite-plugin"
 import { defineConfig } from "electron-vite"
 import appPlugin from "@novacode-ai/app/vite"
 import * as fs from "node:fs/promises"
+import path from "node:path"
 
-const OPENCODE_SERVER_DIST = "../novacode/dist/node"
+const OPENCODE_SERVER_DIST = "../opencode/dist/node"
 
 const channel = (() => {
   const raw = process.env.OPENCODE_CHANNEL
@@ -65,7 +66,9 @@ const require = __cjs_mod__.createRequire(import.meta.url);
         name: "novacode:virtual-server-module",
         enforce: "pre",
         resolveId(id) {
-          if (id === "virtual:novacode-server") return this.resolve(`${OPENCODE_SERVER_DIST}/node.js`)
+          if (id === "virtual:novacode-server") {
+            return path.resolve(OPENCODE_SERVER_DIST, "node.js")
+          }
         },
       },
       {
