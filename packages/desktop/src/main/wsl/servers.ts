@@ -136,7 +136,7 @@ export function createWslServersController(
     const version = resolved
       ? await (options?.readCommandVersion ?? readWslCommandVersion)(resolved, distro, opts)
       : null
-    return opencodeCheck(distro, resolved, version, appVersion)
+    return novacodeCheck(distro, resolved, version, appVersion)
   }
 
   const refreshOpencodeCheck = async (distro: string, opts?: { signal?: AbortSignal }) => {
@@ -177,7 +177,7 @@ export function createWslServersController(
       })
       .catch((error) => {
         const message = error instanceof Error ? error.message : String(error)
-        logger?.error("wsl opencode check failed", { id, distro, message })
+        logger?.error("wsl novacode check failed", { id, distro, message })
       })
   }
 
@@ -191,7 +191,7 @@ export function createWslServersController(
           })
           .catch((error) => {
             const message = error instanceof Error ? error.message : String(error)
-            logger?.error("wsl opencode check failed", {
+            logger?.error("wsl novacode check failed", {
               id: item.config.id,
               distro: item.config.distro,
               message,
@@ -464,7 +464,7 @@ function normalizePersistedServer(value: unknown): WslServerConfig[] {
   ]
 }
 
-function opencodeCheck(
+function novacodeCheck(
   distro: string,
   resolvedPath: string | null,
   version: string | null,

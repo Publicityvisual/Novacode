@@ -5,7 +5,7 @@ import { Account } from "@/account/account"
 import { AccountID, OrgID, PollExpired, type PollResult, type AccountError } from "@/account/schema"
 import { effectCmd } from "../effect-cmd"
 import * as Prompt from "../effect/prompt"
-import { openUrl } from "@opencode-ai/core/open"
+import { openUrl } from "@novacode-ai/core/open"
 
 const openBrowser = (url: string) => Effect.promise(() => openUrl(url).catch(() => undefined))
 
@@ -15,7 +15,7 @@ const dim = (value: string) => UI.Style.TEXT_DIM + value + UI.Style.TEXT_NORMAL
 
 const activeSuffix = (isActive: boolean) => (isActive ? dim(" (active)") : "")
 
-export const defaultConsoleUrl = "https://opencode.ai/console"
+export const defaultConsoleUrl = "https://novacode.ai/console"
 
 export const formatAccountLabel = (account: { email: string; url: string }, isActive: boolean) =>
   `${account.email} ${dim(account.url)}${activeSuffix(isActive)}`

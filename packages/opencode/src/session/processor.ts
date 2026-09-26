@@ -1,7 +1,7 @@
-import { LayerNode } from "@opencode-ai/core/effect/layer-node"
-import { PermissionV1 } from "@opencode-ai/core/v1/permission"
+import { LayerNode } from "@novacode-ai/core/effect/layer-node"
+import { PermissionV1 } from "@novacode-ai/core/v1/permission"
 import { Image } from "@/image/image"
-import { SessionV1 } from "@opencode-ai/core/v1/session"
+import { SessionV1 } from "@novacode-ai/core/v1/session"
 import { Cause, Deferred, Effect, Exit, Layer, Context, Scope, Schema } from "effect"
 import * as Stream from "effect/Stream"
 import { Agent } from "@/agent/agent"
@@ -23,8 +23,8 @@ import { Question } from "@/question"
 import { errorMessage } from "@/util/error"
 import { isRecord } from "@/util/record"
 import { EventV2Bridge } from "@/event-v2-bridge"
-import { Database } from "@opencode-ai/core/database/database"
-import { Usage, type LLMEvent } from "@opencode-ai/llm"
+import { Database } from "@novacode-ai/core/database/database"
+import { Usage, type LLMEvent } from "@novacode-ai/llm"
 
 const DOOM_LOOP_THRESHOLD = 3
 export type Result = "compact" | "stop" | "continue"
@@ -76,7 +76,7 @@ interface ProcessorContext extends Input {
 
 type StreamEvent = LLMEvent
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/SessionProcessor") {}
+export class Service extends Context.Service<Service, Interface>()("@novacode/SessionProcessor") {}
 
 const layer = Layer.effect(
   Service,
@@ -436,7 +436,7 @@ const layer = Layer.effect(
             const completedSnapshot = yield* snapshot.track()
             yield* Effect.forEach(Object.keys(ctx.reasoningMap), finishReasoning)
             // Anthropic reports thinking blocks it removed before the model saw the
-            // prompt. Prefix mismatches mean opencode changed history behind a signed
+            // prompt. Prefix mismatches mean novacode changed history behind a signed
             // block; log them so the churn can be tracked down.
             const dropped = isRecord(value.providerMetadata?.anthropic)
               ? value.providerMetadata.anthropic.inputTransformations

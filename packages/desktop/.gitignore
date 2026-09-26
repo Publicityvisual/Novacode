@@ -24,6 +24,6 @@ dist-ssr
 *.sw?
 out/
 
-resources/opencode-cli*
+resources/novacode-cli*
 resources/icons
 resources/*.metainfo.xml

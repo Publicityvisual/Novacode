@@ -31,7 +31,7 @@ export default defineConfig({
     configSchema(),
     solidJs(),
     starlight({
-      title: "OpenCode",
+      title: "NovaCode",
       defaultLocale: "root",
       locales: {
         root: {
@@ -318,7 +318,7 @@ function configSchema() {
     hooks: {
       "astro:build:done": async () => {
         console.log("generating config schema")
-        spawnSync("../opencode/script/schema.ts", ["./dist/config.json", "./dist/tui.json"])
+        spawnSync("../novacode/script/schema.ts", ["./dist/config.json", "./dist/tui.json"])
       },
     },
   }

@@ -1,7 +1,7 @@
 import { Schema } from "effect"
-import { NamedError } from "@opencode-ai/core/util/error"
+import { NamedError } from "@novacode-ai/core/util/error"
 import { Process } from "@/util/process"
-import { IdeEvent } from "@opencode-ai/schema/ide-event"
+import { IdeEvent } from "@novacode-ai/schema/ide-event"
 
 const SUPPORTED_IDES = [
   { name: "Windsurf" as const, cmd: "windsurf" },
@@ -37,7 +37,7 @@ export async function install(ide: (typeof SUPPORTED_IDES)[number]["name"]) {
   const cmd = SUPPORTED_IDES.find((i) => i.name === ide)?.cmd
   if (!cmd) throw new Error(`Unknown IDE: ${ide}`)
 
-  const p = await Process.run([cmd, "--install-extension", "sst-dev.opencode"], {
+  const p = await Process.run([cmd, "--install-extension", "sst-dev.novacode"], {
     nothrow: true,
   })
   const stdout = p.stdout.toString()

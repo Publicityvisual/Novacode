@@ -2,13 +2,13 @@
 
 ## Sources
 
-- PR #13942: https://github.com/anomalyco/opencode/pull/13942
+- PR #13942: https://github.com/anomalyco/novacode/pull/13942
 
 ## Do Not Translate (Locale Additions)
 
-- `OpenCode` (preserve casing in prose; keep `opencode` only when it is part of commands, package names, paths, or code)
-- `OpenCode Zen`
-- `OpenCode CLI`
+- `NovaCode` (preserve casing in prose; keep `novacode` only when it is part of commands, package names, paths, or code)
+- `NovaCode Zen`
+- `NovaCode CLI`
 - `CLI`, `TUI`, `MCP`, `OAuth`
 - `Model Context Protocol` (prefer the English expansion when introducing `MCP`)
 
@@ -38,5 +38,5 @@ These are preferred terms for docs/UI prose and may evolve.
 
 ## Avoid
 
-- Avoid `opencode` in prose when referring to the product name; use `OpenCode`
+- Avoid `novacode` in prose when referring to the product name; use `NovaCode`
 - Avoid mixing alternative terms for the same concept across docs when a preferred term is already established

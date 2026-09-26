@@ -1,11 +1,11 @@
-import { Database } from "@opencode-ai/core/database/database"
+import { Database } from "@novacode-ai/core/database/database"
 import { inArray } from "drizzle-orm"
-import { EventSequenceTable } from "@opencode-ai/core/event/sql"
+import { EventSequenceTable } from "@novacode-ai/core/event/sql"
 import { Workspace } from "@/control-plane/workspace"
-import type { WorkspaceV2 } from "@opencode-ai/core/workspace"
+import type { WorkspaceV2 } from "@novacode-ai/core/workspace"
 import { Effect } from "effect"
 
-export const HEADER = "x-opencode-sync"
+export const HEADER = "x-novacode-sync"
 export type State = Record<string, number>
 
 export function load(db: Database.Interface["db"], ids?: string[]) {

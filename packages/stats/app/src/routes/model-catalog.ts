@@ -1,9 +1,9 @@
-import { statModel } from "@opencode-ai/stats-core/domain/model-normalization"
+import { statModel } from "@novacode-ai/stats-core/domain/model-normalization"
 import { query } from "@solidjs/router"
 
-export const modelCatalogSourceUrl = "https://models.opencode.ai/catalog.json"
-export const modelCatalogPricingUrl = "https://models.opencode.ai/api.json"
-export const modelCatalogLabSourceUrl = "https://models.opencode.ai/labs"
+export const modelCatalogSourceUrl = "https://models.novacode.ai/catalog.json"
+export const modelCatalogPricingUrl = "https://models.novacode.ai/api.json"
+export const modelCatalogLabSourceUrl = "https://models.novacode.ai/labs"
 
 export type ModelCatalogCost = {
   input: number

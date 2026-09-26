@@ -1,13 +1,13 @@
 // @ts-nocheck
 
-import { OpenCode } from "@opencode-ai/core"
-import { ReadTool } from "@opencode-ai/core/tools"
+import { NovaCode } from "@novacode-ai/core"
+import { ReadTool } from "@novacode-ai/core/tools"
 
-const opencode = OpenCode.make({})
+const novacode = NovaCode.make({})
 
-opencode.tool.add(ReadTool)
+novacode.tool.add(ReadTool)
 
-opencode.tool.add({
+novacode.tool.add({
   name: "bash",
   schema: {
     type: "object",
@@ -22,13 +22,13 @@ opencode.tool.add({
   execute(input, ctx) {},
 })
 
-opencode.auth.add({
+novacode.auth.add({
   provider: "openai",
   type: "api",
   value: process.env.OPENAI_API_KEY,
 })
 
-opencode.agent.add({
+novacode.agent.add({
   name: "build",
   permissions: [],
   model: {
@@ -38,20 +38,20 @@ opencode.agent.add({
   },
 })
 
-const sessionID = await opencode.session.create({
+const sessionID = await novacode.session.create({
   agent: "build",
 })
 
-opencode.subscribe((event) => {
+novacode.subscribe((event) => {
   console.log(event)
 })
 
-await opencode.session.prompt({
+await novacode.session.prompt({
   sessionID,
   text: "hey what is up",
 })
 
-await opencode.session.prompt({
+await novacode.session.prompt({
   sessionID,
   text: "what is up with this",
   files: [
@@ -62,6 +62,6 @@ await opencode.session.prompt({
   ],
 })
 
-await opencode.session.wait()
+await novacode.session.wait()
 
-console.log(await opencode.session.messages(sessionID))
+console.log(await novacode.session.messages(sessionID))

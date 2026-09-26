@@ -1,9 +1,9 @@
-import type { Hooks, PluginInput } from "@opencode-ai/plugin"
+import type { Hooks, PluginInput } from "@novacode-ai/plugin"
 import { OAUTH_DUMMY_KEY } from "../auth"
-import { InstallationVersion } from "@opencode-ai/core/installation/version"
-import { OauthCallbackPage } from "@opencode-ai/core/oauth/page"
+import { InstallationVersion } from "@novacode-ai/core/installation/version"
+import { OauthCallbackPage } from "@novacode-ai/core/oauth/page"
 import { createServer } from "http"
-import { openUrl } from "@opencode-ai/core/open"
+import { openUrl } from "@novacode-ai/core/open"
 
 const OAUTH_CLIENT_ID = "LOCAL_APPLICATION"
 const OAUTH_CALLBACK_HOST = "127.0.0.1"
@@ -80,7 +80,7 @@ function authHeaders() {
   return {
     "Content-Type": "application/x-www-form-urlencoded",
     Accept: "application/json",
-    "User-Agent": `opencode/${InstallationVersion}`,
+    "User-Agent": `novacode/${InstallationVersion}`,
   }
 }
 
@@ -380,7 +380,7 @@ export async function SnowflakeCortexAuthPlugin(_input: PluginInput): Promise<Ho
                 }
               }
               headers.set("authorization", `Bearer ${currentOauth.access}`)
-              headers.set("User-Agent", `opencode/${InstallationVersion}`)
+              headers.set("User-Agent", `novacode/${InstallationVersion}`)
 
               let body = init?.body
               if (body && typeof body === "string") {
@@ -475,7 +475,7 @@ export async function SnowflakeCortexAuthPlugin(_input: PluginInput): Promise<Ho
             return {
               url,
               instructions:
-                "Complete Snowflake sign-in in your browser. OpenCode will capture the OAuth callback and store the bearer token automatically.",
+                "Complete Snowflake sign-in in your browser. NovaCode will capture the OAuth callback and store the bearer token automatically.",
               method: "auto" as const,
               async callback() {
                 try {

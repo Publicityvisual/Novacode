@@ -1,8 +1,8 @@
-import type { GlobalEvent } from "@opencode-ai/sdk/v2"
-import type { EventSource } from "@opencode-ai/tui/context/sdk"
+import type { GlobalEvent } from "@novacode-ai/sdk/v2"
+import type { EventSource } from "@novacode-ai/tui/context/sdk"
 
-export const worktree = "/tmp/opencode"
-export const directory = `${worktree}/packages/opencode`
+export const worktree = "/tmp/novacode"
+export const directory = `${worktree}/packages/novacode`
 
 export function json(data: unknown, init?: ResponseInit) {
   return new Response(JSON.stringify(data), {

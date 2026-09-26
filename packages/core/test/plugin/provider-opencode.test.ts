@@ -1,15 +1,15 @@
 import { describe, expect } from "bun:test"
 import { Effect } from "effect"
 import { HttpClient, HttpClientResponse } from "effect/unstable/http"
-import { Catalog } from "@opencode-ai/core/catalog"
-import { Credential } from "@opencode-ai/core/credential"
-import { EventV2 } from "@opencode-ai/core/event"
-import { Integration } from "@opencode-ai/core/integration"
-import { ModelV2 } from "@opencode-ai/core/model"
-import { PluginV2 } from "@opencode-ai/core/plugin"
-import { PluginHost } from "@opencode-ai/core/plugin/host"
-import { OpencodePlugin } from "@opencode-ai/core/plugin/provider/opencode"
-import { ProviderV2 } from "@opencode-ai/core/provider"
+import { Catalog } from "@novacode-ai/core/catalog"
+import { Credential } from "@novacode-ai/core/credential"
+import { EventV2 } from "@novacode-ai/core/event"
+import { Integration } from "@novacode-ai/core/integration"
+import { ModelV2 } from "@novacode-ai/core/model"
+import { PluginV2 } from "@novacode-ai/core/plugin"
+import { PluginHost } from "@novacode-ai/core/plugin/host"
+import { OpencodePlugin } from "@novacode-ai/core/plugin/provider/novacode"
+import { ProviderV2 } from "@novacode-ai/core/provider"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
 
@@ -74,11 +74,11 @@ describe("OpencodePlugin", () => {
   it.effect("registers account and service account methods", () =>
     Effect.gen(function* () {
       yield* addPlugin()
-      expect((yield* (yield* Integration.Service).get(Integration.ID.make("opencode")))?.methods).toEqual([
+      expect((yield* (yield* Integration.Service).get(Integration.ID.make("novacode")))?.methods).toEqual([
         {
           id: Integration.MethodID.make("device"),
           type: "oauth",
-          label: "OpenCode Console account",
+          label: "NovaCode Console account",
         },
         { type: "key", label: "API key (service account)" },
       ])
@@ -94,7 +94,7 @@ describe("OpencodePlugin", () => {
             Response.json({
               device_code: "device",
               user_code: "user",
-              verification_uri_complete: "/console/device?user_code=user&client_id=opencode-cli",
+              verification_uri_complete: "/console/device?user_code=user&client_id=novacode-cli",
               expires_in: 60,
               interval: 60,
             }),
@@ -104,11 +104,11 @@ describe("OpencodePlugin", () => {
       yield* addPlugin(http)
       const integration = yield* Integration.Service
       const attempt = yield* integration.connection.oauth({
-        integrationID: Integration.ID.make("opencode"),
+        integrationID: Integration.ID.make("novacode"),
         methodID: Integration.MethodID.make("device"),
         inputs: {},
       })
-      expect(attempt.url).toBe("https://opencode.ai/console/device?user_code=user&client_id=opencode-cli")
+      expect(attempt.url).toBe("https://novacode.ai/console/device?user_code=user&client_id=novacode-cli")
     }),
   )
 
@@ -132,7 +132,7 @@ describe("OpencodePlugin", () => {
       const integration = yield* Integration.Service
       const error = yield* integration.connection
         .oauth({
-          integrationID: Integration.ID.make("opencode"),
+          integrationID: Integration.ID.make("novacode"),
           methodID: Integration.MethodID.make("device"),
           inputs: {},
         })
@@ -142,7 +142,7 @@ describe("OpencodePlugin", () => {
     }),
   )
 
-  it.live("loads providers and models from the connected OpenCode server", () =>
+  it.live("loads providers and models from the connected NovaCode server", () =>
     Effect.acquireUseRelease(
       Effect.sync(() => {
         const authorization: Array<string | null> = []
@@ -201,7 +201,7 @@ describe("OpencodePlugin", () => {
             draft.model.update(ProviderV2.ID.make("remote"), ModelV2.ID.make("stale"), () => {})
           })
           yield* credentials.create({
-            integrationID: Integration.ID.make("opencode"),
+            integrationID: Integration.ID.make("novacode"),
             value: Credential.Key.make({
               type: "key",
               key: "secret",
@@ -216,12 +216,12 @@ describe("OpencodePlugin", () => {
           const provider = required(
             yield* eventually(
               catalog.provider.get(ProviderV2.ID.make("remote")),
-              (item) => item?.integrationID === Integration.ID.make("opencode"),
+              (item) => item?.integrationID === Integration.ID.make("novacode"),
             ),
           )
           expect(provider).toMatchObject({
             name: "Remote",
-            integrationID: "opencode",
+            integrationID: "novacode",
             api: {
               type: "aisdk",
               package: "@ai-sdk/openai-compatible",
@@ -263,7 +263,7 @@ describe("OpencodePlugin", () => {
         const catalog = yield* Catalog.Service
         yield* catalog.transform((catalog) => {
           const provider = ProviderV2.Info.make({
-            ...ProviderV2.Info.empty(ProviderV2.ID.opencode),
+            ...ProviderV2.Info.empty(ProviderV2.ID.novacode),
             api: { type: "aisdk", package: "test-provider" },
           })
           const model = ModelV2.Info.make({
@@ -277,8 +277,8 @@ describe("OpencodePlugin", () => {
           })
         })
         yield* addPlugin()
-        expect(required(yield* catalog.provider.get(ProviderV2.ID.opencode)).request.body.apiKey).toBe("public")
-        expect(required(yield* catalog.model.get(ProviderV2.ID.opencode, ModelV2.ID.make("paid"))).enabled).toBe(false)
+        expect(required(yield* catalog.provider.get(ProviderV2.ID.novacode)).request.body.apiKey).toBe("public")
+        expect(required(yield* catalog.model.get(ProviderV2.ID.novacode, ModelV2.ID.make("paid"))).enabled).toBe(false)
       }),
     ),
   )
@@ -289,7 +289,7 @@ describe("OpencodePlugin", () => {
         const catalog = yield* Catalog.Service
         yield* catalog.transform((catalog) => {
           const provider = ProviderV2.Info.make({
-            ...ProviderV2.Info.empty(ProviderV2.ID.opencode),
+            ...ProviderV2.Info.empty(ProviderV2.ID.novacode),
             api: { type: "aisdk", package: "test-provider" },
           })
           const model = ModelV2.Info.make({
@@ -303,8 +303,8 @@ describe("OpencodePlugin", () => {
           })
         })
         yield* addPlugin()
-        expect(required(yield* catalog.provider.get(ProviderV2.ID.opencode)).request.body.apiKey).toBe("public")
-        expect(required(yield* catalog.model.get(ProviderV2.ID.opencode, ModelV2.ID.make("free"))).enabled).toBe(true)
+        expect(required(yield* catalog.provider.get(ProviderV2.ID.novacode)).request.body.apiKey).toBe("public")
+        expect(required(yield* catalog.model.get(ProviderV2.ID.novacode, ModelV2.ID.make("free"))).enabled).toBe(true)
       }),
     ),
   )
@@ -315,7 +315,7 @@ describe("OpencodePlugin", () => {
         const catalog = yield* Catalog.Service
         yield* catalog.transform((catalog) => {
           const provider = ProviderV2.Info.make({
-            ...ProviderV2.Info.empty(ProviderV2.ID.opencode),
+            ...ProviderV2.Info.empty(ProviderV2.ID.novacode),
             api: { type: "aisdk", package: "test-provider" },
           })
           const model = ModelV2.Info.make({
@@ -329,8 +329,8 @@ describe("OpencodePlugin", () => {
           })
         })
         yield* addPlugin()
-        expect(required(yield* catalog.provider.get(ProviderV2.ID.opencode)).request.body.apiKey).toBe("public")
-        expect(required(yield* catalog.model.get(ProviderV2.ID.opencode, ModelV2.ID.make("output-only"))).enabled).toBe(
+        expect(required(yield* catalog.provider.get(ProviderV2.ID.novacode)).request.body.apiKey).toBe("public")
+        expect(required(yield* catalog.model.get(ProviderV2.ID.novacode, ModelV2.ID.make("output-only"))).enabled).toBe(
           true,
         )
       }),
@@ -343,7 +343,7 @@ describe("OpencodePlugin", () => {
         const catalog = yield* Catalog.Service
         yield* catalog.transform((catalog) => {
           const provider = ProviderV2.Info.make({
-            ...ProviderV2.Info.empty(ProviderV2.ID.opencode),
+            ...ProviderV2.Info.empty(ProviderV2.ID.novacode),
             api: { type: "aisdk", package: "test-provider" },
           })
           const model = ModelV2.Info.make({
@@ -357,8 +357,8 @@ describe("OpencodePlugin", () => {
           })
         })
         yield* addPlugin()
-        expect(required(yield* catalog.provider.get(ProviderV2.ID.opencode)).request.body.apiKey).toBeUndefined()
-        expect(required(yield* catalog.model.get(ProviderV2.ID.opencode, ModelV2.ID.make("paid"))).enabled).toBe(true)
+        expect(required(yield* catalog.provider.get(ProviderV2.ID.novacode)).request.body.apiKey).toBeUndefined()
+        expect(required(yield* catalog.model.get(ProviderV2.ID.novacode, ModelV2.ID.make("paid"))).enabled).toBe(true)
       }),
     ),
   )
@@ -370,13 +370,13 @@ describe("OpencodePlugin", () => {
         const integrations = yield* Integration.Service
         yield* integrations.transform((editor) => {
           editor.method.update({
-            integrationID: Integration.ID.make("opencode"),
+            integrationID: Integration.ID.make("novacode"),
             method: { type: "env", names: ["CUSTOM_OPENCODE_API_KEY"] },
           })
         })
         yield* catalog.transform((catalog) => {
           const provider = ProviderV2.Info.make({
-            ...ProviderV2.Info.empty(ProviderV2.ID.opencode),
+            ...ProviderV2.Info.empty(ProviderV2.ID.novacode),
             api: { type: "aisdk", package: "test-provider" },
           })
           const model = ModelV2.Info.make({
@@ -390,8 +390,8 @@ describe("OpencodePlugin", () => {
           })
         })
         yield* addPlugin()
-        expect(required(yield* catalog.provider.get(ProviderV2.ID.opencode)).request.body.apiKey).toBeUndefined()
-        expect(required(yield* catalog.model.get(ProviderV2.ID.opencode, ModelV2.ID.make("paid"))).enabled).toBe(true)
+        expect(required(yield* catalog.provider.get(ProviderV2.ID.novacode)).request.body.apiKey).toBeUndefined()
+        expect(required(yield* catalog.model.get(ProviderV2.ID.novacode, ModelV2.ID.make("paid"))).enabled).toBe(true)
       }),
     ),
   )
@@ -402,7 +402,7 @@ describe("OpencodePlugin", () => {
         const catalog = yield* Catalog.Service
         yield* catalog.transform((catalog) => {
           const provider = ProviderV2.Info.make({
-            ...ProviderV2.Info.empty(ProviderV2.ID.opencode),
+            ...ProviderV2.Info.empty(ProviderV2.ID.novacode),
             api: { type: "aisdk", package: "test-provider" },
             request: {
               headers: {},
@@ -422,13 +422,13 @@ describe("OpencodePlugin", () => {
           })
         })
         yield* addPlugin()
-        expect(required(yield* catalog.provider.get(ProviderV2.ID.opencode)).request.body.apiKey).toBe("configured")
-        expect(required(yield* catalog.model.get(ProviderV2.ID.opencode, ModelV2.ID.make("paid"))).enabled).toBe(true)
+        expect(required(yield* catalog.provider.get(ProviderV2.ID.novacode)).request.body.apiKey).toBe("configured")
+        expect(required(yield* catalog.model.get(ProviderV2.ID.novacode, ModelV2.ID.make("paid"))).enabled).toBe(true)
       }),
     ),
   )
 
-  it.effect("ignores non-opencode providers and models", () =>
+  it.effect("ignores non-novacode providers and models", () =>
     withEnv({ OPENCODE_API_KEY: undefined }, () =>
       Effect.gen(function* () {
         const catalog = yield* Catalog.Service
@@ -454,10 +454,10 @@ describe("OpencodePlugin", () => {
     ),
   )
 
-  it.effect("prefers gpt-5-nano as the opencode small model", () =>
+  it.effect("prefers gpt-5-nano as the novacode small model", () =>
     Effect.gen(function* () {
       const catalog = yield* Catalog.Service
-      const providerID = ProviderV2.ID.opencode
+      const providerID = ProviderV2.ID.novacode
 
       yield* catalog.transform((catalog) => {
         catalog.provider.update(providerID, () => {})

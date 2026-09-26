@@ -1,7 +1,7 @@
 import { NodeHttpServer, NodeServices } from "@effect/platform-node"
-import { NamedError } from "@opencode-ai/core/util/error"
+import { NamedError } from "@novacode-ai/core/util/error"
 import { describe, expect } from "bun:test"
-import { ConfigErrorV1 } from "@opencode-ai/core/v1/config/error"
+import { ConfigErrorV1 } from "@novacode-ai/core/v1/config/error"
 import { Effect, Layer } from "effect"
 import { HttpClient, HttpClientRequest, HttpRouter } from "effect/unstable/http"
 import { errorLayer } from "../../src/server/routes/instance/httpapi/middleware/error"
@@ -56,7 +56,7 @@ describe("HttpApi error middleware", () => {
   it.live("returns invalid config defects as structured client errors", () =>
     Effect.gen(function* () {
       const configError = new ConfigErrorV1.InvalidError({
-        path: "/tmp/opencode.json",
+        path: "/tmp/novacode.json",
         issues: [{ message: "Expected object", path: ["provider", "anthropic", "options"] }],
       })
 
@@ -74,11 +74,11 @@ describe("HttpApi error middleware", () => {
       expect(body).toMatchObject({
         name: "ConfigInvalidError",
         data: {
-          path: "/tmp/opencode.json",
+          path: "/tmp/novacode.json",
           issues: [{ message: "Expected object", path: ["provider", "anthropic", "options"] }],
         },
       })
-      expect(serialized).toContain("/tmp/opencode.json")
+      expect(serialized).toContain("/tmp/novacode.json")
       expect(serialized).toContain("anthropic")
     }),
   )
@@ -87,7 +87,7 @@ describe("HttpApi error middleware", () => {
     Effect.gen(function* () {
       const configError = new ConfigErrorV1.RemoteAuthError({
         url: "https://example.com",
-        remote: "https://config.example.com/opencode.json",
+        remote: "https://config.example.com/novacode.json",
       })
 
       yield* HttpRouter.add("GET", "/remote-auth-error", Effect.die(configError)).pipe(

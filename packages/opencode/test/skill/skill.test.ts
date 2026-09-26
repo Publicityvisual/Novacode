@@ -1,14 +1,14 @@
 import { describe, expect } from "bun:test"
-import { LayerNode } from "@opencode-ai/core/effect/layer-node"
+import { LayerNode } from "@novacode-ai/core/effect/layer-node"
 import { Effect, Layer } from "effect"
 import { Skill } from "../../src/skill"
 import { Discovery } from "../../src/skill/discovery"
 import { RuntimeFlags } from "../../src/effect/runtime-flags"
 import { EventV2Bridge } from "../../src/event-v2-bridge"
 import { Config } from "../../src/config/config"
-import { CrossSpawnSpawner } from "@opencode-ai/core/cross-spawn-spawner"
-import { FSUtil } from "@opencode-ai/core/fs-util"
-import { Global } from "@opencode-ai/core/global"
+import { CrossSpawnSpawner } from "@novacode-ai/core/cross-spawn-spawner"
+import { FSUtil } from "@novacode-ai/core/fs-util"
+import { Global } from "@novacode-ai/core/global"
 import { provideInstance, provideTmpdirInstance, testInstanceStoreLayer, tmpdir } from "../fixture/fixture"
 import { testEffect } from "../lib/effect"
 import path from "path"
@@ -91,13 +91,13 @@ describe("skill", () => {
     }),
   )
 
-  it.live("discovers skills from .opencode/skill/ directory", () =>
+  it.live("discovers skills from .novacode/skill/ directory", () =>
     provideTmpdirInstance(
       (dir) =>
         Effect.gen(function* () {
           yield* Effect.promise(() =>
             Bun.write(
-              path.join(dir, ".opencode", "skill", "test-skill", "SKILL.md"),
+              path.join(dir, ".novacode", "skill", "test-skill", "SKILL.md"),
               `---
 name: test-skill
 description: A test skill for verification.
@@ -130,7 +130,7 @@ Instructions here.
           Effect.gen(function* () {
             yield* Effect.promise(() =>
               Bun.write(
-                path.join(dir, ".opencode", "skill", "dir-skill", "SKILL.md"),
+                path.join(dir, ".novacode", "skill", "dir-skill", "SKILL.md"),
                 `---
 name: dir-skill
 description: Skill for dirs test.
@@ -143,7 +143,7 @@ description: Skill for dirs test.
 
             const skill = yield* Skill.Service
             const dirs = yield* skill.dirs()
-            expect(dirs).toContain(path.join(dir, ".opencode", "skill", "dir-skill"))
+            expect(dirs).toContain(path.join(dir, ".novacode", "skill", "dir-skill"))
             expect(dirs.length).toBe(1)
           }),
         ),
@@ -151,14 +151,14 @@ description: Skill for dirs test.
     ),
   )
 
-  it.live("discovers multiple skills from .opencode/skill/ directory", () =>
+  it.live("discovers multiple skills from .novacode/skill/ directory", () =>
     provideTmpdirInstance(
       (dir) =>
         Effect.gen(function* () {
           yield* Effect.promise(() =>
             Promise.all([
               Bun.write(
-                path.join(dir, ".opencode", "skill", "skill-one", "SKILL.md"),
+                path.join(dir, ".novacode", "skill", "skill-one", "SKILL.md"),
                 `---
 name: skill-one
 description: First test skill.
@@ -168,7 +168,7 @@ description: First test skill.
 `,
               ),
               Bun.write(
-                path.join(dir, ".opencode", "skill", "skill-two", "SKILL.md"),
+                path.join(dir, ".novacode", "skill", "skill-two", "SKILL.md"),
                 `---
 name: skill-two
 description: Second test skill.
@@ -196,7 +196,7 @@ description: Second test skill.
         Effect.gen(function* () {
           yield* Effect.promise(() =>
             Bun.write(
-              path.join(dir, ".opencode", "skill", "no-frontmatter", "SKILL.md"),
+              path.join(dir, ".novacode", "skill", "no-frontmatter", "SKILL.md"),
               `# No Frontmatter
 
 Just some content without YAML frontmatter.
@@ -217,7 +217,7 @@ Just some content without YAML frontmatter.
         Effect.gen(function* () {
           yield* Effect.promise(() =>
             Bun.write(
-              path.join(dir, ".opencode", "skill", "manual-skill", "SKILL.md"),
+              path.join(dir, ".novacode", "skill", "manual-skill", "SKILL.md"),
               `---
 name: manual-skill
 ---
@@ -507,13 +507,13 @@ description: A skill in the .agents/skills directory.
 `,
               ),
               Bun.write(
-                path.join(dir, ".opencode", "skill", "opencode-skill", "SKILL.md"),
+                path.join(dir, ".novacode", "skill", "novacode-skill", "SKILL.md"),
                 `---
-name: opencode-skill
-description: A skill in the .opencode/skill directory.
+name: novacode-skill
+description: A skill in the .novacode/skill directory.
 ---
 
-# OpenCode Skill
+# NovaCode Skill
 `,
               ),
             ]),
@@ -521,7 +521,7 @@ description: A skill in the .opencode/skill directory.
 
           const skill = yield* Skill.Service
           const list = (yield* skill.all()).filter((s) => s.location !== "<built-in>")
-          expect(list.map((s) => s.name)).toEqual(["opencode-skill"])
+          expect(list.map((s) => s.name)).toEqual(["novacode-skill"])
         }),
       { git: true },
     ),
@@ -554,23 +554,23 @@ description: A skill in the .agents/skills directory.
 `,
               ),
               Bun.write(
-                path.join(dir, ".opencode", "skill", "agent-skill", "SKILL.md"),
+                path.join(dir, ".novacode", "skill", "agent-skill", "SKILL.md"),
                 `---
-name: opencode-skill
-description: A skill in the .opencode/skill directory.
+name: novacode-skill
+description: A skill in the .novacode/skill directory.
 ---
 
-# OpenCode Skill
+# NovaCode Skill
 `,
               ),
               Bun.write(
-                path.join(dir, ".opencode", "skills", "agent-skill", "SKILL.md"),
+                path.join(dir, ".novacode", "skills", "agent-skill", "SKILL.md"),
                 `---
-name: opencode-skill
-description: A skill in the .opencode/skills directory.
+name: novacode-skill
+description: A skill in the .novacode/skills directory.
 ---
 
-# OpenCode Skill
+# NovaCode Skill
 `,
               ),
             ]),

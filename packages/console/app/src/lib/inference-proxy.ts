@@ -1,8 +1,8 @@
-import { Resource } from "@opencode-ai/console-resource"
-import { and, Database, eq, isNotNull, isNull, sql } from "@opencode-ai/console-core/drizzle/index.js"
-import { KeyTable } from "@opencode-ai/console-core/schema/key.sql.js"
-import { ProviderTable } from "@opencode-ai/console-core/schema/provider.sql.js"
-import { WorkspaceTable } from "@opencode-ai/console-core/schema/workspace.sql.js"
+import { Resource } from "@novacode-ai/console-resource"
+import { and, Database, eq, isNotNull, isNull, sql } from "@novacode-ai/console-core/drizzle/index.js"
+import { KeyTable } from "@novacode-ai/console-core/schema/key.sql.js"
+import { ProviderTable } from "@novacode-ai/console-core/schema/provider.sql.js"
+import { WorkspaceTable } from "@novacode-ai/console-core/schema/workspace.sql.js"
 
 const paths: Record<string, string | undefined> = {
   "POST /zen/v1/chat/completions": "/openai/v1/chat/completions",
@@ -84,8 +84,8 @@ export async function proxyInference(
   forwarded.headers.set("CF-Access-Client-Id", Resource.CLOUDFLARE_ACCESS_CLIENT_ID.value)
   const ip = request.headers.get("cf-connecting-ip")
   if (ip) forwarded.headers.set("x-zen-ip", ip)
-  const requestID = request.headers.get("x-opencode-request-id") ?? request.headers.get("x-opencode-request")
-  if (requestID) forwarded.headers.set("x-opencode-request-id", requestID)
+  const requestID = request.headers.get("x-novacode-request-id") ?? request.headers.get("x-novacode-request")
+  if (requestID) forwarded.headers.set("x-novacode-request-id", requestID)
 
   return fetch(forwarded, { redirect: "manual" })
 }

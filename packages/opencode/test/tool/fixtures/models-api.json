@@ -33603,13 +33603,13 @@
       }
     }
   },
-  "opencode-go": {
-    "id": "opencode-go",
+  "novacode-go": {
+    "id": "novacode-go",
     "env": ["OPENCODE_API_KEY"],
     "npm": "@ai-sdk/openai-compatible",
-    "api": "https://opencode.ai/zen/go/v1",
-    "name": "OpenCode Go",
-    "doc": "https://opencode.ai/docs/zen",
+    "api": "https://novacode.ai/zen/go/v1",
+    "name": "NovaCode Go",
+    "doc": "https://novacode.ai/docs/zen",
     "models": {
       "deepseek-v4-flash": {
         "id": "deepseek-v4-flash",
@@ -90319,13 +90319,13 @@
       }
     }
   },
-  "opencode": {
-    "id": "opencode",
+  "novacode": {
+    "id": "novacode",
     "env": ["OPENCODE_API_KEY"],
     "npm": "@ai-sdk/openai-compatible",
-    "api": "https://opencode.ai/zen/v1",
-    "name": "OpenCode Zen",
-    "doc": "https://opencode.ai/docs/zen",
+    "api": "https://novacode.ai/zen/v1",
+    "name": "NovaCode Zen",
+    "doc": "https://novacode.ai/docs/zen",
     "models": {
       "ring-2.6-1t-free": {
         "id": "ring-2.6-1t-free",

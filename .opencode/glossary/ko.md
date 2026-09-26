@@ -2,12 +2,12 @@
 
 ## Sources
 
-- PR #9817: https://github.com/anomalyco/opencode/pull/9817
+- PR #9817: https://github.com/anomalyco/novacode/pull/9817
 
 ## Do Not Translate (Locale Additions)
 
-- `OpenCode` (preserve casing in prose; keep `opencode` only in commands, package names, paths, or code)
-- `OpenCode CLI`
+- `NovaCode` (preserve casing in prose; keep `novacode` only in commands, package names, paths, or code)
+- `NovaCode CLI`
 - `CLI`, `TUI`, `MCP`, `OAuth`
 - Commands, flags, file paths, and code literals (keep exactly as written)
 

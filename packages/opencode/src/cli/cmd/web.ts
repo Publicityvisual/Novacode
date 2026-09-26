@@ -2,8 +2,8 @@ import { Effect } from "effect"
 import { UI } from "../ui"
 import { effectCmd } from "../effect-cmd"
 import { withNetworkOptions, resolveNetworkOptions } from "../network"
-import { Flag } from "@opencode-ai/core/flag/flag"
-import { openUrl } from "@opencode-ai/core/open"
+import { Flag } from "@novacode-ai/core/flag/flag"
+import { openUrl } from "@novacode-ai/core/open"
 import { networkInterfaces } from "os"
 
 function getNetworkIPs() {
@@ -31,8 +31,8 @@ function getNetworkIPs() {
 export const WebCommand = effectCmd({
   command: "web",
   builder: (yargs) => withNetworkOptions(yargs),
-  describe: "start opencode server and open web interface",
-  // Server loads instances per-request via x-opencode-directory header — no
+  describe: "start novacode server and open web interface",
+  // Server loads instances per-request via x-novacode-directory header — no
   // ambient project InstanceContext needed at startup.
   instance: false,
   handler: Effect.fn("Cli.web")(function* (args) {

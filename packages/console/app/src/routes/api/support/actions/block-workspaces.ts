@@ -1,7 +1,7 @@
 import type { APIEvent } from "@solidjs/start/server"
-import { Workspace } from "@opencode-ai/console-core/workspace.js"
-import { safeEqual } from "@opencode-ai/console-core/util/crypto.js"
-import { Resource } from "@opencode-ai/console-resource"
+import { Workspace } from "@novacode-ai/console-core/workspace.js"
+import { safeEqual } from "@novacode-ai/console-core/util/crypto.js"
+import { Resource } from "@novacode-ai/console-resource"
 import z from "zod"
 
 const Body = z.object({ workspaceIDs: z.array(z.string().startsWith("wrk_")).min(1) })
